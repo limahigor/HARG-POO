@@ -5,16 +5,19 @@ import java.util.List;
 
 public class Prescricao {
     public List<String> medicamentos;
+    public List<Double> valores;
     public List<Integer> intervalos;
 
     public Prescricao (){
         this.medicamentos = new ArrayList<>();
         this.intervalos = new ArrayList<>();
+        this.valores = new ArrayList<>();
     }
 
-    public void addPrescricao(String medicamento, int intervalo){
+    public void addPrescricao(String medicamento, int intervalo, double valor){
         medicamentos.add(medicamento);
         intervalos.add(intervalo);
+        valores.add(valor);
     }
 
     public void printPrescricao(){
@@ -38,5 +41,4 @@ public class Prescricao {
         medicamentos.clear();
         intervalos.clear();
     }
-
 }

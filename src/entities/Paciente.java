@@ -1,5 +1,5 @@
 public class Paciente extends Pessoa {
-    private int plano_saude;
+    protected int plano_saude;
     private Prioridade prioridade;
     private Prontuario prontuario;
     
