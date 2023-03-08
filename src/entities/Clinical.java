@@ -19,7 +19,7 @@ public class Clinical {
         this.listaProcedimentos = new ArrayList<>();
     }
 
-    public void createPatient(String name, String cpf, int idade, char sexo,
+    public void createPatient(String name, String cpf, int idade, char sexo, int plano_saude,
                               boolean tabagismo, boolean obesidade, boolean hipertensao, boolean gestante,
                               boolean diabetes){
         
@@ -27,22 +27,14 @@ public class Clinical {
                                                hipertensao, gestante, diabetes);
         prioridade.setPrioridade();
 
-        Pessoa paciente = new Pessoa(name, cpf, idade, sexo, prioridade);
+        Pessoa paciente = new Paciente(name, cpf, idade, sexo, plano_saude, prioridade);
 
         listaPaciente.add(paciente);
         System.out.println(paciente);
     }
 
-    public void createDoctor(String name, char sexo, String especializacao, String cpf, int idade, 
-                             boolean tabagismo, boolean obesidade, boolean hipertensao, boolean gestante,
-                             boolean diabetes){
-        
-
-        Prioridade prioridade = new Prioridade(idade, tabagismo, obesidade,
-                                               hipertensao, gestante, diabetes);
-        prioridade.setPrioridade();
-
-        Pessoa doctor = new Pessoa(name, sexo, especializacao, cpf, idade, prioridade);
+    public void createDoctor(String name, char sexo, String especializacao, String cpf, int idade, String crm){
+        Pessoa doctor = new Medico(name, idade, sexo, crm, especializacao);
         
         Services procedimento = Services.buscarProcedimentoEsp(this.listaProcedimentos, especializacao);
 
@@ -122,6 +114,7 @@ public class Clinical {
 
     public String agendarConsulta(String cpfPaciente, String nomeMedico, String nomeProcedimento,
                                 int dia, int mes, int ano, int hora, int minuto){
+                                    
         Appointment consulta = new Appointment(cpfPaciente, nomeMedico, nomeProcedimento,
                                                dia, mes, ano, hora, minuto);
 

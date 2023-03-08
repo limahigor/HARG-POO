@@ -9,6 +9,7 @@ public class Medico extends Pessoa {
     }
 
     public String toString(){
+
         return "Nome: " + nome + "\n" + 
                "Idade: " + idade + "\n" + 
                "Sexo: " + sexo + "\n" + 

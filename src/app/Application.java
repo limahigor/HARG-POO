@@ -153,7 +153,9 @@ public class Application {
         Scanner sc = new Scanner(System.in);
         
         int idade;
+        int plano_saude = 0;
         char sexo;
+        String crm;
         String cpf;
         String name;
         String especializacao;
@@ -214,17 +216,19 @@ public class Application {
         }
 
         if(code == 1){
+            plano_saude = 3;
             System.out.print("\nDigite a especializacao: ");
             especializacao = sc.nextLine();
 
-            clinica.createDoctor(name, sexo, especializacao, cpf, idade,
-                                 tabagismo, obesidade, hipertensao, gestante,
-                                 diabetes);
-        }else{
-            clinica.createPatient(name, cpf, idade, sexo, tabagismo,
-                                  obesidade, hipertensao, gestante,
-                                  diabetes);
+            System.out.print("\nDigite o CRM: ");
+            crm = sc.nextLine();
+
+            clinica.createDoctor(name, sexo, especializacao, cpf, idade, crm);
         }
+
+        clinica.createPatient(name, cpf, idade, sexo, plano_saude, tabagismo,
+                              obesidade, hipertensao, gestante,
+                              diabetes);
         //sc.close();
     }
 
