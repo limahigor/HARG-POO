@@ -4,19 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Services {
-    public String procedimento;
-    public String especialidade;
+    public String nome;
     public List<String> profissionais = new ArrayList<>();
     public double valor;
 
     public Services() {
         this.profissionais = new ArrayList<>();
-    }
-    
-    public Services(String procedimento, String especialidade, double valor) {
-        this.procedimento = procedimento;
-        this.especialidade = especialidade;
-        this.valor = valor;
     }
     
     public void addProfissional(Cadastro profissional) {
