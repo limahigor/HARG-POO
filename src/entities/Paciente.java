@@ -17,7 +17,7 @@ public class Paciente extends Pessoa {
                "Sexo: " + sexo + "\n" + 
                "CPF: " + cpf + "\n" +
                "Convênio: " + plano_saude + "\n" +
-               "Fator de Risco: " + Prioridad.getFator(this.prioridade);
+               "Fator de Risco: " + prioridade.getFator();
     }
     
     public void addPrescricao(Prescricao prescricao){
