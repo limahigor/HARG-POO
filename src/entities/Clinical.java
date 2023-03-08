@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Clinical {
-    public List<Cadastro> listaMedico;
-    public List<Cadastro> listaPaciente;
-    public List<Services> listaProcedimentos;
+    public Caixa caixa;
+    public List<Pessoa> listaMedico;
+    public List<Pessoa> listaPaciente;
     public List<Orcamento> listaOrcamentos;
     public List<Appointment> listaConsultas;
-    public Caixa caixa;
+    public List<Services> listaProcedimentos;
         
     public Clinical(){
         this.listaMedico = new ArrayList<>();
         this.listaPaciente = new ArrayList<>();
-        this.listaProcedimentos = new ArrayList<>();
-        this.listaOrcamentos = new ArrayList<>();
         this.listaConsultas = new ArrayList<>();
+        this.listaOrcamentos = new ArrayList<>();
+        this.listaProcedimentos = new ArrayList<>();
     }
 
     public void createPatient(String name, String cpf, int idade, char sexo,
@@ -27,7 +27,7 @@ public class Clinical {
                                                hipertensao, gestante, diabetes);
         prioridade.setPrioridade();
 
-        Cadastro paciente = new Cadastro(name, cpf, idade, sexo, prioridade);
+        Pessoa paciente = new Pessoa(name, cpf, idade, sexo, prioridade);
 
         listaPaciente.add(paciente);
         System.out.println(paciente);
@@ -42,7 +42,7 @@ public class Clinical {
                                                hipertensao, gestante, diabetes);
         prioridade.setPrioridade();
 
-        Cadastro doctor = new Cadastro(name, sexo, especializacao, cpf, idade, prioridade);
+        Pessoa doctor = new Pessoa(name, sexo, especializacao, cpf, idade, prioridade);
         
         Services procedimento = Services.buscarProcedimentoEsp(this.listaProcedimentos, especializacao);
 
@@ -56,7 +56,7 @@ public class Clinical {
     public void createService(String procedimento, String especialidade, double valor){
         Services service = new Services(procedimento, especialidade, valor);
 
-        for(Cadastro cadastro : this.listaMedico) {
+        for(Pessoa cadastro : this.listaMedico) {
             if(cadastro.especializacao.equals(especialidade)){
                 service.addProfissional(cadastro);
             }
@@ -68,7 +68,7 @@ public class Clinical {
     }
 
     public String pegarNomeCadastro(String cpf){
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
         if(pessoa == null){
             return null;
         }
@@ -77,7 +77,7 @@ public class Clinical {
     }
 
     public boolean verificarPessoa(String cpf){
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
         if(pessoa == null){
             return false;
         }
@@ -112,7 +112,7 @@ public class Clinical {
     }
 
     public String pegarIdadeCadastro(String cpf){
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
         if(pessoa == null){
             return null;
         }
@@ -125,7 +125,7 @@ public class Clinical {
         Appointment consulta = new Appointment(cpfPaciente, nomeMedico, nomeProcedimento,
                                                dia, mes, ano, hora, minuto);
 
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpfPaciente);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpfPaciente);
 
         pessoa.prontuario.consultas.add(consulta);
         this.listaConsultas.add(consulta);
@@ -134,14 +134,14 @@ public class Clinical {
     }
 
     public String getMedicalRecord(String cpf){
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         return pessoa.prontuario.toString(this, cpf);
     }
 
     public Prescricao criarPrescricao(String cpf){
         Prescricao prescricao = new Prescricao();
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         pessoa.addPrescricao(prescricao);
 
@@ -170,7 +170,7 @@ public class Clinical {
     }
 
     public Orcamento criarOrcamento(String cpf){
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         Orcamento orcamento = new Orcamento(pessoa);
 
@@ -184,19 +184,19 @@ public class Clinical {
     }
 
     public void alterarConvenio(String cpf, int nivel){
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         pessoa.plano_saude = nivel;
     }
 
     public int pegarFator(String cpf){
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         return pessoa.prioridade.getFator();
     }
 
     public int pegarConvenio(String cpf){
-        Cadastro pessoa = Cadastro.buscarCadastroCPF(this.listaPaciente, cpf);
+        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         return pessoa.plano_saude;
     }

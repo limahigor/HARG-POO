@@ -78,8 +78,9 @@ public class Application {
                 cadastrarConvenio(clinica);
 
             }else if(option == 11){
-
+                
                 break;
+
             }else{
 
                 System.out.println("Opcao invalida!");
