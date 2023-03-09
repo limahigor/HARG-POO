@@ -1,10 +1,8 @@
 package entities;
 
-import java.util.List;
-
 public class OrcamentoAtendimentos extends Orcamento{
 
-    public OrcamentoAtendimentos(Pessoa paciente) {
+    public OrcamentoAtendimentos(Paciente paciente) {
         super(paciente);
     }
 

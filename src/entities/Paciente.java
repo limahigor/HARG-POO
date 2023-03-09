@@ -1,5 +1,7 @@
+package entities;
+
 public class Paciente extends Pessoa {
-    protected int plano_saude;
+    public int plano_saude;
     private Prioridade prioridade;
     private Prontuario prontuario;
     
