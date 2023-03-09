@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Prescricao {
-    public List<String> medicamentos;
-    public List<Double> valores;
-    public List<Integer> intervalos;
+    protected List<String> medicamentos;
+    protected List<Integer> intervalos;
+    protected List<Double> valores;
 
     public Prescricao (){
         this.medicamentos = new ArrayList<>();
@@ -40,5 +40,6 @@ public class Prescricao {
     public void clearPrescricao(){
         medicamentos.clear();
         intervalos.clear();
+        valores.clear();
     }
 }
