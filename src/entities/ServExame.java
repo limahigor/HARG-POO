@@ -1,24 +1,22 @@
 import java.util.Scanner;
 
-public class ServProcedimento extends Services {
+public class ServExame extends Services {
 
-    public ServProcedimento(String nome, String especialidade, double valor) {
+    public ServExame(String nome, String especialidade, double valor) {
         super(nome, especialidade, valor);
     }
 
-    public void cadastrarProcedimento() {
+    public void cadastrarExame() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Nome do procedimento: ");
+        System.out.print("Nome o nome do exame: ");
         nome = sc.nextLine();
 
         System.out.print("Nome da especialidade: ");
         especialidade = sc.nextLine();
 
-        System.out.print("Valor do procedimento: ");
+        System.out.print("Valor do exame: ");
         valor = sc.nextDouble();
         sc.close();
     }
-
-    
 }
