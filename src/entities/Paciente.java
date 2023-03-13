@@ -25,4 +25,8 @@ public class Paciente extends Pessoa {
     public void addPrescricao(Prescricao prescricao){
         this.prontuario.prescricoes.add(prescricao);
     }
+
+    public int getFator(){
+        return prioridade.getFator();
+    }
 }

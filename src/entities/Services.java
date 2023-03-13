@@ -19,39 +19,42 @@ public class Services {
         this.valor = valor;
     }
 
-    // public void addProfissional(Cadastro profissional) {
-    //     profissionais.add(profissional.nome);
-    // }
+    public void addProfissional(Pessoa profissional) {
+        profissionais.add(profissional.nome);
+    }
 
-    // public boolean verificarProfissional(String nomeMedico) {
+    public boolean verificarProfissional(String nomeMedico) {
 
-    //     if (profissionais.equals(nomeMedico)) {
-    //         return true;
-    //     }
+        if(profissionais.contains(nomeMedico)) {
+            return true;
+        }else{
+            return false;
+        }
 
-    //     return false;
-    // }
+    }
 
-    // public void printService() {
-    //     System.out.println("Procedimento: " + procedimento);
-    //     if (profissionais.size() != 0) {
-    //         System.out.println("Profissionais: ");
+    public void printService() {
+        System.out.println("Procedimento: " + nome);
 
-    //         for (String nome : profissionais) {
-    //             System.out.println(nome);
-    //         }
-    //     }
-    //     System.out.println("Valor: R$" + valor + "\n");
-    // }
+        if (profissionais.size() != 0) {
+            System.out.println("Profissionais: ");
 
-    // public static Services buscarProcedimentoNome(List<Services> allServices, String x) {
-    //     for (Services search : allServices) {
-    //         if (search.procedimento.equals(x)) {
-    //             return search;
-    //         }
-    //     }
-    //     return null;
-    // }
+            for(String nome : profissionais) {
+                    System.out.println(nome);
+            }
+        }
+
+        System.out.println("Valor: R$" + valor + "\n");
+    }
+
+    public static Services buscarProcedimentoNome(List<Services> allServices, String nome) {
+         for (Services search : allServices) {
+             if (search.nome.equals(nome)) {
+                 return search;
+             }
+         }
+         return null;
+    }
 
     // public static Services buscarProcedimentoEsp(List<Services> allServices, String x) {
     //     for (Services search : allServices) {

@@ -1,9 +1,9 @@
 package entities;
 
 public class Prioridade {
-    int fator;
-    int idade;
-    boolean tabagismo, obesidade, hipertensao, gestante, diabetes;
+    private int fator;
+    private int idade;
+    private boolean tabagismo, obesidade, hipertensao, gestante, diabetes;
 
     public Prioridade(int idade, boolean tabagismo, boolean obesidade, boolean hipertensao, boolean gestante, boolean diabetes){
         this.fator = 0;

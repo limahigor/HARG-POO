@@ -1,3 +1,7 @@
+package entities;
+
+import java.util.List;
+
 public class Medico extends Pessoa {
     private String crm;
     private String especializacao;
@@ -20,9 +24,12 @@ public class Medico extends Pessoa {
     
     public static Pessoa buscarCadastroEsp(List<Pessoa> allPessoas, String nome) {
         for(Pessoa cadastro : allPessoas) {
-            if (cadastro.especializacao.equals(nome)) {
+            Medico pessoa = (Medico)cadastro;
+
+            if (pessoa.especializacao.equals(nome)) {
                 return cadastro;
             }
+
         }
         return null;
     }

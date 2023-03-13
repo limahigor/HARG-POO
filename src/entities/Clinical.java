@@ -34,7 +34,7 @@ public class Clinical {
     }
 
     public void createDoctor(String name, char sexo, String especializacao, String cpf, int idade, String crm){
-        Pessoa doctor = new Medico(name, idade, sexo, crm, especializacao);
+        Pessoa doctor = new Medico(name, cpf, idade, sexo, crm, especializacao);
         
         Services procedimento = Services.buscarProcedimentoEsp(this.listaProcedimentos, especializacao);
 
@@ -163,7 +163,7 @@ public class Clinical {
     }
 
     public Orcamento criarOrcamento(String cpf){
-        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
+        Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         Orcamento orcamento = new Orcamento(pessoa);
 
@@ -177,19 +177,19 @@ public class Clinical {
     }
 
     public void alterarConvenio(String cpf, int nivel){
-        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
+        Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         pessoa.plano_saude = nivel;
     }
 
     public int pegarFator(String cpf){
-        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
+        Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
-        return pessoa.prioridade.getFator();
+        return pessoa.getFator();
     }
 
     public int pegarConvenio(String cpf){
-        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
+        Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         return pessoa.plano_saude;
     }

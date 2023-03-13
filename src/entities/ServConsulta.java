@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.Scanner;
 
 public class ServConsulta extends Services {
