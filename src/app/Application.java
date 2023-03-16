@@ -366,7 +366,7 @@ public class Application {
                 return;
             }
 
-            orcamento.addOrcamento(Services.buscarProcedimentoNome(clinica.listaProcedimentos, nomeProcedimento));
+            // orcamento.addOrcamento(Services.buscarProcedimentoNome(clinica.listaProcedimentos, nomeProcedimento));
 
             System.out.print("Deseja cadastrar outro? (s/n): ");
             char op = sc.nextLine().charAt(0);
@@ -376,7 +376,7 @@ public class Application {
 
         clinica.attCaixa(orcamento);
 
-        System.out.println("Orcamento gerado com sucesso!");
+        System.out.println("Orçamento gerado com sucesso!");
         System.out.println(orcamento.printOrcamento());
     }
 
@@ -396,12 +396,12 @@ public class Application {
             return;
         }
 
-        System.out.print("Nivel do Convenio: ");
+        System.out.print("Tipo do Convênio (SUS/PARTICULAR): ");
         Plano nivel = Plano.valueOf(sc.next());
         sc.nextLine();
 
         clinica.alterarConvenio(cpf, nivel);
-        System.out.println("Convenio alterado com sucesso!");
+        System.out.println("Convênio alterado com sucesso!");
     }
 
 }
