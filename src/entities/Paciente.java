@@ -1,11 +1,13 @@
 package entities;
 
+import entities_enums.Plano;
+
 public class Paciente extends Pessoa {
-    public int plano_saude;
+    public Plano plano_saude;
     private Prioridade prioridade;
-    private Prontuario prontuario;
+    protected Prontuario prontuario;
     
-    public Paciente(String nome, String cpf, int idade, char sexo, int plano_saude, Prioridade prioridade) {
+    public Paciente(String nome, String cpf, int idade, char sexo, Plano plano_saude, Prioridade prioridade) {
         super(nome, cpf, idade, sexo);
         this.prioridade = prioridade;
         this.plano_saude = plano_saude;

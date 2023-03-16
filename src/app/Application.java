@@ -6,6 +6,7 @@ import entities.Orcamento;
 import entities.Prescricao;
 import entities.Services;
 import utilites.CPFValidator;
+import entities_enums.Plano;
 
 public class Application {
     public static void main(String[] args) {
@@ -153,7 +154,7 @@ public class Application {
         Scanner sc = new Scanner(System.in);
         
         int idade;
-        int plano_saude = 0;
+        Plano plano_saude = Plano.NENHUM;
         char sexo;
         String crm;
         String cpf;
@@ -216,7 +217,7 @@ public class Application {
         }
 
         if(code == 1){
-            plano_saude = 3;
+            plano_saude = Plano.PROFISSIONAL;
             System.out.print("\nDigite a especializacao: ");
             especializacao = sc.nextLine();
 
@@ -392,7 +393,7 @@ public class Application {
         }
 
         System.out.print("Nivel do Convenio: ");
-        int nivel = sc.nextInt();
+        Plano nivel = Plano.valueOf(sc.next());
         sc.nextLine();
 
         clinica.alterarConvenio(cpf, nivel);

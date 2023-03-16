@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Medico extends Pessoa {
     private String crm;
-    private String especializacao;
-    
+    protected String especializacao;
+
     public Medico(String nome, String cpf, int idade, char sexo, String crm, String especializacao) {
         super(nome, cpf, idade, sexo);
         this.crm = crm;

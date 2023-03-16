@@ -3,6 +3,8 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities_enums.Plano;
+
 public class Clinical {
     public Caixa caixa;
     public List<Pessoa> listaMedico;
@@ -19,7 +21,7 @@ public class Clinical {
         this.listaProcedimentos = new ArrayList<>();
     }
 
-    public void createPatient(String name, String cpf, int idade, char sexo, int plano_saude,
+    public void createPatient(String name, String cpf, int idade, char sexo, Plano plano_saude,
                               boolean tabagismo, boolean obesidade, boolean hipertensao, boolean gestante,
                               boolean diabetes){
         
@@ -49,7 +51,8 @@ public class Clinical {
         Services service = new Services(procedimento, especialidade, valor);
 
         for(Pessoa cadastro : this.listaMedico) {
-            if(cadastro.especializacao.equals(especialidade)){
+            Medico medico = (Medico)cadastro;
+            if(medico.especializacao.equals(especialidade)){
                 service.addProfissional(cadastro);
             }
         }
@@ -119,8 +122,9 @@ public class Clinical {
                                                dia, mes, ano, hora, minuto);
 
         Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpfPaciente);
+        Paciente paciente = (Paciente)pessoa;
 
-        pessoa.prontuario.consultas.add(consulta);
+        paciente.prontuario.consultas.add(consulta);
         this.listaConsultas.add(consulta);
 
         return consulta.toString(this, cpfPaciente);
@@ -128,15 +132,17 @@ public class Clinical {
 
     public String getMedicalRecord(String cpf){
         Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
+        Paciente paciente = (Paciente)pessoa;
 
-        return pessoa.prontuario.toString(this, cpf);
+        return paciente.prontuario.toString(this, cpf);
     }
 
     public Prescricao criarPrescricao(String cpf){
         Prescricao prescricao = new Prescricao();
         Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
+        Paciente paciente = (Paciente)pessoa;
 
-        pessoa.addPrescricao(prescricao);
+        paciente.addPrescricao(prescricao);
 
         return prescricao;
     }
@@ -176,7 +182,7 @@ public class Clinical {
         this.caixa.addCaixa(orcamento);
     }
 
-    public void alterarConvenio(String cpf, int nivel){
+    public void alterarConvenio(String cpf, Plano nivel){
         Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
         pessoa.plano_saude = nivel;
@@ -188,9 +194,8 @@ public class Clinical {
         return pessoa.getFator();
     }
 
-    public int pegarConvenio(String cpf){
+    public Plano pegarConvenio(String cpf){
         Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
-
         return pessoa.plano_saude;
     }
 }
