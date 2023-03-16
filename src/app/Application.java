@@ -298,7 +298,11 @@ public class Application {
             int intervalo = sc.nextInt();
             sc.nextLine();
 
-            prescricao.addPrescricao(nomeMedicamento, intervalo);
+            System.out.print("Valor: ");
+            double valor = sc.nextDouble();
+            sc.nextLine();
+
+            prescricao.addPrescricao(nomeMedicamento, intervalo, valor);
 
             System.out.print("Deseja cadastrar outro? (s/n): ");
             char op = sc.nextLine().charAt(0);
