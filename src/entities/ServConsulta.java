@@ -10,20 +10,6 @@ public class ServConsulta extends Services {
         this.time = time;
     }
 
-    public void cadastrarConsulta() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Nome o tipo da consulta: ");
-        nome = sc.nextLine();
-
-        System.out.print("Nome da especialidade: ");
-        especialidade = sc.nextLine();
-
-        System.out.print("Valor da Consulta: ");
-        valor = sc.nextDouble();
-        sc.close();
-    }
-
     public int getTime() {
         return time;
     }

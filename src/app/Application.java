@@ -235,24 +235,72 @@ public class Application {
 
     public static void cadastrarServico(Clinical clinica){
         Scanner sc = new Scanner(System.in);
+        int option;
+        while(true){
+            System.out.println("\n=======================================");
+            System.out.println("Escolha uma das opções:");
+            System.out.println("01 - Cadastro de consulta\n"
+                             + "02 - Cadastro de exame\n"
+                             + "03 - Cadastro de procedimento\n"
+                             + "04 - Sair");
+            System.out.println("=======================================");
+            
+            System.out.print("Opcao: ");
+            option = sc.nextInt();
+            sc.nextLine();
 
-        String procedimento, especialidade;
+            
+            if(option == 1 || option == 2 || option == 3)
+                cadastroSevico(clinica, option);
+
+            else if(option == 4){
+                
+                break;
+
+            }else{
+
+                System.out.println("Opcao invalida!");
+
+            }
+        }
+
+        //clinica.createService(procedimento, especialidade, valor);
+
+        sc.close();
+    }
+    public static void cadastroSevico(Clinical clinica, int code){
+        Scanner sc = new Scanner(System.in);
+
+        String tipo = new String();
+
+        if(code == 1)tipo = "da consulta";
+        else if(code == 2)tipo = "do exame";
+        else tipo = "do procedimento";
+        
+        String nome, especialidade;
+        int time;
         double valor;
 
-        System.out.print("Nome do procedimento: ");
-        procedimento = sc.nextLine();
+        System.out.printf("Nome o tipo %s: ", tipo);
+        nome = sc.nextLine();
 
         System.out.print("Nome da especialidade: ");
         especialidade = sc.nextLine();
 
-        System.out.print("Valor do procedimento: ");
+        System.out.printf("Valor %s: ", tipo);
         valor = sc.nextDouble();
 
-        clinica.createService(procedimento, especialidade, valor);
-
-        //sc.close();
+        if(code == 1){
+            System.out.print("Tempo em minutos: ");
+            time = sc.nextInt();
+        }
+        sc.close();
+        
+        if(code == 1);
+        else if(code == 2);
+        else clinica.createServiceProcedimento(nome, especialidade, valor);
+        
     }
-
     public static void verProntuario(Clinical clinica){
         Scanner sc = new Scanner(System.in);
 
