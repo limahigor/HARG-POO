@@ -10,14 +10,13 @@ public class OrcamentoMedicamentos extends Orcamento{
         this.prescricao = prescricao;
     }
     
-    @Override
-    public double getOrcamento(){
+    
+    public void addOrcamento(){
         for(Prescricao medicamento : prescricao){
             for(Double valor : medicamento.valores){
                 this.valor += valor;
             }
         }
-        return valor;
     }
     
 }
