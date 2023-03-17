@@ -3,7 +3,7 @@ package entities;
 import java.util.List;
 
 public class OrcamentoMedicamentos extends Orcamento{
-    private List<Prescricao> prescricao;
+    protected List<Prescricao> prescricao;
 
     public OrcamentoMedicamentos(Paciente paciente, List<Prescricao> prescricao) {
         super(paciente);
@@ -17,6 +17,17 @@ public class OrcamentoMedicamentos extends Orcamento{
                 this.valor += valor;
             }
         }
+    }
+
+    public void removeOrcamento(String removerMedicamento){
+        int i = 0;
+        for(Prescricao remedio : prescricao){
+            if(remedio.nomes.contains(removerMedicamento)){
+                valor -= remedio.valores.get(i);
+            }
+            i++;
+        }
+
     }
     
 }
