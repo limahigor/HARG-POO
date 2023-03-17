@@ -56,12 +56,12 @@ public class Services {
          return null;
     }
 
-    // public static Services buscarProcedimentoEsp(List<Services> allServices, String x) {
-    //     for (Services search : allServices) {
-    //         if (search.especialidade.equals(x)) {
-    //             return search;
-    //         }
-    //     }
-    //     return null;
-    // }
+    public static Services buscarProcedimentoEsp(List<Services> allServices, String x) {
+        for (Services search : allServices) {
+            if (search.especialidade.equals(x)) {
+                return search;
+            }
+        }
+        return null;
+    }
 }
