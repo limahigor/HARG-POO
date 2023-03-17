@@ -296,8 +296,8 @@ public class Application {
         }
         sc.close();
         
-        if(code == 1);
-        else if(code == 2);
+        if(code == 1)clinica.createServiceConsulta(nome, especialidade, valor, time);
+        else if(code == 2)clinica.createServiceExame(nome, especialidade, valor);
         else clinica.createServiceProcedimento(nome, especialidade, valor);
         
     }
