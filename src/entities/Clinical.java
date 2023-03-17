@@ -182,10 +182,10 @@ public class Clinical {
         this.caixa.addCaixa(orcamento);
     }
 
-    public void alterarConvenio(String cpf, Plano nivel){
+    public void alterarConvenio(String cpf, Plano plano){
         Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
-        pessoa.plano_saude = nivel;
+        pessoa.plano_saude = plano;
     }
 
     public int pegarFator(String cpf){
