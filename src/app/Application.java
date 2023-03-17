@@ -1,4 +1,6 @@
 package app;
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Scanner;
 
 import entities.Clinical;
@@ -10,6 +12,7 @@ import entities_enums.Plano;
 
 public class Application {
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
 
         Clinical clinica = new Clinical();
@@ -264,9 +267,7 @@ public class Application {
             }
         }
 
-        //clinica.createService(procedimento, especialidade, valor);
-
-        sc.close();
+        //sc.close();
     }
     public static void cadastroSevico(Clinical clinica, int code){
         Scanner sc = new Scanner(System.in);
@@ -294,7 +295,7 @@ public class Application {
             System.out.print("Tempo em minutos: ");
             time = sc.nextInt();
         }
-        sc.close();
+        //sc.close();
         
         if(code == 1)clinica.createServiceConsulta(nome, especialidade, valor, time);
         else if(code == 2)clinica.createServiceExame(nome, especialidade, valor);
