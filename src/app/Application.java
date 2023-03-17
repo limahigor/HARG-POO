@@ -278,7 +278,7 @@ public class Application {
         else tipo = "do procedimento";
         
         String nome, especialidade;
-        int time;
+        int time = 0;
         double valor;
 
         System.out.printf("Nome o tipo %s: ", tipo);
