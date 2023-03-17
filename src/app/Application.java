@@ -397,10 +397,10 @@ public class Application {
         }
 
         System.out.print("Tipo do Convênio (SUS/PARTICULAR): ");
-        Plano nivel = Plano.valueOf(sc.next());
+        Plano plano = Plano.valueOf(sc.next());
         sc.nextLine();
 
-        clinica.alterarConvenio(cpf, nivel);
+        clinica.alterarConvenio(cpf, plano);
         System.out.println("Convênio alterado com sucesso!");
     }
 
