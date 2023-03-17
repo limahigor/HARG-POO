@@ -8,8 +8,7 @@ public class OrcamentoAtendimentos extends Orcamento{
         super(paciente);
     }
 
-
-    public void getOrcamento(Services procedimentos) {     
+    public void addOrcamento(Services procedimentos) {     
         this.procedimentos.add(procedimentos);
         
         if(paciente.plano_saude == Plano.NENHUM){
@@ -24,6 +23,7 @@ public class OrcamentoAtendimentos extends Orcamento{
         else{
             this.valor += procedimentos.valor * 0.85;
         }
+
     }
 
     public void removeOrcamento(Services procedimentos){
@@ -39,7 +39,7 @@ public class OrcamentoAtendimentos extends Orcamento{
         else{
             valor -= procedimentos.valor * 0.85;
         }
-    }
 
+    }
 
 }
