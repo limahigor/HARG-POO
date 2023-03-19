@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "appTest",
+            "request": "launch",
+            "mainClass": "clinical_health/app.appTest",
+            "projectName": "HARG-POO_5ef8f0cf"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
