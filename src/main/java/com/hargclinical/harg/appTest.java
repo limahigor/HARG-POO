@@ -2,7 +2,7 @@ package com.hargclinical.harg;
 
 import java.sql.Connection;
 
-import DB.DB;
+import com.hargclinical.harg.DB.DB;
 
 public class appTest {
 

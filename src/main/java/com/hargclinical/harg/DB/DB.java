@@ -1,4 +1,4 @@
-package DB;
+package com.hargclinical.harg.DB;
 
 import java.io.FileInputStream;
 import java.io.IOException;
