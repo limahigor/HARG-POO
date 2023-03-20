@@ -1,4 +1,4 @@
-package app;
+package com.hargclinical.harg;
 
 import java.sql.Connection;
 
