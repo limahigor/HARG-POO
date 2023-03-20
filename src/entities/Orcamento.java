@@ -1,10 +1,10 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class Orcamento {
-    protected List<Services> procedimentos;
+public abstract class Orcamento {
     protected Paciente paciente;
     protected double valor;
 
@@ -13,12 +13,14 @@ public class Orcamento {
         this.valor = 0;
     }
 
+    public abstract void addOrcamento();
+    
     public double getOrcamento(){
         return valor;
     }
 
-    public void zerarOrcamento(){
-        this.valor = 0;
+    public void setOrcamento(double valor){
+        this.valor = valor;
     }
     
     public String printOrcamento(){
