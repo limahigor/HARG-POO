@@ -1,7 +1,4 @@
 {
     "java.debug.settings.onBuildFailureProceed": true,
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\java-libs\\jdbc-conectores\\mysql-connector-j-8.0.32.jar"
-    ]
+    "java.compile.nullAnalysis.mode": "automatic"
 }
