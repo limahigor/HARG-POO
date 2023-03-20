@@ -17,5 +17,6 @@ public class Medico extends Pessoa{
     public Medico(String nome, String cpf, int idade, char sexo, String especializacao){
         super(nome, cpf, idade, sexo);
         this.especializacao = especializacao;
+        
     }
 }
