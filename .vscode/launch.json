@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HargApplication",
+            "request": "launch",
+            "mainClass": "com.hargclinical.harg.HargApplication",
+            "projectName": "harg"
+        },
+        {
+            "type": "java",
+            "name": "appTest",
+            "request": "launch",
+            "mainClass": "com.hargclinical.harg.appTest",
+            "projectName": "harg"
+        },
+        {
+            "type": "java",
             "name": "appTest",
             "request": "launch",
             "mainClass": "clinical_health/app.appTest",
