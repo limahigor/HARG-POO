@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hargclinical.harg.repositories.MedicoRepository;
+import com.hargclinical.harg.repositories.PacienteRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/cadastrar-paciente-submit")
-public class MedicoResource{
+public class PacienteResource{
 
     @Autowired
-    private MedicoRepository pessoaRepository;
+    private PacienteRepository pessoaRepository;
 
     @PostMapping
     public String cadastrarPaciente(HttpServletRequest request) {

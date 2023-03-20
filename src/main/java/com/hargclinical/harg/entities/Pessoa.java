@@ -2,9 +2,18 @@ package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class Pessoa implements Serializable{
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     public int idade;
     public char sexo;
     public String cpf;
