@@ -1,0 +1,87 @@
+body{
+    font-family:courier,arial,helvetica;
+    background: rgb(26,87,123) url("../img/bg.jpeg");
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    background-size: 100%;
+    overflow: hidden;
+}
+
+a{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+#img-top{
+    width: 18em;
+}
+
+#all{
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+#main-card{
+    box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+    border-radius: 50px;
+    width: 80vw;
+}
+
+#top, #bottom{
+    background-color: rgba(212, 212, 212, 0.726);
+}
+
+#top{
+    height: 12vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#bottom{
+    height: 10vh;
+    position: relative;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#bottom > img{
+    position: inherit;
+    top: -40px;
+    left: -20px;
+    width: 15em;
+}
+
+#bottom > p{
+    color: rgb(0, 0, 0);
+    position: absolute;  
+    text-align: center;
+    transform: translate(-50%, -50%);
+    left: 50%;
+}
+
+#bottom > #tel-bottom{
+    top: 20%;
+}
+
+#bottom > #copy-bottom{
+    top: 40%;
+}
+
+#mid{
+    background-color: rgba(233, 233, 233, 0.4);
+    height: 67.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
