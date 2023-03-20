@@ -1,4 +1,4 @@
-package com.hargclinical.harg;
+/*package com.hargclinical.harg;
 
 import com.hargclinical.harg.entities.Pessoa;
 
@@ -25,4 +25,4 @@ public class appTest {
 		System.out.println("Showwwwwwwwwww--------------------");
 		
 	}
-}
+}*/
