@@ -1,7 +1,8 @@
-package application;
+package app;
 
 import java.sql.Connection;
-import db.DB;
+
+import DB.DB;
 
 public class appTest {
 

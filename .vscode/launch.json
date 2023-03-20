@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DB",
+            "request": "launch",
+            "mainClass": "clinical_health/DB.DB",
+            "projectName": "HARG-POO_5ef8f0cf"
+        },
+        {
+            "type": "java",
             "name": "appTest",
             "request": "launch",
             "mainClass": "clinical_health/app.appTest",
