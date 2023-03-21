@@ -31,5 +31,15 @@ public class Appointment {
             return false;
         }
     }
-    
+
+    public boolean remarcarHora(Date tempo) {
+        if(tempo.after(this.tempo)) {
+            this.tempo = tempo;
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
 }
