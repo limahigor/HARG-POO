@@ -11,6 +11,7 @@
         <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     </head>
     <body>
+
         <div id="all">
             <!-------------- CONTEÚDO PRINCIPAL ---------------->
             <div id="main-card">
@@ -21,7 +22,7 @@
                 <!---------------- MEIO -------------->
                 <div id="mid">
                     <div class="forms">
-                        <form id="cadastrar-paciente" method="post" action="/cadastrar-paciente-submit">
+                        <form id="cadastrar-paciente">
                             <div class="text-box">
                                 <label for="nome">nome completo</label>
                                 <input class="campo-nome" type="text" id="nome" name="nome">
@@ -45,25 +46,28 @@
                                 <input type="checkbox" name="comorbidade">Gestante
                                 <input type="checkbox" name="comorbidade">Diabetes
                             </div>
-
                             <div class="button">
                                 <input id="submit-button" type="submit">
                             </div>
                         </form>
                     </div>
                 </div>
-
+                
                 <!---------------- RODAPE -------------->
                 <div id="bottom">
                     <img src="../img/logo2.png" id="img-bottom">
                     <p id="tel-bottom">Telefone: <strong>(82) 3252-9081</strong></p>
                     <p id="copy-bottom">© 2023 HARG. Todos os direitos reservados.</p>
                 </div>
-            <!----------- FIM CONTEÚDO PRINCIPAL ------------->
+                <!----------- FIM CONTEÚDO PRINCIPAL ------------->
             </div>
         </div>
-
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <script src="../js/cadastrar-paciente.js"></script>
+        <script src="../js/verify-form-paciente.js"></script>
+        <script src="../js/submit-formulary.js"></script>
+        <script>
+            cadastrarFormulario('cadastrar-paciente');
+        </script>
     </body>
 </html>
