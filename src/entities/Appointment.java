@@ -21,4 +21,15 @@ public class Appointment {
         this.data = data;
     }
 
+    public boolean remarcarData(Date tempo, Date data) {
+        if(tempo.after(this.tempo) && data.after(this.data)) {
+            this.tempo = tempo;
+            this.data = data;
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+    
 }
