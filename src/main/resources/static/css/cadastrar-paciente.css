@@ -17,13 +17,22 @@ label{
     position: relative;
     justify-content: center;
     align-items: center;
+    margin-top: 40px;
 }
 
 .button > #submit-button{
     width: 10em;
     height: 3em;
     position: inherit;
-    top: 2em;
+}
+
+.button > #result-cadastro{
+    display: none;
+    position: absolute;
+    top: 40px;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 .text-box > label{

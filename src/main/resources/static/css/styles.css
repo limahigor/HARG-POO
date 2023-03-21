@@ -1,3 +1,19 @@
+::-webkit-scrollbar {
+    width: 0.01px;
+}
+  
+::-webkit-scrollbar-track {
+    background: rgba(212, 212, 212, 0.726);
+}
+  
+::-webkit-scrollbar-thumb {
+    background: rgba(212, 212, 212, 0.726);
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 212, 212, 0.726);
+}
+
 body{
     font-family:courier,arial,helvetica;
     background: rgb(26,87,123) url("../img/bg.jpeg");
@@ -48,6 +64,7 @@ a{
 }
 
 #bottom{
+    border: 1px solid red;
     height: 10vh;
     position: relative;
     border-bottom-left-radius: 10px;

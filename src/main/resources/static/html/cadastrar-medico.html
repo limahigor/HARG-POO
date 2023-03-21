@@ -4,7 +4,7 @@
         <title>HARG Medical</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="../css/styles.css">
-        <link rel="stylesheet" href="../css/cadastrar-paciente.css">
+        <link rel="stylesheet" href="../css/cadastrar-medico.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,16 +21,24 @@
                 <!---------------- MEIO -------------->
                 <div id="mid">
                     <div class="forms">
-                        <form id="cadastrar-paciente">
+                        <form id="cadastrar-medico">
                             <div class="text-box">
                                 <label for="nome">nome completo</label>
                                 <input class="campo-nome" type="text" id="nome" name="nome">
 
-                                <label for="nome">CPF</label>
+                                <label for="cpf">CPF</label>
                                 <input class="campo-cpf" type="text" id="cpf" name="cpf">
+
+                                <div class="div-medico">
+                                    <label for="crm">CRM</label>
+                                    <input class="campo-crm" type="text" id="crm" name="crm">
+
+                                    <label for="especializacao">especialização</label>
+                                    <input class="campo-esp" type="text" id="especializacao" name="especializacao">
+                                </div>
                             </div>
 
-                            <label for="nome">data de nascimento</label>
+                            <label for="date">data de nascimento</label>
                             <input class="campo-data" type="date" id="date" name="date">
 
                             <label for="sexo">gênero</label>
@@ -48,6 +56,7 @@
 
                             <div class="button">
                                 <input id="submit-button" type="submit" value="Cadastrar">
+                                <p id="result-cadastro">Resultado</p>
                             </div>
                         </form>
                     </div>
@@ -63,5 +72,12 @@
             <!----------- FIM CONTEÚDO PRINCIPAL ------------->
             </div>
         </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="../js/verify-form-paciente.js"></script>
+        <script src="../js/submit-formulary.js"></script>
+        <!-- <script>
+            cadastrarFormulario('cadastrar-medico');
+        </script> -->
     </body>
 </html>
