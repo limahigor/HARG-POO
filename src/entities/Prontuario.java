@@ -23,7 +23,7 @@ public class Prontuario {
         sb.append("Convenio: " + clinica.pegarConvenio(cpfPaciente) + "\n");
         
         for(Appointment consulta : this.consultas) {
-            sb.append(consulta.toString(clinica, cpfPaciente));
+            // sb.append(consulta.toString(clinica, cpfPaciente));
             sb.append("----------------------------------\n");
         }
 

@@ -140,20 +140,20 @@ public class Clinical {
         return Integer.toString(pessoa.idade);
     }
 
-    public String agendarConsulta(String cpfPaciente, String nomeMedico, String nomeProcedimento,
-                                int dia, int mes, int ano, int hora, int minuto){
+    // public String agendarConsulta(String cpfPaciente, String nomeMedico, String nomeProcedimento,
+    //                             int dia, int mes, int ano, int hora, int minuto){
                                     
-        Appointment consulta = new Appointment(cpfPaciente, nomeMedico, nomeProcedimento,
-                                               dia, mes, ano, hora, minuto);
+    //     Appointment consulta = new Appointment(cpfPaciente, nomeMedico, nomeProcedimento,
+    //                                            dia, mes, ano, hora, minuto);
 
-        Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpfPaciente);
-        Paciente paciente = (Paciente)pessoa;
+    //     Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpfPaciente);
+    //     Paciente paciente = (Paciente)pessoa;
 
-        paciente.prontuario.consultas.add(consulta);
-        this.listaConsultas.add(consulta);
+    //     paciente.prontuario.consultas.add(consulta);
+    //     this.listaConsultas.add(consulta);
 
-        return consulta.toString(this, cpfPaciente);
-    }
+    //     return consulta.toString(this, cpfPaciente);
+    // }
 
     public String getMedicalRecord(String cpf){
         Pessoa pessoa = Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
@@ -193,15 +193,15 @@ public class Clinical {
         this.caixa = new Caixa();
     }
 
-    public Orcamento criarOrcamento(String cpf){
-        Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
+    // public Orcamento criarOrcamento(String cpf){
+    //     Paciente pessoa = (Paciente)Pessoa.buscarCadastroCPF(this.listaPaciente, cpf);
 
-        Orcamento orcamento = new Orcamento(pessoa);
+    //     Orcamento orcamento = new Orcamento(pessoa);
 
-        this.listaOrcamentos.add(orcamento);
+    //     this.listaOrcamentos.add(orcamento);
 
-        return orcamento;
-    }
+    //     return orcamento;
+    // }
 
     public void attCaixa(Orcamento orcamento){
         this.caixa.addCaixa(orcamento);
