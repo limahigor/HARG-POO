@@ -25,6 +25,9 @@ public class Pessoa implements Serializable{
         this.sexo = sexo;
         this.idade = idade;
     }
+    public Pessoa() {
+        
+    }
 
     public int getIdade() {
         return idade;
