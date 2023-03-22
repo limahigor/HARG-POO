@@ -64,7 +64,6 @@ a{
 }
 
 #bottom{
-    border: 1px solid red;
     height: 10vh;
     position: relative;
     border-bottom-left-radius: 10px;
