@@ -7,7 +7,11 @@ import jakarta.persistence.Table;
 @Table(name="pacientes")
 public class Paciente extends Pessoa{
 
-    public Paciente(String nome, String cpf, int idade, char sexo, String especializacao){
+    public Paciente(){
+        super();
+    }
+
+    public Paciente(String nome, String cpf, int idade, char sexo){
         super(nome, cpf, idade, sexo); 
     }
     

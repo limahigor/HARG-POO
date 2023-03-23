@@ -14,10 +14,13 @@ public class Pessoa implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public int idade;
-    public char sexo;
-    public String cpf;
     public String nome;
+    public String cpf;
+    public char sexo;
+    public int idade;
+
+    public Pessoa(){    
+    }
 
     public Pessoa(String nome, String cpf, int idade, char sexo) {
         this.cpf = cpf;
