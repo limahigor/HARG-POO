@@ -19,7 +19,7 @@ public class Pessoa implements Serializable{
     public char sexo;
     public int idade;
 
-    public Pessoa(){    
+    public Pessoa(){ 
     }
 
     public Pessoa(String nome, String cpf, int idade, char sexo) {
@@ -27,9 +27,6 @@ public class Pessoa implements Serializable{
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
-    }
-    public Pessoa() {
-        
     }
 
     public int getIdade() {
