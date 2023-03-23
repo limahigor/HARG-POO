@@ -1,25 +1,27 @@
 package com.hargclinical.harg.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.hargclinical.harg.entities_enums.Plano;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="orçamento_servicos")
+@Table(name="orcamento_servicos")
 public class OrcamentoServicos extends Orcamento {
-    protected List<Services> procedimentos;
+
+    @OneToMany(mappedBy = "id.orcamento_servicos")
+    protected Set<Services> procedimentos = new HashSet<>();
 
     public OrcamentoServicos() {
-        super();
+        
     }
 
     public OrcamentoServicos(Paciente paciente) {
         super(paciente);
-        this.procedimentos = new ArrayList<>();
     }
 
     public void addProcedimento(Services procedimentos){

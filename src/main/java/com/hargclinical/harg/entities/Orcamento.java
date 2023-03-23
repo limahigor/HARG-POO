@@ -14,11 +14,11 @@ public abstract class Orcamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Paciente paciente;
+    protected Paciente paciente;
     protected double valor;
 
     public Orcamento(){
-        
+
     }
 
     public Orcamento(Paciente paciente){

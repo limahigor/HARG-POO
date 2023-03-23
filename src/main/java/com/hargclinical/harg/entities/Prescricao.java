@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -29,7 +28,7 @@ public class Prescricao implements Serializable{
     private OrcamentoMedicamentos orcamentoMedicamentos;
 
     public Prescricao (){
-        
+
     }
 
     public void addPrescricao(String medicamento, int intervalo, double valor){
