@@ -1,13 +1,19 @@
 package com.hargclinical.harg.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="servicos_consultas")
+@Table(name = "consultas")
+@PrimaryKeyJoinColumn(name = "id")
 public class ServConsulta extends Services {
     private int time;
 
+    public ServConsulta() {
+        super();
+    }
+    
     public ServConsulta(String nome, String especialidade, double valor, int time) {
         super(nome, especialidade, valor);
         this.time = time;
