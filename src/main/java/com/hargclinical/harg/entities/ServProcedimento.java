@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 @Table(name="servicos_procedimentos")
 public class ServProcedimento extends Services {
 
+    public ServProcedimento (){
+
+    }
     public ServProcedimento(String nome, String especialidade, double valor) {
         super(nome, especialidade, valor);
     }

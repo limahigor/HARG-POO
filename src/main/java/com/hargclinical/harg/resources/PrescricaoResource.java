@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +26,9 @@ public class PrescricaoResource {
     }
 
     @PostMapping
-    public ResponseEntity<Prescricao> adicionarPrescricao(@RequestBody Prescricao prescricao) {
-        Prescricao prescricaoSalva = prescricaoRepository.save(prescricao);
-        return ResponseEntity.ok(prescricaoSalva);
+    public ResponseEntity<Prescricao> adicionarPrescricao(Prescricao prescricao) {
+        Prescricao novaPrescricao = prescricaoRepository.save(prescricao);
+        return ResponseEntity.ok(novaPrescricao);
     }
     
 }

@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,7 +25,11 @@ public class Prescricao implements Serializable{
     protected List<Integer> intervalos = new ArrayList<>();
     protected List<Double> valores = new ArrayList<>();
 
+    @OneToOne(mappedBy = "orcamentoMedicamentos", cascade = CascadeType.ALL)
+    private OrcamentoMedicamentos orcamentoMedicamentos;
+
     public Prescricao (){
+        
     }
 
     public void addPrescricao(String medicamento, int intervalo, double valor){

@@ -7,10 +7,12 @@ import java.util.List;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Services implements Serializable{
+public class Services implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -21,7 +23,12 @@ public abstract class Services implements Serializable{
     public List<String> profissionais = new ArrayList<>();
     public double valor;
 
+    @ManyToOne
+    @JoinColumn(name = "servicos")
+    protected OrcamentoServicos orcamento;
+
     public Services() {
+        
     }
 
     public Services(String nome, String especialidade, double valor) {

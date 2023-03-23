@@ -7,7 +7,5 @@ import com.hargclinical.harg.entities.Services;
 
 @Repository
 public interface ServicesRepository extends JpaRepository<Services, Long> {
-
     
-
 }

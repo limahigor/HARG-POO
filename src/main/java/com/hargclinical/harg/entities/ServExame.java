@@ -6,7 +6,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="servicos_exames")
 public class ServExame extends Services {
-
+    
+    public ServExame(){
+        
+    }
     public ServExame(String nome, String especialidade, double valor) {
         super(nome, especialidade, valor);
     }
