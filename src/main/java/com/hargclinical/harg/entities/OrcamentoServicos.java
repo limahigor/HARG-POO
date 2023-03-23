@@ -3,6 +3,8 @@ package com.hargclinical.harg.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hargclinical.harg.entities_enums.Plano;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
