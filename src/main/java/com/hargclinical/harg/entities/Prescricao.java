@@ -24,7 +24,7 @@ public class Prescricao implements Serializable{
     protected List<Integer> intervalos = new ArrayList<>();
     protected List<Double> valores = new ArrayList<>();
 
-    @OneToOne(mappedBy = "orcamentoMedicamentos", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "prescricao", cascade = CascadeType.ALL)
     private OrcamentoMedicamentos orcamentoMedicamentos;
 
     public Prescricao (){

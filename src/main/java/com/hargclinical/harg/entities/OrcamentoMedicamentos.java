@@ -16,7 +16,7 @@ public class OrcamentoMedicamentos extends Orcamento{
     private Prescricao prescricao; 
 
     public OrcamentoMedicamentos(){
-        
+        super();
     }
     
     public OrcamentoMedicamentos(Paciente paciente, Prescricao prescricao) {
