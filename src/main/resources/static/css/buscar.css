@@ -1,9 +1,7 @@
 .forms{
-    display: flex;
     max-height: 67.5vh;
     height: 67.5vh;
     width: 60vw;
-    display: block;
     border-radius: 5px;
 }
 
@@ -34,10 +32,6 @@ h1{
     padding: 0;
     font-size: 15px;
     font-weight: strong;
-}
-
-.nome > h1{
-    color: rgb(26,87,123);
 }
 
 #barra-busca{
@@ -80,8 +74,8 @@ h1{
 }
 
 .nome-medico{
+    color: rgb(26,87,123);
     display: inline-block;
-    /* border: 1px solid red; */
     font-size: 15px;
     margin-left: 15px;
 }
@@ -100,7 +94,6 @@ h1{
 .crm{
     font-size: 12px;
     position: relative;
-    /* border: 1px solid red; */
     display: block;
     margin:0;
     top: -12px;
@@ -109,6 +102,8 @@ h1{
 }
 
 .nome-paciente{
+    color: rgb(26,87,123);
+
     display: inline-block;
 
     font-size: 15px;
