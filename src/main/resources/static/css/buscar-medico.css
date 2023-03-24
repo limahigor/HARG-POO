@@ -1,0 +1,79 @@
+.forms{
+    display: flex;
+    max-height: 67.5vh;
+    height: 67.5vh;
+    width: 60vw;
+    display: block;
+    border-radius: 5px;
+}
+
+li{
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    padding: 0;
+    list-style: none;
+}
+h1{
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+}
+
+#barra-busca{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid red; */
+    margin-top: 1vh;
+}
+
+#barra-busca > input[type="text"]{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 32.5em;
+    height: 3vh;
+}
+
+.resultado-busca{
+    height: 59.9vh;
+    margin-top: 5px;
+    padding: 0px;
+    display: flex;
+    max-height: 59.9vh;
+    overflow: auto;
+    background-color: rgba(162, 177, 187, 0.856);
+    border-radius: 5px;
+}
+
+.resul{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.534);
+    margin: 0;
+    padding: 0;
+    width: 59.9vw;
+    height: 6vh;
+    background-color: rgba(162, 177, 187, 0);
+}
+
+.resul:hover{
+    background-color: rgb(162, 177, 187);
+}
+
+.nome{
+    display: inline-block;
+    border: 1px solid red;
+    font-size: 15px;
+    padding-top: 10px;
+    margin-left: 15px;
+}
+
+.especialidade{
+    display: inline-block;
+    font-size: 12px;
+}
+
+.divisor{
+    display: inline-block
+}

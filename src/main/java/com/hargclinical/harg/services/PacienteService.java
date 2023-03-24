@@ -11,21 +11,16 @@ import com.hargclinical.harg.repositories.PacienteRepository;
 
 @Service
 public class PacienteService {
-    
-    @Autowired
-    private PacienteRepository repository;
 
-    public List<Paciente> findAll(){
-        return repository.findAll();
-    }
+	@Autowired
+	private PacienteRepository repository;
 
-    // public Paciente findById(Long id){
-    //     Optional<Paciente> obj = repository.findById(id);
-    //     return obj.get();
-        
-    // }
+	public List<Paciente> findAll() {
+		return repository.findAll();
+	}
 
-    public Paciente insert(Paciente obj){
-        return repository.save(obj);
-    }
+	public Paciente findById(Long id) {
+		Optional<Paciente> obj = repository.findById(id);
+		return obj.get();
+	}
 }

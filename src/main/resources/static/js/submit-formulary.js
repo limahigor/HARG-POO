@@ -14,7 +14,7 @@ $('#submit-button').click(function(event){
   
     $.ajax({
         type: 'POST',
-        url: id + '-submit',
+        url: id + '/cadastrar',
         data: JSON.stringify(requestData),
         contentType:'application/json',
         success: function(response){

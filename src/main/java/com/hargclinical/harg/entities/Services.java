@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hargclinical.harg.serializables.ServicesSerializer;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,17 +23,21 @@ import jakarta.persistence.Table;
 @Entity  
 @Table(name = "services")  
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonSerialize(using = ServicesSerializer.class)
+
 public class Services implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name = "id")  
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "nome")  
+    @Column(name = "nome")
     public String nome;
+
+    @Column(name = "especialidade") 
     public String especialidade;
 
     @ManyToMany(mappedBy = "medico_servicos")

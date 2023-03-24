@@ -15,8 +15,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/marcar-consulta").setViewName("forward:/html/marcar/marcar-consulta.html");
         registry.addViewController("/marcar-exame").setViewName("forward:/html/marcar/marcar-exame.html");
         registry.addViewController("/marcar-procedimento").setViewName("forward:/html/marcar/marcar-procedimento.html");
-        // registry.addViewController("/buscar-paciente").setViewName("forward:/buscar-paciente.html");
-        // registry.addViewController("/buscar-medico").setViewName("forward:/buscar-medico.html");
+        registry.addViewController("/buscar-paciente").setViewName("forward:/html/buscar/buscar-paciente.html");
+        registry.addViewController("/buscar-medico").setViewName("forward:/html/buscar/buscar-medico.html");
         // registry.addViewController("/cadastrar-medico").setViewName("forward:/cadastrar-medico.html");
         // registry.addViewController("/cadastrar-medico").setViewName("forward:/cadastrar-medico.html");
         // registry.addViewController("/cadastrar-medico").setViewName("forward:/cadastrar-medico.html");

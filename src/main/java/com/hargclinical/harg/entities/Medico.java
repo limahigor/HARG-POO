@@ -3,8 +3,10 @@ package com.hargclinical.harg.entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hargclinical.harg.serializables.MedicoSerializer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -13,11 +15,13 @@ import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name="medicos")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonSerialize(using = MedicoSerializer.class)
 public class Medico extends Pessoa{
     String crm;
+    
     String especializacao;
 
-    @JsonIgnore
     @ManyToMany
 	@JoinTable(
         name = "medico_servico",

@@ -9,23 +9,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.services.MedicoService;
 
 @RestController
-@RequestMapping(value = "/medicos")
+@RequestMapping(value = "/medico")
 public class MedicoResource{
 
     @Autowired
 	private MedicoService service;
 
-    @GetMapping
+    @GetMapping("/buscar")
 	public ResponseEntity<List<Medico>> findAll() {
-		List<Medico> list = service.findAll();
+        List<Medico> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-
-	@GetMapping(value = "/{id}")
+    
+	@GetMapping(value = "/buscar/{id}")
 	public ResponseEntity<Medico> findById(@PathVariable Long id) {
 		Medico obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
