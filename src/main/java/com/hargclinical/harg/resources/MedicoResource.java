@@ -48,10 +48,10 @@ public class MedicoResource{
         return ResponseEntity.ok().body(medicos);
     }
     
-    @GetMapping(value = "/buscar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/{id}")
     public ResponseEntity<Medico> findById(@PathVariable Long id) {
-        Medico obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        Medico paciente = service.findById(id);
+        return ResponseEntity.ok().body(paciente);
     }
 
 }

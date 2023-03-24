@@ -14,7 +14,7 @@ function printDOM(list, bodyId){
             console.log("CRM: " + medico.crm);
             $('#resultado').append('<li>' +
                                         '<div class="resul">' + 
-                                                '<a id=' + '"' + medico.id + '" ' + 'href=""><h1 class="nome-medico">' + medico.nome + '</h1></a>' +
+                                                '<a id=' + '"' + medico.id + '" class="link-medico" ' + 'href="#"><h1 class="nome-medico">' + medico.nome + '</h1></a>' +
                                                 '<p class="divisor"> - </p>' +
                                                 '<h1 class="especialidade">' + medico.especializacao + '</h1>' +
                                                 '<h1 class="crm">' + medico.crm + '</h1>' +
@@ -28,7 +28,7 @@ function printDOM(list, bodyId){
             console.log("CPF: " + paciente.cpf);
             $('#resultado').append('<li>' +
                                         '<div class="resul">' + 
-                                                '<a id=' + '"' + paciente.id + '" ' + 'href=""><h1 class="nome-paciente">' + paciente.nome + '</h1></a>' +
+                                                '<a id=' + '"' + paciente.id + '" class="link-paciente" ' + 'href="#"><h1 class="nome-paciente">' + paciente.nome + '</h1></a>' +
                                                 '<h1 class="cpf">' + formatarCPF(paciente.cpf) + '</h1>' +
                                         '</div>' +
                                     '</li>'
@@ -81,6 +81,45 @@ $('#inputBusca').on('input',() => {
     }else{
         ajaxRequisition(url, valorInput)
     }
+});
+
+$(document).on('click', '.link-medico', function(event) {
+    event.preventDefault(); // Impede que o link seja seguido
+
+    var userId = $(this).attr('id');
+
+    console.log("TESTE MEDICO: " + userId)
+
+    $.ajax({
+        url: '/medico/' + userId,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data)
+        },
+        error: function(xhr, status, error) {
+            console.log("ERROR")
+            console.error(error); // Registra o erro no console
+        }
+    });
+});
+
+$(document).on('click', '.link-paciente', function(event) {
+    event.preventDefault(); // Impede que o link seja seguido
+
+    var userId = $(this).attr('id');
+
+    $.ajax({
+        url: '/paciente/' + userId, // Endpoint para buscar as informações do usuário
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data)
+        },
+        error: function(xhr, status, error) {
+            console.error(error); // Registra o erro no console
+        }
+    });
 });
 
 $(document).ready(function () {
