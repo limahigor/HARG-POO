@@ -1,11 +1,13 @@
 package com.hargclinical.harg.entities;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -28,8 +30,8 @@ public class Medico extends Pessoa{
     )
 	private Set<Services> medico_servicos = new HashSet<>();
 
-    @OneToMany(mappedBy = "medico")
-    private List<Appointment> appointments;
+    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
+    private List<Appointment> appointments = new ArrayList<>();
 
     public Medico(){
         super();
@@ -59,6 +61,14 @@ public class Medico extends Pessoa{
 
     public void setEspecializacao(String especializacao) {
         this.especializacao = especializacao;
-    }    
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Appointment appointment) {
+        appointments.add(appointment);
+    }
     
 }

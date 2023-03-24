@@ -1,9 +1,11 @@
 package com.hargclinical.harg.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hargclinical.harg.entities_enums.Plano;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -14,8 +16,8 @@ public class Paciente extends Pessoa{
 
     public Plano plano_saude;
 
-    @OneToMany(mappedBy = "paciente")
-    private List<Appointment> appointments;
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Appointment> appointments = new ArrayList<>();
 
     public Paciente(){
         super();
@@ -28,6 +30,10 @@ public class Paciente extends Pessoa{
 
     public List<Appointment> getAppointments() {
         return appointments;
+    }
+
+    public void setAppointments(Appointment appointment) {
+        appointments.add(appointment);
     }
     
 }

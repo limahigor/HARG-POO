@@ -3,8 +3,6 @@ package com.hargclinical.harg.entities;
 import java.io.Serializable;
 import java.util.Random;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +13,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="appointments")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
