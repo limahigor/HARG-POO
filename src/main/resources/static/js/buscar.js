@@ -91,14 +91,10 @@ $(document).on('click', '.link-medico', function(event) {
     console.log("TESTE MEDICO: " + userId)
 
     $.ajax({
-        url: '/medico/' + userId, // Endpoint para buscar as informações do usuário
+        url: '/medico/' + userId,
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-            // // Monta a página dinamicamente com base nas informações do usuário
-            // var template = $('#user-template').html(); // Obtém o modelo HTML
-            // var rendered = Mustache.render(template, data); // Renderiza o modelo com as informações do usuário
-            // $('body').html(rendered); // Substitui o conteúdo do corpo da página com a página do usuário
             console.log(data)
         },
         error: function(xhr, status, error) {
@@ -118,10 +114,6 @@ $(document).on('click', '.link-paciente', function(event) {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
-            // // Monta a página dinamicamente com base nas informações do usuário
-            // var template = $('#user-template').html(); // Obtém o modelo HTML
-            // var rendered = Mustache.render(template, data); // Renderiza o modelo com as informações do usuário
-            // $('body').html(rendered); // Substitui o conteúdo do corpo da página com a página do usuário
             console.log(data)
         },
         error: function(xhr, status, error) {
@@ -129,21 +121,6 @@ $(document).on('click', '.link-paciente', function(event) {
         }
     });
 });
-
-// $('.link-paciente').click(function(e){
-//     e.preventDefault();
-//     var idUsuario = $(this).attr("id");
-//     console.log("Paciente: " + idUsuario);
-    
-// });
-
-// $('.link-medico').click(function(e){
-//     e.preventDefault();
-//     var idUsuario = $(this).attr("id");
-//     console.log("Medico: " + idUsuario);
-    
-// });
-
 
 $(document).ready(function () {
     var bodyId = $('body').attr('id');
