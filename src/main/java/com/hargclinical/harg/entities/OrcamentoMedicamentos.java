@@ -26,17 +26,17 @@ public class OrcamentoMedicamentos extends Orcamento{
     
     @Override
     public void addOrcamento(){
-        for(int i = 0; i < prescricao.nomes.size() ; i++){
+        /*for(int i = 0; i < prescricao.nomes.size() ; i++){
             Scanner sc = new Scanner(System.in);
             int quantidade = sc.nextInt();
 
             this.valor = prescricao.valores.get(i) * quantidade;
 
             sc.close();
-        }
+        }*/
     }
 
-    public void removeOrcamento(String removerMedicamento){
+    /*public void removeOrcamento(String removerMedicamento){
         for(int i = 0; i < prescricao.nomes.size() ; i++){
             if(prescricao.nomes.contains(removerMedicamento)){
                 Scanner sc = new Scanner(System.in);
@@ -47,6 +47,6 @@ public class OrcamentoMedicamentos extends Orcamento{
                 sc.close();
             }
         }
-    }
+    }*/
 }
 

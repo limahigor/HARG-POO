@@ -18,7 +18,6 @@ public abstract class Orcamento implements Serializable {
     protected double valor;
 
     public Orcamento(){
-
     }
 
     public Orcamento(Paciente paciente){
