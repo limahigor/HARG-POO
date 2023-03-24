@@ -20,7 +20,7 @@ public class ServicesResource {
     private ServicesService service;
 
     @GetMapping
-    public ResponseEntity<List<Services>> listarServicos() {
+    public ResponseEntity<List<Services>> getServicos() {
         List<Services> services = service.findAll();
         return ResponseEntity.ok(services);
     }
