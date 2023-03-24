@@ -1,8 +1,8 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -31,11 +32,14 @@ public class Services implements Serializable{
     @Column(name = "nome")  
     public String nome;
     public String especialidade;
-    public List<String> profissionais = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "medico_servicos")
+    public Set<Medico> profissionais = new HashSet<>();
+
     public double valor;
 
     @ManyToOne
-    @JoinColumn(name = "servicos")
+    @JoinColumn(name = "orcamento_id")
     protected OrcamentoServicos orcamento;
 
     public Services() {
@@ -48,7 +52,80 @@ public class Services implements Serializable{
         this.valor = valor;
     }
 
-    public void addProfissional(Pessoa profissional) {
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    public Set<Medico> getProfissionais() {
+        return profissionais;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public OrcamentoServicos getOrcamento() {
+        return orcamento;
+    }
+
+    public void setOrcamento(OrcamentoServicos orcamento) {
+        this.orcamento = orcamento;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Services other = (Services) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
+    /*public void addProfissional(Pessoa profissional) {
         profissionais.add(profissional.nome);
     }
 
@@ -92,6 +169,6 @@ public class Services implements Serializable{
             }
         }
         return null;
-    }
+    }*/
     
 }

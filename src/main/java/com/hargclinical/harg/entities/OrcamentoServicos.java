@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Table(name="orcamento_servicos")
 public class OrcamentoServicos extends Orcamento {
 
-    @OneToMany(mappedBy = "id.orcamento_servicos")
+    @OneToMany(mappedBy = "orcamento")
     protected Set<Services> procedimentos = new HashSet<>();
 
     public OrcamentoServicos() {

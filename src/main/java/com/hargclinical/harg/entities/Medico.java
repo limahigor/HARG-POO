@@ -19,8 +19,12 @@ public class Medico extends Pessoa{
 
     @JsonIgnore
     @ManyToMany
-	@JoinTable(name = "tb_medico_servico", joinColumns = @JoinColumn(name = "medico_id"), inverseJoinColumns = @JoinColumn(name = "service_id"))
-	private Set<Services> servicos = new HashSet<>();
+	@JoinTable(
+        name = "medico_servico",
+        joinColumns = @JoinColumn(name = "medico_id"),
+        inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+	private Set<Services> medico_servicos = new HashSet<>();
 
     public Medico(){
         super();
@@ -41,7 +45,7 @@ public class Medico extends Pessoa{
     }
 
     public Set<Services> getServicos() {
-        return servicos;
+        return medico_servicos;
     }
 
     public void setCrm(String crm) {
