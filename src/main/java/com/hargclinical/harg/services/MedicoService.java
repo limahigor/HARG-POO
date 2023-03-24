@@ -23,4 +23,12 @@ public class MedicoService {
 		Optional<Medico> obj = repository.findById(id);
 		return obj.get();
 	}
+
+    public List<Medico> findByNameContaining(String nome){
+        return repository.findByNomeContaining(nome);
+    }
+
+    public List<Medico> findByCrmContaining(String nome) {
+        return repository.findByCrmContaining(nome);
+    }
 }

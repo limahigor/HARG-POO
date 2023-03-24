@@ -1,105 +1,92 @@
-// package com.hargclinical.harg.config;
+package com.hargclinical.harg.config;
 
-// import com.hargclinical.harg.repositories.MedicamentoPrescritoRepository;
-// import com.hargclinical.harg.repositories.MedicoRepository;
-// import com.hargclinical.harg.repositories.PrescricaoRepository;
-// import com.hargclinical.harg.repositories.ServicesRepository;
-// import com.hargclinical.harg.entities.MedicamentoPrescrito;
-// import com.hargclinical.harg.entities.Medico;
-// import com.hargclinical.harg.entities.Prescricao;
-// import com.hargclinical.harg.entities.ServConsulta;
-// import com.hargclinical.harg.entities.ServExame;
-// import com.hargclinical.harg.entities.ServProcedimento;
-// import com.hargclinical.harg.entities.Services;
+import com.hargclinical.harg.repositories.MedicamentoPrescritoRepository;
+import com.hargclinical.harg.repositories.MedicoRepository;
+import com.hargclinical.harg.repositories.PacienteRepository;
+import com.hargclinical.harg.repositories.PrescricaoRepository;
+import com.hargclinical.harg.repositories.ServicesRepository;
+import com.hargclinical.harg.services.MedicoService;
+import com.hargclinical.harg.services.PacienteService;
+import com.hargclinical.harg.services.ServicesService;
+import com.hargclinical.harg.entities.MedicamentoPrescrito;
+import com.hargclinical.harg.entities.Medico;
+import com.hargclinical.harg.entities.Paciente;
+import com.hargclinical.harg.entities.Prescricao;
+import com.hargclinical.harg.entities.ServConsulta;
+import com.hargclinical.harg.entities.ServExame;
+import com.hargclinical.harg.entities.ServProcedimento;
+import com.hargclinical.harg.entities.Services;
+import com.hargclinical.harg.entities_enums.Plano;
 
-// import java.util.ArrayList;
-// import java.util.Arrays;
-// import java.util.List;
-// import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Arrays;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.CommandLineRunner;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.context.annotation.Profile;
-// import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.repository.ListCrudRepository;
 
-// @Configuration
-// public class TestConfig implements CommandLineRunner{
+@Configuration
+public class TestConfig implements CommandLineRunner{
 
-//     private static final String Services = null;
+    private static final String Services = null;
 
-//     @Autowired
-//     private ServicesRepository serviceRepository;
+    @Autowired
+    private ServicesRepository serviceRepository;
 
-//     @Autowired
-//     private MedicoRepository medicoRepository;
+    @Autowired
+    private MedicoRepository medicoRepository;
 
-//     @Autowired
-//     private PrescricaoRepository prescricaoRepository;
+    @Autowired
+    private PacienteRepository pacienteRepository;
 
-//     @Autowired
-//     private MedicamentoPrescritoRepository medicamentoPrescritoRepository;
+    @Autowired
+    private PrescricaoRepository prescricaoRepository;
 
-//     @Override
-//     public void run(String... args) throws Exception {
+    @Autowired
+    private MedicamentoPrescritoRepository medicamentoPrescritoRepository;
 
-//         try{
-//             Services serv1 = new ServConsulta("Cardiologista", "Cardiologia", 200, 30);
-//             Services serv2 = new ServProcedimento("Botox", "Dermatologista", 200);
-//             Services serv3 = new ServExame("Hemograma Completo", "Endocrinologia", 200);
-//             Services serv4 = new ServProcedimento("Ecocardiograma", "Cardiologia", 200);
-//             serviceRepository.saveAll(Arrays.asList(serv1, serv2, serv3, serv4));
+    @Autowired
+    private ServicesService serviceService;
 
-//             Medico medico1 = new Medico("Manoel Gomes", "16543122515616", 36, 'M', "Dermatologista", "12312412");
-//             Medico medico2 = new Medico("Higor Gomes", "1654156415616", 36, 'M', "Dermatologista", "12312412");
-//             Medico medico3 = new Medico("Guilherme Gomes", "1654116515616", 36, 'M', "Cardiologia", "12312412");
-//             Medico medico4 = new Medico("Anderson Silva", "165411515616", 36, 'M', "Endocrinologia", "12312412");
-//             medicoRepository.saveAll(Arrays.asList(medico1, medico2, medico3,medico4));
+    @Autowired
+    private PacienteService pacienteService;
+
+    @Autowired
+    private MedicoService medicoService;
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        try{
+            // Paciente paciente1 = new Paciente("11122233344", "João Silva", 30, 'M', Plano.NENHUM);
+            // Paciente paciente2 = new Paciente("22233344455", "Maria Souza", 45, 'F', Plano.SUS);
+            // Paciente paciente3 = new Paciente("33344455566", "Pedro Santos", 22, 'M', Plano.PARTICULAR);
+            // Paciente paciente4 = new Paciente("44455566677", "Ana Paula Oliveira", 28, 'F', Plano.SUS);
+            // Paciente paciente5 = new Paciente("55566677788", "Roberto Alves", 50, 'M', Plano.NENHUM);
+            // Paciente paciente6 = new Paciente("66677788899", "Fernanda Costa", 35, 'F', Plano.PARTICULAR);
+            // Paciente paciente7 = new Paciente("77788899900", "Lucas Oliveira", 19, 'M', Plano.SUS);
+            // Paciente paciente8 = new Paciente("88899900011", "Juliana Fernandes", 42, 'F', Plano.NENHUM);
+            // Paciente paciente9 = new Paciente("99900011122", "Gustavo Rodrigues", 27, 'M', Plano.SUS);
+            // Paciente paciente10 = new Paciente("00011122233", "Isabela Silva", 33, 'F', Plano.PARTICULAR);
+
+            // Paciente paciente11 = new Paciente("16543122515616", "Manoel Gomes", 36, 'M', Plano.PROFISSIONAL);
+            // Paciente paciente12 = new Paciente("1654156415616", "Higor Gomes", 36, 'M', Plano.PROFISSIONAL);
+            // Paciente paciente13 = new Paciente("1654116515616", "Guilherme Gomes", 36, 'M', Plano.PROFISSIONAL);
+            // Paciente paciente14 = new Paciente("165411515616", "Anderson Silva", 36, 'M', Plano.PROFISSIONAL);
+            // Paciente paciente15 = new Paciente("16543515616", "Ana de Kassia Lemos", 36, 'F', Plano.PROFISSIONAL);
+
+            // pacienteRepository.saveAll(Arrays.asList(paciente1, paciente2, paciente3, paciente4, paciente5, paciente6, paciente7, paciente8,
+            //                                          paciente9, paciente10, paciente11, paciente12, paciente13, paciente14, paciente15));
             
-//             medico1.getServicos().add(serv2);
-//             medico2.getServicos().add(serv2);
-//             medico3.getServicos().add(serv1);
-//             medico3.getServicos().add(serv4);
-//             medico4.getServicos().add(serv3);
-//             medicoRepository.saveAll(Arrays.asList(medico1, medico2, medico3,medico4));
-            
-//             Prescricao presc1 = new Prescricao();
-//             Prescricao presc2 = new Prescricao();
-//             prescricaoRepository.saveAll(Arrays.asList(presc1, presc2));
+        }catch(Exception e){
+            System.out.println("TESTE ERROR");
+            System.out.println(e.getMessage());
+        }
 
-//             MedicamentoPrescrito medicamento1 = new MedicamentoPrescrito("Ibuprofeno", 6, 10.0);
-//             MedicamentoPrescrito medicamento2 = new MedicamentoPrescrito("Nimesulida", 6, 12.0);
-//             MedicamentoPrescrito medicamento3 = new MedicamentoPrescrito("Dipirona", 8, 18.0);
-//             MedicamentoPrescrito medicamento4 = new MedicamentoPrescrito("Paracetamol", 6, 5.0);
-//             MedicamentoPrescrito medicamento5 = new MedicamentoPrescrito("Ibuprofeno", 6, 10.0);
-//             MedicamentoPrescrito medicamento6 = new MedicamentoPrescrito("Desloratadina", 12, 23.0);
-
-//             medicamento1.setPrescricao(presc1);
-//             medicamento2.setPrescricao(presc1);
-//             medicamento3.setPrescricao(presc1);
-
-//             medicamento4.setPrescricao(presc2);
-//             medicamento5.setPrescricao(presc2);
-//             medicamento6.setPrescricao(presc2);
-
-//             medicamentoPrescritoRepository.saveAll(Arrays.asList(medicamento1, medicamento2, medicamento3, medicamento4, medicamento5, medicamento6));
-
-//             presc1.getMedicamentos().add(medicamento1);
-//             presc1.getMedicamentos().add(medicamento2);
-//             presc1.getMedicamentos().add(medicamento3);
-
-//             presc2.getMedicamentos().add(medicamento4);
-//             presc2.getMedicamentos().add(medicamento5);
-//             presc2.getMedicamentos().add(medicamento6);
-
-//             prescricaoRepository.saveAll(Arrays.asList(presc1, presc2));
-
-            
-//         }catch(Exception e){
-//             System.out.println("TESTE ERROR");
-//             System.out.println(e.getMessage());
-//         }
-
-//     }
+    }
     
-// }
+}

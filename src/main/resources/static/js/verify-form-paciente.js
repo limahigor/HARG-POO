@@ -10,7 +10,7 @@ function verifyInputs(inputs, radios, dateInput){
 }
 
 
-(function() {
+(function(){
     let d = document, 
         [inputs, knapp, radios, dateInput] = [
             d.querySelectorAll('[type="text"]'),

@@ -23,7 +23,6 @@ import jakarta.persistence.JoinColumn;
 @JsonSerialize(using = MedicoSerializer.class)
 public class Medico extends Pessoa{
     String crm;
-    
     String especializacao;
 
     @ManyToMany

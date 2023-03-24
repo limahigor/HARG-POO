@@ -3,14 +3,14 @@
     <head>
         <title>HARG Medical</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../css/buscar-medico.css">
+        <link rel="stylesheet" href="../css/buscar.css">
         <link rel="stylesheet" href="../css/styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
         <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     </head>
-    <body>
+    <body id="buscar-medico">
 
         <div id="all">
             <!-------------- CONTEÚDO PRINCIPAL ---------------->
@@ -24,40 +24,10 @@
                 <div id="mid">
                     <div class="forms">
                         <div id="barra-busca">
-                            <input class="campo-nome" type="text" id="nome" name="nome">
+                            <input class="campo-nome" type="text" id="inputBusca" name="nome">
                         </div>
                         <div id="resultado-busca" class="resultado-busca">
                             <ul id="resultado">
-                                <li><div class="resul">
-                                        <h1 class="nome">Nome</h1>
-                                        <p class="divisor">-</p>
-                                        <h1 class="especialidade">Especialidade</h1>
-                                    <div>
-                                </li>
-                                <li><div class="resul">
-                                        <h1 class="nome">Nome</h1>
-                                        <p class="divisor">-</p>
-                                        <h1 class="especialidade">Especialidade</h1>
-                                    <div>
-                                </li>
-                                <li><div class="resul">
-                                        <h1 class="nome">Nome</h1>
-                                        <p class="divisor">-</p>
-                                        <h1 class="especialidade">Especialidade</h1>
-                                    <div>
-                                </li>
-                                <li><div class="resul">
-                                        <h1 class="nome">Nome</h1>
-                                        <p class="divisor">-</p>
-                                        <h1 class="especialidade">Especialidade</h1>
-                                    <div>
-                                </li>
-                                <li><div class="resul">
-                                        <h1 class="nome">Nome</h1>
-                                        <p class="divisor">-</p>
-                                        <h1 class="especialidade">Especialidade</h1>
-                                    <div>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -72,5 +42,7 @@
                 <!----------- FIM CONTEÚDO PRINCIPAL ------------->
             </div>
         </div>
+
+        <script src="../../js/buscar.js"></script>
     </body>
 </html>

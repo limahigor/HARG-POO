@@ -23,7 +23,6 @@ public class Appointment implements Serializable {
     
     private int dia, mes, ano, hora, minuto;
 
-    
     @ManyToOne
     @JoinColumn(name = "medico_id")
     private Medico medico;
