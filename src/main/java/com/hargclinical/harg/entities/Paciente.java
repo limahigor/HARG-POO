@@ -25,5 +25,9 @@ public class Paciente extends Pessoa{
         super(nome, cpf, idade, sexo); 
         this.plano_saude = plano_saude;
     }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
     
 }
