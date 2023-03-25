@@ -1,6 +1,8 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Random;
 
 import jakarta.persistence.Entity;
@@ -21,7 +23,8 @@ public class Appointment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private int dia, mes, ano, hora, minuto;
+    private LocalDate data;
+    private LocalTime horario;
 
     @ManyToOne
     @JoinColumn(name = "medico_id")
@@ -41,19 +44,16 @@ public class Appointment implements Serializable {
     public Appointment (){
 
     }
-    public Appointment (Medico medico, Paciente paciente, Services service,
-                       int dia, int mes, int ano, int hora, int minuto){
+    public Appointment (Medico medico, Paciente paciente, Services service, 
+                        LocalDate data, LocalTime horario){
         Random random = new Random();
 
         this.id = (long) random.nextInt(999999999);
         this.medico = medico;
         this.paciente = paciente;
         this.service = service;
-        this.dia = dia;
-        this.mes = mes;
-        this.ano = ano;
-        this.hora = hora;
-        this.minuto = minuto;
+        this.data = data;
+        this.horario = horario;
     }
 
     public String toString (Paciente paciente){
@@ -77,46 +77,22 @@ public class Appointment implements Serializable {
         this.id = id;
     }
     
-    public int getDia() {
-        return dia;
+    public LocalDate getData() {
+        return data;
     }
-    
-    public void setDia(int dia) {
-        this.dia = dia;
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
-    
-    public int getMes() {
-        return mes;
+
+    public LocalTime getHorario() {
+        return horario;
     }
-    
-    public void setMes(int mes) {
-        this.mes = mes;
+
+    public void setHorario(LocalTime horario) {
+        this.horario = horario;
     }
-    
-    public int getAno() {
-        return ano;
-    }
-    
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-    
-    public int getHora() {
-        return hora;
-    }
-    
-    public void setHora(int hora) {
-        this.hora = hora;
-    }
-    
-    public int getMinuto() {
-        return minuto;
-    }
-    
-    public void setMinuto(int minuto) {
-        this.minuto = minuto;
-    }
-    
+
     public Medico getMedico() {
         return medico;
     }
@@ -141,6 +117,4 @@ public class Appointment implements Serializable {
         this.service = service;
     }
     
-
 }
-
