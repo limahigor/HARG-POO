@@ -31,4 +31,10 @@ public class PacienteService {
     public List<Paciente> findByNomeContaining(String name) {
         return repository.findByNomeContaining(name);
     }
+    public Paciente insert(Paciente obj){
+        System.out.println(obj.nome);
+        return repository.save(obj);
+
+    }
+    
 }
