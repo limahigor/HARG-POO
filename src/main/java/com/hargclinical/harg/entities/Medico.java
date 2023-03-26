@@ -1,5 +1,6 @@
 package com.hargclinical.harg.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -40,8 +41,8 @@ public class Medico extends Pessoa{
         super();
     }
 
-    public Medico(String nome, String cpf, int idade, char sexo, String especializacao, String crm){
-        super(nome, cpf, idade, sexo); 
+    public Medico(String nome, String cpf, LocalDate date, char sexo, String especializacao, String crm){
+        super(nome, cpf, date, sexo); 
         this.especializacao = especializacao;
         this.crm = crm;
     }

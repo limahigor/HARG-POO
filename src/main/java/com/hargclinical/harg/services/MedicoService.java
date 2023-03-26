@@ -31,4 +31,9 @@ public class MedicoService {
     public List<Medico> findByCrmContaining(String nome) {
         return repository.findByCrmContaining(nome);
     }
+
+	public Medico insert(Medico obj){
+        return repository.save(obj);
+
+    }
 }
