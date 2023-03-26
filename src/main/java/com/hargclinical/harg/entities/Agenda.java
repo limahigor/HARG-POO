@@ -2,6 +2,7 @@ package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -18,7 +19,7 @@ public class Agenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "consultas")
+    @OneToMany(mappedBy = "consultas", cascade = CascadeType.ALL)
     private Dias[] dias = new Dias[31];
 
     public Agenda() {
