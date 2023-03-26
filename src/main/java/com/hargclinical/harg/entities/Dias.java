@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,17 +25,20 @@ public class Dias implements Serializable {
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "dias_id")
+    @JoinColumn(name = "agenda_id")
+    private Agenda agenda;
+
+    @OneToMany(mappedBy = "dia_consulta")
     private List<Appointment> consultas = new ArrayList<>();
 
     public Dias() {
 
     }
 
-    public Dias(Medico medico, Paciente paciente, LocalTime horario, Services service, LocalDate data) {
+    /*public Dias(Medico medico, Paciente paciente, LocalTime horario, Services service, LocalDate data) {
         Appointment consulta = new Appointment(medico, paciente, service, data, horario);
         consultas.add(consulta);
-    }
+    }*/
 
     public List<Appointment> getConsultas() {
         return consultas;

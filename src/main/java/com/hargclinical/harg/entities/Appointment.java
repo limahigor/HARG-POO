@@ -34,6 +34,10 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    @ManyToOne
+    @JoinColumn(name = "dia_consulta_id")
+    private Dias dia_consulta;
+
     private Services service;
 
     /*public String cpfPaciente;

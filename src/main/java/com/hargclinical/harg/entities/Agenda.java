@@ -19,7 +19,7 @@ public class Agenda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "consultas", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL)
     private Dias[] dias = new Dias[31];
 
     public Agenda() {
