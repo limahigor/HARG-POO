@@ -1,5 +1,6 @@
 package com.hargclinical.harg.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hargclinical.harg.entities.ServProcedimento;
 import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.services.ServicesService;
 
@@ -18,6 +20,21 @@ public class ServicesResource {
 
     @Autowired
     private ServicesService service;
+
+    @GetMapping("/procedimentos")
+    public ResponseEntity<List<ServProcedimento>> getServicosProcedimentos() {
+        List<Services> services = service.findAll();
+        List <ServProcedimento> servProcedimentos = new ArrayList<>();
+
+        for(Services serv : services){
+            if(serv instanceof ServProcedimento){
+                ServProcedimento aux = (ServProcedimento)serv;
+                servProcedimentos.add(aux);
+            }
+        }
+
+        return ResponseEntity.ok(servProcedimentos);
+    }
 
     @GetMapping
     public ResponseEntity<List<Services>> getServicos() {

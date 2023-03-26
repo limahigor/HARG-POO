@@ -24,7 +24,6 @@ import jakarta.persistence.Table;
 @Table(name = "services")  
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonSerialize(using = ServicesSerializer.class)
-
 public class Services implements Serializable{
     private static final long serialVersionUID = 1L;
 

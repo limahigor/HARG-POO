@@ -5,25 +5,26 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.hargclinical.harg.entities.Medico;
-import com.hargclinical.harg.entities.Services;
+import com.hargclinical.harg.entities.ServConsulta;
 
-public class ServicesSerializer extends StdSerializer<Services> {
+public class ServConsultaSerializer extends StdSerializer<ServConsulta> {
 
-    public ServicesSerializer() {
+    public ServConsultaSerializer() {
         this(null);
     }
 
-    public ServicesSerializer(Class<Services> t) {
+    public ServConsultaSerializer(Class<ServConsulta> t) {
         super(t);
     }
 
     @Override
-    public void serialize(Services servico, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(ServConsulta servico, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("id", servico.getId().toString());
         jsonGenerator.writeStringField("nome", servico.getNome());
         jsonGenerator.writeStringField("especialidade", servico.getEspecialidade());
         jsonGenerator.writeNumberField("valor", servico.getValor());
+        jsonGenerator.writeNumberField("time", servico.getTime());
 
         jsonGenerator.writeArrayFieldStart("profissionais");
         for (Medico medico : servico.getProfissionais()) {

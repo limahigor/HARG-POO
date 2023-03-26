@@ -1,5 +1,8 @@
 package com.hargclinical.harg.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hargclinical.harg.serializables.ServConsultaSerializer;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -7,6 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "serv_consultas")
 @PrimaryKeyJoinColumn(name = "id")
+@JsonSerialize(using = ServConsultaSerializer.class)
 public class ServConsulta extends Services {
     private int time;
 
