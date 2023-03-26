@@ -22,38 +22,53 @@
                 <div id="mid">
                     <div class="forms">
                         <form id="medico">
-                            <div class="text-box">
-                                <label for="nome">nome completo</label>
-                                <input class="campo-nome" type="text" id="nome" name="nome">
+                            <div class="content-forms">
+                                <div class="text-box">
+                                    <div class="div-dados">
+                                        <label for="nome">nome completo</label>
+                                        <input class="campo-nome" type="text" id="nome" name="nome">
 
-                                <label for="cpf">CPF</label>
-                                <input class="campo-cpf" type="text" id="cpf" name="cpf">
+                                        <label for="cpf">CPF</label>
+                                        <input class="campo-cpf" type="text" id="cpf" name="cpf">
+                                    </div>
+                                    <div class="div-medico">
+                                        <label for="crm">CRM</label>
+                                        <input class="campo-crm" type="text" id="crm" name="crm">
 
-                                <div class="div-medico">
-                                    <label for="crm">CRM</label>
-                                    <input class="campo-crm" type="text" id="crm" name="crm">
+                                        <label for="especializacao">especialização</label>
+                                        <input class="campo-esp" type="text" id="especializacao" name="especializacao">
+                                    </div>
+                                </div>
 
-                                    <label for="especializacao">especialização</label>
-                                    <input class="campo-esp" type="text" id="especializacao" name="especializacao">
+                                <div class="data-genero">
+                                    <label for="date">data de nascimento</label>
+                                    <input class="campo-data" type="date" id="date" name="date">
+
+                                    <label for="sexo">gênero</label>
+                                    <input class="campo-genero" type="radio" name="sexo" value="M">Masculino
+                                    <input class="campo-genero" type="radio" name="sexo" value="F">Feminino
+                                </div>
+                                
+                                <div class="comorbidade">
+                                    <label for="comorbidade">Comorbidades:</label>
+                                    <div class="campo-comorbidade">
+                                        <input id="1" type="checkbox" name="comorbidade">Tabagismo
+                                        <input id="2" type="checkbox" name="comorbidade">Obesidade
+                                        <input id="3" type="checkbox" name="comorbidade">Hipertensao
+                                        <input id="4" type="checkbox" name="comorbidade">Gestante
+                                        <input id="5" type="checkbox" name="comorbidade">Diabetes
+                                    </div>
+                                </div>
+
+                                <div class="servicos">
+                                    <label for="servicos">Serviços:</label>
+                                    <div class="campo-servicos">
+                                        <ul id="checkbox-list" class="checkbox-list">
+                                            
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-
-                            <label for="date">data de nascimento</label>
-                            <input class="campo-data" type="date" id="date" name="date">
-
-                            <label for="sexo">gênero</label>
-                            <input class="campo-genero" type="radio" name="sexo" value="M">Masculino
-                            <input class="campo-genero" type="radio" name="sexo" value="F">Feminino
-                            
-                            <label for="comorbidade">Comorbidades:</label>
-                            <div class="campo-comorbidade">
-                                <input type="checkbox" name="comorbidade">Tabagismo
-                                <input type="checkbox" name="comorbidade">Obesidade
-                                <input type="checkbox" name="comorbidade">Hipertensao
-                                <input type="checkbox" name="comorbidade">Gestante
-                                <input type="checkbox" name="comorbidade">Diabetes
-                            </div>
-
                             <div class="button">
                                 <input id="submit-button" type="submit" value="Cadastrar">
                                 <p id="result-cadastro">Resultado</p>

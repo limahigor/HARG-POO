@@ -1,77 +1,9 @@
-
-
 label{
     font-size: 16px;
     display: block;
     cursor: pointer;
 }
 
-.forms{
-    display: block;
-    padding: 3em;
-    border-radius: 5px;
-    background-color: rgba(212, 212, 212, 0.726);
-}
-
-.button{
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-}
-
-.button > #submit-button{
-    width: 10em;
-    height: 3em;
-    position: inherit;
-    top: 2em;
-}
-
-.button > #result-cadastro{
-    display: none;
-    position: absolute;
-    top: 60px;
-    z-index: 1;
-    font-weight: bold;
-    font-size: 12px;
-    letter-spacing: 1px;
-}
-
-.text-box > label{
-    padding-bottom: 0.5em;
-}
-
-.campo-comorbidade{
-    display: block;
-    margin-top: 1em;
-}
-
-.div-medico{
-    display: flex;
-}
-
-.div-medico > label{
-    height: 16px;
-    font-size: 16px;
-    display: block;
-    cursor: pointer;
-}
-
-.div-medico > input[type="text"]{
-    position: relative;
-    width: 15em;
-    margin-bottom: 38px;
-}
-
-.div-medico > #especializacao{
-    top: 20px;
-    left: -138px;
-}
-
-.div-medico > #crm{
-    top: 20px;
-    left: -32px;
-}
 
 input{
     margin-bottom: 2em;
@@ -103,4 +35,103 @@ input[type="date"]{
     margin-top: 0.5em;
     border: 1px solid black;
     border-radius: 5px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.forms{
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 60vh;
+    width: 34vw;
+
+    border-radius: 5px;
+    background-color: rgba(212, 212, 212, 0.726);
+}
+
+.content-forms{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0;
+    padding-top: 3vh;
+    padding-left: 2vw;
+    overflow: auto;
+
+    height: 47vh;
+    width: 32vw;
+    
+    /* border: 1px solid red; */
+}
+
+.button{
+    margin: 0;
+    padding: 0;
+
+    height: 10vh;
+    width: 34vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button > #submit-button{
+    position: relative;
+    top: 6px;
+
+    height: 4.5vh;
+    width: 8vw;
+}
+
+.button > #result-cadastro{
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: relative;
+    bottom: 10px;
+
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.text-box{
+    width: 31.9vw;
+}
+
+.data-genero{
+    width: 31.9vw;
+}
+
+.comorbidade{
+    width: 31.9vw;
+}
+
+.servicos{
+    margin-top: 1vh;
+    width: 31.9vw;
+}
+
+.servicos > label, .comorbidade > label{
+    margin-bottom: 1vh;
+}
+
+.checkbox{
+    padding: 0;
+    margin-bottom: 0.5vw;
+    margin-right: 0.8vw;
+    float: left;
+    width: 12vw;
 }

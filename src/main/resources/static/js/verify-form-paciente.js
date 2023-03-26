@@ -51,3 +51,22 @@ function verifyInputs(inputs, radios, dateInput){
     });
 
 })();
+
+$(document).ready(function() {
+    console.log("TESTE");
+    $.ajax({
+        url: "/services",
+        method: "GET",
+        dataType: "json",
+        success: function(data){
+            $.each(data, function(index, service){
+                $('#checkbox-list').append('<li class="checkbox"><input type="checkbox" id="' + service.id + '"' +
+                                            'name="servico">' + service.nome + '</li>'
+                                          );
+            });
+        },
+        error: function(xhr, status, error){
+            console.error("Erro ao fazer requisição:", status, error);
+        }
+    })
+});

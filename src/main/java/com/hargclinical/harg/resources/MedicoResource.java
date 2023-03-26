@@ -1,6 +1,9 @@
 package com.hargclinical.harg.resources;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.entities.Paciente;
+import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.services.MedicoService;
+import com.hargclinical.harg.services.ServicesService;
 import com.hargclinical.harg.utils.StringUtils;
 
 @RestController
@@ -25,6 +32,9 @@ public class MedicoResource{
 
     @Autowired
     private MedicoService service;
+
+    @Autowired
+    private ServicesService serviceService;
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Medico>> searchMedicoByName(@RequestParam("name") String name) {
@@ -65,10 +75,58 @@ public class MedicoResource{
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Medico> cadastrarMedico(@RequestBody Medico jsonData) {
-        System.out.println(jsonData.nome);
-        jsonData = service.insert(jsonData);
-        return ResponseEntity.ok().body(jsonData);
+    public ResponseEntity<Medico> cadastrarMedico(@RequestBody String jsonData) {
+        ObjectMapper mapper = new ObjectMapper();
+        Medico newMedico = null;
+
+        try{
+            System.out.println("CADASTRANDO MEDICO\n====================================");
+            JsonNode node = mapper.readTree(jsonData);
+
+            JsonNode servicosNode = node.get("servicos");
+            List<Services> servicosJson = new ArrayList<>();
+
+            for(JsonNode jNode : servicosNode){
+                System.out.println("Pegando Servicos\n==================================");
+                Services servico = serviceService.findById(jNode.asLong());
+                if(servico != null){
+                    System.out.println("Servico: " + servico.nome);
+                    servicosJson.add(servico);
+                }
+            }
+
+            System.out.println("Criando a instancia do medico\n==================================");
+            newMedico = new Medico(node.get("nome").asText(),
+                                       node.get("cpf").asText(),
+                                       LocalDate.parse(node.get("date").asText()),
+                                       node.get("sexo").asText().charAt(0),
+                                       node.get("especializacao").asText(),
+                                       node.get("crm").asText());
+
+            System.out.println("Inserindo medico no banco\n==================================");
+            service.insert(newMedico);
+            
+            System.out.println("Pegando set de servicos\n==================================");
+            Set<Services> medicoServicos = newMedico.getServicos();
+
+            System.out.println("Adicionando os servicos\n==================================");
+            medicoServicos.addAll(servicosJson);
+
+            System.out.println("Atualizando medico no banco\n==================================");
+            service.insert(newMedico);
+            System.out.println("Finalizando...\n==================================");
+            
+        }catch(Exception e){
+            System.out.println("ERROR!!");
+            return ResponseEntity.badRequest().build();
+        }
+        
+
+        // System.out.println(jsonData.nome);
+        // jsonData = service.insert(jsonData);
+        
+        System.out.println("Finalizado...\n==================================");
+        return ResponseEntity.ok().body(newMedico);
     }
 
 }
