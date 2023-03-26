@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>HARG Medical</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <link rel="stylesheet" th:href="@{/css/index-styles.css}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="all">
+            <div id="main-card">
+                <div id="top">
+                    <a href="/"><img th:src="@{/img/logo1.png}" id="img-top"></a>
+                </div>
+
+                <div id="mid">
+
+                    <div class="card">
+
+                        <div class="front-card">
+                            <h2>Cadastrar</h2>
+                        </div>
+                        <div class="back-card">
+                            <ul>
+                                <li><a id="b1" href="/cadastrar-paciente" class="fill-div fill-div-two"><h2>Paciente</h2></a></li>
+                                <li><a id="b2" href="/cadastrar-medico" class="fill-div fill-div-two"><h2>Médico</h2></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+
+                        <div class="front-card">
+                            <h2>Marcar</h2>
+                        </div>
+
+                        <div class="back-card">
+                            <ul>
+                                <li><a href="/marcar-consulta" class="fill-div fill-div-three"><h2>Consulta</h2></a></li>
+                                <li><a href="/marcar-exame" class="fill-div fill-div-three"><h2>Exames</h2></a></li>
+                                <li><a href="/marcar-procedimento" class="fill-div fill-div-three"><h2>Procedimentos</h2></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="front-card">
+                            <h2>Buscar<h2>
+                        </div>
+
+                        <div class="back-card">
+                            <ul>
+                                <li><a href="/buscar-paciente" class="fill-div fill-div-two"><h2>Paciente</h2></a></li>
+                                <li><a href="/buscar-medico" class="fill-div fill-div-two"><h2>Médico</h2></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="front-card">
+                            <h2>Outros<h2>
+                        </div>
+
+                        <div class="back-card">
+                            <ul>
+                                <li><a href="/mostrar-agenda" class="fill-div fill-div-two"><h2>Agenda</h2></a></li>
+                                <li><a href="/mostrar-caixa" class="fill-div fill-div-two"><h2>Caixa</h2></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="bottom">
+                    <img th:src="@{/img/logo2.png}" id="img-bottom">
+                    <p id="tel-bottom">Telefone: <strong>(82) 3252-9081</strong></p>
+                    <p id="copy-bottom">© 2023 HARG. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

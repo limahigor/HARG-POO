@@ -38,33 +38,33 @@ public class Prontuario implements Serializable {
 
 
     
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
+    // public String toString(){
+    //     StringBuilder sb = new StringBuilder();
 
-        List<Appointment> consultas = paciente.getAppointments();
-        //List<Prescricao> prescricoes = paciente.get
+    //     List<Appointment> consultas = paciente.getAppointments();
+    //     //List<Prescricao> prescricoes = paciente.get
         
-        sb.append("================ PRONTUARIO ================\n");
-        sb.append("Nome: " + paciente.getNome() + "\n");
-        sb.append("CPF: " + paciente.getCpf() + "\n");
-        sb.append("Idade: " + paciente.getIdade() + "\n");
-        //sb.append("Fator de Risco: " + ??? + "\n");
-        sb.append("Convenio: " + paciente.getPlano() + "\n");
+    //     sb.append("================ PRONTUARIO ================\n");
+    //     sb.append("Nome: " + paciente.getNome() + "\n");
+    //     sb.append("CPF: " + paciente.getCpf() + "\n");
+    //     sb.append("Idade: " + paciente.getIdade() + "\n");
+    //     //sb.append("Fator de Risco: " + ??? + "\n");
+    //     sb.append("Convenio: " + paciente.getPlano() + "\n");
         
-        for(Appointment consulta : consultas) {
-            sb.append(consultas.toString());
-            sb.append("----------------------------------\n");
-        }
+    //     for(Appointment consulta : consultas) {
+    //         sb.append(consultas.toString());
+    //         sb.append("----------------------------------\n");
+    //     }
 
-        /*for(Prescricao prescricao : prescricoes) {
-            sb.append(prescricao.toString());
-            sb.append("\n----------------------------------\n");
-        }*/
+    //     /*for(Prescricao prescricao : prescricoes) {
+    //         sb.append(prescricao.toString());
+    //         sb.append("\n----------------------------------\n");
+    //     }*/
 
-        System.out.println("============================================");
+    //     System.out.println("============================================");
 
-        return sb.toString();
-    }
+    //     return sb.toString();
+    // }
 
     public Paciente getPaciente() {
         return null;

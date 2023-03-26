@@ -56,18 +56,18 @@ public class Appointment implements Serializable {
         this.horario = horario;
     }
 
-    public String toString (Paciente paciente){
-        StringBuilder sb = new StringBuilder();
+    // public String toString (Paciente paciente){
+    //     StringBuilder sb = new StringBuilder();
 
-        sb.append("ID da consulta: " + id + "\n");
-        sb.append("Nome do paciente: " + paciente.nome + "\n");
-        sb.append("Nome do médico: " + medico.nome + "\n");
-        sb.append("Procedimento: " + service.nome + "\n");
-        sb.append("Data da consulta: " + dia + "/" + mes + "/" + ano + "\n");
-        sb.append("Horário: " + hora + ":" + minuto + "\n");
+    //     sb.append("ID da consulta: " + id + "\n");
+    //     sb.append("Nome do paciente: " + paciente.nome + "\n");
+    //     sb.append("Nome do médico: " + medico.nome + "\n");
+    //     sb.append("Procedimento: " + service.nome + "\n");
+    //     sb.append("Data da consulta: " + dia + "/" + mes + "/" + ano + "\n");
+    //     sb.append("Horário: " + hora + ":" + minuto + "\n");
 
-        return sb.toString();
-    }
+    //     return sb.toString();
+    // }
 
     public Long getId() {
         return id;

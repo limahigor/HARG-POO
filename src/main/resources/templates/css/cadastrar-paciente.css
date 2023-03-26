@@ -1,0 +1,78 @@
+label{
+    font-size: 16px;
+    /*border: 1px solid red;*/
+    display: block;
+    cursor: pointer;
+}
+
+.forms{
+    display: block;
+    padding: 3em;
+    border-radius: 5px;
+    background-color: rgba(212, 212, 212, 0.726);
+}
+
+.button{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.button > #submit-button{
+    width: 10em;
+    height: 3em;
+    position: inherit;
+}
+
+.button > #result-cadastro{
+    display: none;
+    position: absolute;
+    top: 40px;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.text-box > label{
+    padding-bottom: 0.5em;
+}
+
+.campo-comorbidade{
+    display: block;
+    margin: 1px solid red;
+    margin-top: 1em;
+}
+
+input{
+    margin-bottom: 2em;
+}
+
+input[type="text"]{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 30em;
+    height: 2em;
+}
+
+input[type="radio"]{
+    margin-top: 1em;
+}
+
+input[type="checkbox"]{
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+
+input[type="submit"]{
+    display: block;
+}
+
+input[type="date"]{
+    margin-top: 0.5em;
+    border: 1px solid black;
+    border-radius: 5px;
+}

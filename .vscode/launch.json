@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HargClinicalApplication",
+            "request": "launch",
+            "mainClass": "com.hargclinical.harg.HargClinicalApplication",
+            "projectName": "harg"
+        },
+        {
+            "type": "java",
             "name": "HargApplication",
             "request": "launch",
             "mainClass": "com.hargclinical.harg.HargApplication",
