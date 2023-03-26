@@ -24,6 +24,7 @@ public class ServicesSerializer extends StdSerializer<Services> {
         jsonGenerator.writeStringField("nome", servico.getNome());
         jsonGenerator.writeStringField("especialidade", servico.getEspecialidade());
         jsonGenerator.writeNumberField("valor", servico.getValor());
+        jsonGenerator.writeNumberField("time", servico.getValor());
 
         jsonGenerator.writeArrayFieldStart("profissionais");
         for (Medico medico : servico.getProfissionais()) {

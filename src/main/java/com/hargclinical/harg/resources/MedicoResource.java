@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.entities.Paciente;
@@ -51,10 +53,17 @@ public class MedicoResource{
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Medico> findById(@PathVariable Long id) {
-        Medico paciente = service.findById(id);
-        return ResponseEntity.ok().body(paciente);
+    public ModelAndView paginaPaciente(ModelMap model, @PathVariable Long id){
+        Medico medico = service.findById(id);
+
+        ModelAndView viewPage = new ModelAndView("/html/templates/pagina-medico.html");
+        viewPage.addObject("nome", medico.getNome());
+        viewPage.addObject("crm", medico.getCrm());
+        viewPage.addObject("especializacao", medico.getEspecializacao());
+
+        return viewPage;
     }
+
     @PostMapping("/cadastrar")
     public ResponseEntity<Medico> cadastrarMedico(@RequestBody Medico jsonData) {
         System.out.println(jsonData.nome);

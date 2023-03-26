@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
         <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     </head>
-    <body id="pagina-paciente">
+    <body id="pagina-medico">
 
         <div id="all">
             <!-------------- CONTEÚDO PRINCIPAL ---------------->
@@ -27,9 +27,8 @@
                         <div class="info-pacientes">
                             <div class="info">
                                 <h1>Nome: <span class="dados" th:text="${nome}"></span></h1>
-                                <h1>CPF: <span class="dados" th:text="${cpf}"></span></h1>
-                                <h1>Idade: <span class="dados" th:text="${idade}"></span></h1>
-                                <h1>Sexo: <span class="dados" th:text="${sexo}"></span></h1>
+                                <h1>CRM: <span class="dados" th:text="${crm}">134.217.384-83</span></h1>
+                                <h1>Espec.: <span class="dados" th:text="${especializacao}">Ginecologista</span></h1>
                             </div>
                             <div class="comorbidades">
                                 <h1 class="title">Comorbidades</h1>

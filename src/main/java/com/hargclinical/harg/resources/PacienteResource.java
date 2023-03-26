@@ -61,13 +61,13 @@ public class PacienteResource{
         Paciente paciente = service.findById(id);
 
         
-        ModelAndView teste = new ModelAndView("/html/templates/pagina-paciente.html");
-        teste.addObject("nome", paciente.nome);
-        teste.addObject("cpf", paciente.cpf);
-        teste.addObject("idade", paciente.idade);
-        teste.addObject("sexo", paciente.sexo);
+        ModelAndView viewPage = new ModelAndView("/html/templates/pagina-paciente.html");
+        viewPage.addObject("nome", paciente.getNome());
+        viewPage.addObject("cpf", paciente.getCpf());
+        viewPage.addObject("idade", paciente.getIdade());
+        viewPage.addObject("sexo", paciente.getSexo());
 
-        return teste;
+        return viewPage;
     }
 
     @PostMapping("/cadastrar")
