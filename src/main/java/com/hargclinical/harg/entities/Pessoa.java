@@ -1,6 +1,8 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -24,25 +26,25 @@ public class Pessoa implements Serializable{
     public String cpf;
 
     public char sexo;
-
-    public int idade;
+    public LocalDate data;
+    public long idade;
 
     public Pessoa(){ 
     }
 
-    public Pessoa(String nome, String cpf, int idade, char sexo) {
+    public Pessoa(String nome, String cpf, LocalDate data, char sexo) {
         this.cpf = cpf;
         this.nome = nome;
         this.sexo = sexo;
-        this.idade = idade;
+        this.idade = definirIdade(data);
     }
 
-    public int getIdade() {
+    public Long getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setIdade(LocalDate data) {
+        this.idade = definirIdade(data);
     }
 
     public char getSexo() {
@@ -67,6 +69,13 @@ public class Pessoa implements Serializable{
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    private long definirIdade(LocalDate data) {
+        LocalDate dateNow = LocalDate.now();
+        Long diffAnos = ChronoUnit.YEARS.between(data, dateNow);
+
+        return diffAnos;
     }
 
     @Override

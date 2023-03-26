@@ -1,27 +1,33 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "agenda")
-public class Agenda implements Serializable {
+@Table(name = "dias")
+public class Dias implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "consultas")
-    private Dias[] dias = new Dias[31];
+    @ManyToOne
+    @JoinColumn(name = "dias_id")
+    private List<Appointment> consultas = new ArrayList<>();
 
-    public Agenda() {
+
+
+    public Dias() {
 
     }
 
@@ -41,7 +47,7 @@ public class Agenda implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Agenda other = (Agenda) obj;
+        Dias other = (Dias) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -49,5 +55,5 @@ public class Agenda implements Serializable {
             return false;
         return true;
     }
-
+    
 }
