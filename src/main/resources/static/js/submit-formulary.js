@@ -40,20 +40,23 @@ $('#submit-button').click(function(event){
         data: JSON.stringify(requestData),
         contentType:'application/json',
         success: function(response){
+            console.log('Cadastro realizado!!');
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.text(response);
+            elementoParagrafo.text('Cadastro realizado!!');
             elementoParagrafo.css({
                                     'color': 'rgb(19, 163, 0)',
                                  })
             elementoParagrafo.show();
 
-            console.log(response);
+            setTimeout(function() {
+                window.location.href = '/' + id + '/' + response;
+            }, 2000);
         },
         error: function(error){
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.text(error);
+            elementoParagrafo.html('Erro ao cadastrar! Verifique os dados!');
             elementoParagrafo.css({
                                     'color': 'rgb(255, 0, 0)',
                                  })

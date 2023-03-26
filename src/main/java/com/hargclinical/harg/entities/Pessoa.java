@@ -26,7 +26,6 @@ public class Pessoa implements Serializable{
     public String cpf;
 
     public char sexo;
-    public LocalDate data;
     public long idade;
 
     public Pessoa(){ 

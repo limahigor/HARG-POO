@@ -22,7 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.entities.Paciente;
 import com.hargclinical.harg.entities.Services;
+import com.hargclinical.harg.entities_enums.Plano;
 import com.hargclinical.harg.services.MedicoService;
+import com.hargclinical.harg.services.PacienteService;
 import com.hargclinical.harg.services.ServicesService;
 import com.hargclinical.harg.utils.StringUtils;
 
@@ -35,6 +37,9 @@ public class MedicoResource{
 
     @Autowired
     private ServicesService serviceService;
+
+    @Autowired
+    private PacienteService servicoPaciente;
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Medico>> searchMedicoByName(@RequestParam("name") String name) {
@@ -75,11 +80,12 @@ public class MedicoResource{
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Medico> cadastrarMedico(@RequestBody String jsonData) {
+    public ResponseEntity<String> cadastrarMedico(@RequestBody String jsonData){
         ObjectMapper mapper = new ObjectMapper();
         Medico newMedico = null;
 
         try{
+
             System.out.println("CADASTRANDO MEDICO\n====================================");
             JsonNode node = mapper.readTree(jsonData);
 
@@ -96,12 +102,18 @@ public class MedicoResource{
             }
 
             System.out.println("Criando a instancia do medico\n==================================");
-            newMedico = new Medico(node.get("nome").asText(),
-                                       node.get("cpf").asText(),
-                                       LocalDate.parse(node.get("date").asText()),
-                                       node.get("sexo").asText().charAt(0),
-                                       node.get("especializacao").asText(),
-                                       node.get("crm").asText());
+
+            char sexo = node.get("sexo").asText().charAt(0);
+            String nome = node.get("nome").asText();
+            String cpf = node.get("cpf").asText();
+            String especializacao = node.get("especializacao").asText();
+            String crm = node.get("crm").asText();
+            LocalDate dataNascimento = LocalDate.parse(node.get("date").asText());
+
+            Paciente newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, Plano.PROFISSIONAL);
+            servicoPaciente.insert(newPaciente);
+
+            newMedico = new Medico(nome, cpf, dataNascimento, sexo, especializacao, crm);
 
             System.out.println("Inserindo medico no banco\n==================================");
             service.insert(newMedico);
@@ -126,7 +138,7 @@ public class MedicoResource{
         // jsonData = service.insert(jsonData);
         
         System.out.println("Finalizado...\n==================================");
-        return ResponseEntity.ok().body(newMedico);
+        return ResponseEntity.ok().body(String.valueOf(newMedico.getId()));
     }
 
 }
