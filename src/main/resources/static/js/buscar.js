@@ -83,69 +83,34 @@ $('#inputBusca').on('input',() => {
     }
 });
 
-$(document).on('click', '.link-medico', function(event) {
-    event.preventDefault(); // Impede que o link seja seguido
-
-    var userId = $(this).attr('id');
-
-    console.log("TESTE MEDICO: " + userId)
-
-    $.get('/temp/teste.html', function(template) {
-        // Substituir as informações do usuário pelos marcadores correspondentes
-        /*template = template.replace('{{nome}}', usuario.nome);
-        template = template.replace('{{email}}', usuario.email);
-        template = template.replace('{{telefone}}', usuario.telefone);*/
-
-        console.log("TESTE" + template)
-
-        // Adicionar o conteúdo na página
-        /*$('#conteudo').html(template);*/
-    });
-
-    // $.ajax({
-    //     url: '/medico/' + userId,
-    //     type: 'GET',
-    //     dataType: 'json',
-    //     success: function(data) {
-
-    //         $.get('/templates/teste.html', function(template) {
-    //             // Substituir as informações do usuário pelos marcadores correspondentes
-    //             /*template = template.replace('{{nome}}', usuario.nome);
-    //             template = template.replace('{{email}}', usuario.email);
-    //             template = template.replace('{{telefone}}', usuario.telefone);*/
-
-    //             console.log("TESTE" + template)
-
-    //             // Adicionar o conteúdo na página
-    //             /*$('#conteudo').html(template);*/
-    //         });
-
-    //         console.log(data)
-    //     },
-    //     error: function(xhr, status, error) {
-    //         console.log("ERROR")
-    //         console.error(error); // Registra o erro no console
-    //     }
-    // });
-});
-
 $(document).on('click', '.link-paciente', function(event) {
     event.preventDefault(); // Impede que o link seja seguido
 
     var userId = $(this).attr('id');
 
-    $.ajax({
-        url: '/paciente/' + userId, // Endpoint para buscar as informações do usuário
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            console.log(data)
-        },
-        error: function(xhr, status, error) {
-            console.error(error); // Registra o erro no console
-        }
-    });
+    console.log("TESTE MEDICO: " + userId)
+    url = '/paciente/' + userId;
+    window.location.href = '/paciente/' + userId;
+
 });
+
+// $(document).on('click', '.link-paciente', function(event) {
+//     event.preventDefault(); // Impede que o link seja seguido
+
+//     var userId = $(this).attr('id');
+
+//     $.ajax({
+//         url: '/paciente/' + userId, // Endpoint para buscar as informações do usuário
+//         type: 'GET',
+//         dataType: 'json',
+//         success: function(data) {
+//             console.log(data)
+//         },
+//         error: function(xhr, status, error) {
+//             console.error(error); // Registra o erro no console
+//         }
+//     });
+// });
 
 $(document).ready(function () {
     var bodyId = $('body').attr('id');

@@ -3,11 +3,13 @@ package com.hargclinical.harg.resources;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hargclinical.harg.entities.Paciente;
 import com.hargclinical.harg.services.PacienteService;
@@ -46,10 +48,24 @@ public class PacienteResource{
         return ResponseEntity.ok().body(pacientes);
     }
 
+    // @GetMapping("/{id}")
+    // public ResponseEntity<Paciente> findById(@PathVariable Long id) {
+    //     Paciente paciente = service.findById(id);
+    //     return ResponseEntity.ok().body(paciente);
+    // }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> findById(@PathVariable Long id) {
+    public ModelAndView paginaPaciente(ModelMap model, @PathVariable Long id){
         Paciente paciente = service.findById(id);
-        return ResponseEntity.ok().body(paciente);
+
+        
+        ModelAndView teste = new ModelAndView("/html/templates/pagina-paciente.html");
+        teste.addObject("nome", paciente.nome);
+        teste.addObject("cpf", paciente.cpf);
+        teste.addObject("idade", paciente.idade);
+        teste.addObject("sexo", paciente.sexo);
+
+        return teste;
     }
 
 }

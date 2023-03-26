@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>HARG Medical</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
             <div id="main-card">
                 <!-------------- TOPO ---------------->
                 <div id="top">
-                    <a href="/"><img src="../img/logo1.png" id="img-top"></a>
+                    <a href="/"><img th:src="@{/img/logo1.png}" id="img-top"></a>
                 </div>
                 <!---------------- MEIO -------------->
 
@@ -26,7 +26,7 @@
                 
                 <!---------------- RODAPE -------------->
                 <div id="bottom">
-                    <img src="../img/logo2.png" id="img-bottom">
+                    <img th:src="@{/img/logo2.png}" id="img-bottom">
                     <p id="tel-bottom">Telefone: <strong>(82) 3252-9081</strong></p>
                     <p id="copy-bottom">© 2023 HARG. Todos os direitos reservados.</p>
                 </div>
