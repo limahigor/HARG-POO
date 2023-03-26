@@ -21,21 +21,6 @@ public class ServicesResource {
     @Autowired
     private ServicesService service;
 
-    @GetMapping("/procedimentos")
-    public ResponseEntity<List<ServProcedimento>> getServicosProcedimentos() {
-        List<Services> services = service.findAll();
-        List <ServProcedimento> servProcedimentos = new ArrayList<>();
-
-        for(Services serv : services){
-            if(serv instanceof ServProcedimento){
-                ServProcedimento aux = (ServProcedimento)serv;
-                servProcedimentos.add(aux);
-            }
-        }
-
-        return ResponseEntity.ok(servProcedimentos);
-    }
-
     @GetMapping
     public ResponseEntity<List<Services>> getServicos() {
         List<Services> services = service.findAll();
