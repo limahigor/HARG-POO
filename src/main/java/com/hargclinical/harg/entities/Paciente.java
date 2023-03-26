@@ -1,5 +1,6 @@
 package com.hargclinical.harg.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class Paciente extends Pessoa{
         super();
     }
 
-    public Paciente(String nome, String cpf, int idade, char sexo, Plano plano_saude){
-        super(nome, cpf, idade, sexo); 
+    public Paciente(String nome, String cpf, LocalDate date, char sexo, Plano plano_saude){
+        super(nome, cpf, date, sexo); 
         this.plano_saude = plano_saude;
     }
 
