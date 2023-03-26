@@ -1,6 +1,8 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +22,22 @@ public class Dias implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @ManyToOne
     @JoinColumn(name = "dias_id")
     private List<Appointment> consultas = new ArrayList<>();
 
-
-
     public Dias() {
 
+    }
+
+    public Dias(Medico medico, Paciente paciente, LocalTime horario, Services service, LocalDate data) {
+        Appointment consulta = new Appointment(medico, paciente, service, data, horario);
+        consultas.add(consulta);
+    }
+
+    public List<Appointment> getConsultas() {
+        return consultas;
     }
 
     @Override
