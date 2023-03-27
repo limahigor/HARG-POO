@@ -41,7 +41,7 @@ public class AgendaResource {
         if (consultas.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(consultas);
+        return ResponseEntity.ok().body(consultas);
     }
 
     @GetMapping("/agenda/{ano}/{mes}")
@@ -50,7 +50,7 @@ public class AgendaResource {
         if (consultasPorDia.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(consultasPorDia);
+        return ResponseEntity.ok().body(consultasPorDia);
     }
 
     @GetMapping("/agenda/{ano}")
@@ -59,7 +59,7 @@ public class AgendaResource {
         if (consultasPorMesEDia.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(consultasPorMesEDia);
+        return ResponseEntity.ok().body(consultasPorMesEDia);
     }
 
 }
