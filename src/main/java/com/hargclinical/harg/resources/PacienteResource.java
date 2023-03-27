@@ -1,5 +1,6 @@
 package com.hargclinical.harg.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class PacienteResource{
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Paciente>> searchPacienteByName(@RequestParam("name") String name) {
-        List<Paciente> pacientes = null;
+        List<Paciente> pacientes = new ArrayList<>();
         
         if(name.isEmpty()){
             System.out.println("Parametro vazio");
@@ -45,6 +46,9 @@ public class PacienteResource{
                 pacientes = service.findByNomeContaining(name);
 
             }
+        }
+        if(pacientes.isEmpty()){
+            return ResponseEntity.badRequest().body(null);
         }
 
         return ResponseEntity.ok().body(pacientes);

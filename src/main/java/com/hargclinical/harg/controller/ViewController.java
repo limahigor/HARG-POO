@@ -32,4 +32,9 @@ public class ViewController {
     public String buscarPaciente() {
         return "html/buscar/buscar-paciente";
     }
+
+    @GetMapping("/marcar")
+    public String agendarPaciente() {
+        return "html/marcar/marcar-consulta";
+    }
 }
