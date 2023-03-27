@@ -110,7 +110,7 @@ public class MedicoResource{
             String crm = node.get("crm").asText();
             LocalDate dataNascimento = LocalDate.parse(node.get("date").asText());
 
-            Paciente newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, Plano.PROFISSIONAL);
+            Paciente newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, Plano.PLATINA);
             servicoPaciente.insert(newPaciente);
 
             newMedico = new Medico(nome, cpf, dataNascimento, sexo, especializacao, crm);

@@ -1,6 +1,10 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -20,10 +24,44 @@ public class Agenda implements Serializable {
     private Long id;
 
     @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL)
-    private Dias[] dias = new Dias[31];
+    private List<Dias> dias;
 
     public Agenda() {
+        this.dias = new ArrayList<>();
+        LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
+        
+        for (int i = 0; i < inicioMes.lengthOfMonth(); i++) {
+            LocalDate data = inicioMes.plusDays(i);
+            Dias dia = new Dias(data, new ArrayList<>());
+            this.dias.add(dia);
+        }
+    }
 
+    public void agendarConsulta(int diaDoMes, Appointment consulta) {
+        if (diaDoMes < 1 || diaDoMes > this.dias.size()) {
+            throw new IllegalArgumentException("Dia do mês inválido!");
+        }
+
+        Dias dia = this.dias.get(diaDoMes - 1);
+        dia.getConsultas().add(consulta);
+    }
+
+    public List<Appointment> listarConsultas(LocalDate data) {
+        Dias dia = encontrarDia(data);
+        if (dia != null) {
+            return dia.getConsultas();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+    
+    private Dias encontrarDia(LocalDate data) {
+        for (Dias dia : this.dias) {
+            if (dia.getData().equals(data)) {
+                return dia;
+            }
+        }
+        return null;
     }
 
     @Override

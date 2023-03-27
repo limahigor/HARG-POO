@@ -2,11 +2,8 @@ package com.hargclinical.harg.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,18 +29,6 @@ public class AgendaResource {
     public ResponseEntity<Agenda> findById(@PathVariable Long id) {
         Agenda agenda = agendaService.findById(id);
         return ResponseEntity.ok().body(agenda);
-    }
-
-    @PostMapping
-    public ResponseEntity<Agenda> create(@RequestBody Agenda agenda) {
-        Agenda savedAgenda = agendaService.create(agenda);
-        return ResponseEntity.ok().body(savedAgenda);
-    }
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        agendaService.delete(id);
-        return ResponseEntity.noContent().build();
     }
     
 }

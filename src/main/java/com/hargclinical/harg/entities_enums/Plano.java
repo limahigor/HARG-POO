@@ -1,10 +1,10 @@
 package com.hargclinical.harg.entities_enums;
 
 public enum Plano {
-    NENHUM(1),
-    SUS(2),
-    PARTICULAR(3),
-    PROFISSIONAL(4);
+    BRONZE(1),
+    PRATA(2),
+    OURO(3),
+    PLATINA(4);
 
     private int code;
 
