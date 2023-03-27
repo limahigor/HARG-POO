@@ -64,6 +64,10 @@ public class Agenda implements Serializable {
         return null;
     }
 
+    public List<Dias> getDias() {
+        return dias;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
