@@ -25,7 +25,7 @@ public class PacienteSerializer extends StdSerializer<Paciente> {
         jsonGenerator.writeStringField("sexo", "" + paciente.getSexo());
         jsonGenerator.writeNumberField("idade", paciente.getIdade());
 
-        // Serializar prontuario
+        //Serializar prontuario
 
         //Serializar consultas
 
