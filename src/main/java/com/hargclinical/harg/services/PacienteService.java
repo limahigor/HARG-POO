@@ -32,7 +32,6 @@ public class PacienteService {
         return repository.findByNomeContaining(name);
     }
     public Paciente insert(Paciente obj){
-        System.out.println(obj.nome);
         return repository.save(obj);
 
     }
