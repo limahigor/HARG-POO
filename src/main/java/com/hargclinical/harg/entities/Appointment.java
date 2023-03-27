@@ -22,9 +22,6 @@ public class Appointment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private LocalDate data;
-    private LocalTime horario;
 
     @ManyToOne
     @JoinColumn(name = "medico_id")
@@ -39,7 +36,9 @@ public class Appointment implements Serializable {
     private Dias dia_consulta;
 
     private Services service;
-
+    private LocalDate data;
+    private LocalTime horario;
+    
     /*public String cpfPaciente;
     public String nomeMedico;
     public String nomeServico;*/

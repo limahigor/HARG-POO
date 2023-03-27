@@ -32,13 +32,13 @@ public class OrcamentoServicos extends Orcamento {
     public void addOrcamento() { 
 
         for(Services procedimento : procedimentos){
-            if(paciente.plano_saude == Plano.NENHUM){
+            if(paciente.plano_saude == Plano.BRONZE){
                 this.valor += procedimento.valor;
             }
-            else if(paciente.plano_saude == Plano.SUS){
+            else if(paciente.plano_saude == Plano.PRATA){
                 this.valor += procedimento.valor * 0.95;
             }
-            else if(paciente.plano_saude == Plano.PARTICULAR){
+            else if(paciente.plano_saude == Plano.OURO){
                 this.valor += procedimento.valor * 0.9;
             }
             else{
@@ -52,13 +52,13 @@ public class OrcamentoServicos extends Orcamento {
         for(Services procedimento : procedimentos){
             if(procedimento.nome.equals(removerProcedimento)){
 
-                if(paciente.plano_saude == Plano.NENHUM){
+                if(paciente.plano_saude == Plano.BRONZE){
                     valor -= procedimento.valor;
                 }
-                else if(paciente.plano_saude == Plano.SUS){
+                else if(paciente.plano_saude == Plano.PRATA){
                     valor -= procedimento.valor * 0.95;
                 }
-                else if(paciente.plano_saude == Plano.PARTICULAR){
+                else if(paciente.plano_saude == Plano.OURO){
                     valor -= procedimento.valor * 0.9;
                 }
                 else{
