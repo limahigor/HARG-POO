@@ -3,14 +3,15 @@ package com.hargclinical.harg.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 
@@ -26,6 +27,10 @@ public class Agenda implements Serializable {
     @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL)
     private List<Dias> dias;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medico_id")
+    private Medico medico;
+
     public Agenda() {
         this.dias = new ArrayList<>();
         LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
@@ -37,32 +42,28 @@ public class Agenda implements Serializable {
         }
     }
 
-    public void agendarConsulta(int diaDoMes, Appointment consulta) {
-        if (diaDoMes < 1 || diaDoMes > this.dias.size()) {
+    public void agendarConsulta(Appointment consulta) {
+        if (consulta.getData().getDayOfMonth() < 1 || consulta.getData().getDayOfMonth() > this.dias.size()) {
             throw new IllegalArgumentException("Dia do mês inválido!");
         }
 
-        Dias dia = this.dias.get(diaDoMes - 1);
+        Dias dia = this.dias.get(consulta.getData().getDayOfMonth() - 1);
         dia.getConsultas().add(consulta);
     }
 
-    public List<Appointment> listarConsultas(LocalDate data) {
-        Dias dia = encontrarDia(data);
-        if (dia != null) {
-            return dia.getConsultas();
-        } else {
-            return Collections.emptyList();
-        }
+    public static List<Dias> listarConsultasPorMedico(Medico medico) {
+        Agenda agendaMedico = medico.getAgenda();
+        return agendaMedico.getDias();
     }
     
-    private Dias encontrarDia(LocalDate data) {
-        for (Dias dia : this.dias) {
-            if (dia.getData().equals(data)) {
-                return dia;
-            }
-        }
-        return null;
-    }
+    // private Dias encontrarDia(LocalDate data) {
+    //     for (Dias dia : this.dias) {
+    //         if (dia.getData().equals(data)) {
+    //             return dia;
+    //         }
+    //     }
+    //     return null;
+    // }
 
     public List<Dias> getDias() {
         return dias;
