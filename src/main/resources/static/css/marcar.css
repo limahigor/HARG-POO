@@ -31,7 +31,6 @@ input[type="date"]{
     height: 2.6vh;
     width: 6vw;
     border-radius: 5px;
-    background-color: rgb(239,239,239);
 }
 
 select{
@@ -68,6 +67,7 @@ select{
     height: 47vh;
     width: 34vw;
     
+    /* border: 1px solid red; */
 }
 
 .cpf-content{
@@ -108,19 +108,12 @@ select{
 }
 
 .choose{
-    padding: 0;
     width: 30vw;
     height: 20vh;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.services-content{
-    position: relative;
-    top: -8vh;
-    margin: 0;
 }
 
 .service-input{
@@ -248,8 +241,4 @@ select{
     font-weight: bold;
     font-size: 12px;
     letter-spacing: 1px;
-}
-
-.choose, .resumo-content, .ocult{
-    display: none;
 }
