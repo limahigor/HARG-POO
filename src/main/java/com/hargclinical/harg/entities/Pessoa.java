@@ -70,7 +70,7 @@ public class Pessoa implements Serializable{
         this.nome = nome;
     }
 
-    private long definirIdade(LocalDate data) {
+    public static long definirIdade(LocalDate data) {
         LocalDate dateNow = LocalDate.now();
         Long diffAnos = ChronoUnit.YEARS.between(data, dateNow);
 

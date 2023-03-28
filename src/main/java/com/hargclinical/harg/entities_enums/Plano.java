@@ -15,7 +15,7 @@ public enum Plano {
     public int getCode() {
         return code;
     }
-
+    
     public static Plano valueOf(int code) {
         for(Plano value : Plano.values()) {
             if(value.getCode() == code) {

@@ -1,11 +1,14 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 
 @Entity
@@ -15,9 +18,13 @@ public class Comorbidades implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean tabagismo, obesidade, hipertensao, gestante, diabetes;
-    private int idade, factorR;
-
+    private boolean tabagismo, obesidade, hipertensao, gestante, diabetes, idade;
+    private int factorR;
+    
+    @OneToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente; 
+    
     
      public Comorbidades() {
         this.tabagismo = false;
@@ -26,26 +33,24 @@ public class Comorbidades implements Serializable{
         this.gestante = false;
         this.diabetes = false;
         this.factorR = 0;
-        this.idade = 0;
+        this.idade = false;
      }
 
-    public Comorbidades(boolean tabagismo, boolean obesidade, boolean hipertensao, boolean gestante, boolean diabetes, int idade) {
+    public Comorbidades(boolean tabagismo, boolean obesidade, boolean hipertensao, boolean gestante, boolean diabetes, LocalDate idade) {
         
         this.tabagismo = tabagismo;
         this.obesidade = obesidade;
         this.hipertensao = hipertensao;
         this.gestante = gestante; 
         this.diabetes = diabetes;
-        this.idade = idade;
+        if(Pessoa.definirIdade(idade) >=60)this.idade = true;
+        else this.idade = false;
+        setFactorR();
+        
     }
 
-    public int getIdade() {
+    public boolean getIdade() {
         return idade;
-    }
-
-
-    public void setIdade(int idade) {
-        this.idade = idade;
     }
 
     public boolean getTabagismo() {
@@ -61,7 +66,7 @@ public class Comorbidades implements Serializable{
     }
 
     public void setFactorR(){
-        if(idade >= 60){
+        if(idade){
             factorR += 1;
         }
 
