@@ -9,4 +9,6 @@ import com.hargclinical.harg.entities.Medico;
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     List<Medico> findByNomeContaining(String nome);
     List<Medico> findByCrmContaining(String nome);
+    public class findAll {
+    }
 }
