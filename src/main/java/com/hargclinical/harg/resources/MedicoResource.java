@@ -67,6 +67,13 @@ public class MedicoResource{
 
         return ResponseEntity.ok().body(medicos);
     }
+
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<Medico> searchMedicoById(@PathVariable Long id){
+        Medico medico = service.findById(id);
+        
+        return ResponseEntity.ok().body(medico);
+    }
     
     @GetMapping("/{id}")
     public ModelAndView paginaPaciente(ModelMap model, @PathVariable Long id){

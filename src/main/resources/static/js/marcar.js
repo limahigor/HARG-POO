@@ -6,9 +6,20 @@ function desativarTudo(){
     $.each($(".information-paciente"), function(){
         $(this).hide();
     })
+
+    $.each($(".information-service"), function(){
+        $(this).hide();
+    })
+
+    $.each($(".information-medico"), function(){
+        $(this).hide();
+    })
     
     $.each($(".choose"), function(){
-        console.log('TESTE')
+        $(this).css("visibility", "hidden");
+    })
+
+    $.each($(".resumo-content"), function(){
         $(this).css("visibility", "hidden");
     })
 
@@ -34,6 +45,7 @@ function showMedicos(profissionais){
         $('#selectMedicos').append(newOption).trigger('change');
     })
 
+    $('#selectMedicos').prop('disabled', false);
     $('.medicos-content').css("visibility", "visible");
 }
 
@@ -52,7 +64,8 @@ function showServices(){
                 var newOption = new Option(data.text, data.id, false, false);
                 $('#selectServices').append(newOption).trigger('change');
             })
-            $('.services-content').show();
+
+            $('.services-content').css("visibility", "visible");
             $('#selectServices').prop('disabled', false);
         },
         error: function(response){
@@ -61,6 +74,46 @@ function showServices(){
     });
 }
 
+$('#selectMedicos').on('select2:select', function(e){
+    let medicoInformation = [$('#nome-medico'), $('#crn-medico')]
+    var selectedOption = e.params.data
+    console.log(selectedOption);
+
+    var idMedico = selectedOption.id;
+
+    $.ajax({
+        url: '/medico/buscar/' + idMedico,
+        method: 'GET',
+        dataType: 'json',
+        success: function(response){
+            console.log("TESTE MEDICO INICIO")
+            console.log(response)
+            medicoInformation[0].html(response.nome)
+            medicoInformation[1].html(response.crm)
+            $.each($(".information-medico"), function(){
+                $(this).show();
+            })
+            
+            // var currentMonth = moment().month();
+            const date = new Date();
+            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+            const firstDayDate = firstDay.toLocaleDateString()
+            const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+            const lastDayDate = lastDay.toLocaleDateString()
+            console.log(firstDayDate) // "01/08/2022"
+            
+            $('#date').attr('min', firstDayDate);
+            $('#date').attr('max', lastDayDate);
+            
+            $('.data-hora-content').css("visibility", "visible")
+            console.log("TESTE MEDICO FIM")
+        },
+        error: function(response){
+            console.log(response)
+        }
+    })
+});
+
 $('#selectServices').on('select2:select', function(e){
     let procedimentoInformation = [$('#nome-procedimento'), $('#preco-procedimento')]
 
@@ -68,8 +121,6 @@ $('#selectServices').on('select2:select', function(e){
     console.log(selectedOption);
 
     var idService = selectedOption.id;
-
-    $("#medicos-content").show();
 
     $.ajax({
         url: '/services/' + idService,
@@ -81,7 +132,6 @@ $('#selectServices').on('select2:select', function(e){
             $.each($(".information-service"), function(){
                 $(this).show();
             })
-            // console.log(response)
             showMedicos(response.profissionais);
         },
         error: function(response){
@@ -140,13 +190,12 @@ $('#cpf').on("keyup", function(event){
                 'color': 'rgb(255, 0, 0)',
             })
 
-            // desativarTudo();
+            desativarTudo();
         }
     })
 });
 
 $('document').ready(function(){
-    // let medicoInformation = [$('#nome-medico'), $('#crm-medico')]  
     desativarTudo()
     $(".select2").prop("disabled", true);
     $("#submit-button").disabled = true;
@@ -154,6 +203,7 @@ $('document').ready(function(){
 
 $('.select2').select2({
     placeholder: 'Selecione uma opção',
+    allowClear: true,
     width : 'resolve',
     height: 'resolve'
 });
