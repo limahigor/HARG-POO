@@ -16,7 +16,7 @@ public class Caixa {
     private Double saldo;
     private boolean aberto;
 
-    @OneToMany(mappedBy = "movimentacoes", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
     private List<Orcamento> movimentacoes = new ArrayList<>();
 
     public Caixa(){
