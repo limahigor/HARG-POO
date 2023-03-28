@@ -1,16 +1,16 @@
-function desativarTudo(occultDivs, button){
+function desativarTudo(){
     $(".select2").prop("disabled", true);
-
-    button.disabled = true;
-
+    
+    $("#submit-button").disabled = true;
+    
     $.each($(".information-paciente"), function(){
         $(this).hide();
     })
-
-    $.each($(".choose"), function(index, div){
-        $(this).hide();
+    
+    $.each($(".choose"), function(){
+        console.log('TESTE')
+        $(this).css("visibility", "hidden");
     })
-
 
     $.each($(".select2"), function(index, div){
         $(this).empty();
@@ -23,35 +23,19 @@ function desativarTudo(occultDivs, button){
     });
 }
 
-$('#selectServices').on('select2:select', function(e){
-    let procedimentoInformation = [$('#nome-procedimento'), $('#preco-procedimento')]
-
-    var selectedOption = e.params.data
-    console.log(selectedOption);
-
-    var idService = selectedOption.id;
-    console.log(idService);
-
-    $("#medicos-content").show();
-
-    $.ajax({
-        url: '/services/' + idService,
-        method: 'GET',
-        dataType: 'json',
-        success: function(response){
-            procedimentoInformation[0].html(response.nome)
-            procedimentoInformation[1].html(response.valor)
-            $.each($(".information-service"), function(){
-                $(this).show();
-            })
-            console.log('teste id service')
-            console.log(response)
-        },
-        error: function(response){
-            console.log(response);
+function showMedicos(profissionais){
+    console.log(profissionais)
+    $.each(profissionais, function(index, value){
+        var data = {
+            id: value.id,
+            text: value.nome
         }
+        var newOption = new Option(data.text, data.id, false, false);
+        $('#selectMedicos').append(newOption).trigger('change');
     })
-});
+
+    $('.medicos-content').css("visibility", "visible");
+}
 
 function showServices(){
     $.ajax({
@@ -77,6 +61,35 @@ function showServices(){
     });
 }
 
+$('#selectServices').on('select2:select', function(e){
+    let procedimentoInformation = [$('#nome-procedimento'), $('#preco-procedimento')]
+
+    var selectedOption = e.params.data
+    console.log(selectedOption);
+
+    var idService = selectedOption.id;
+
+    $("#medicos-content").show();
+
+    $.ajax({
+        url: '/services/' + idService,
+        method: 'GET',
+        dataType: 'json',
+        success: function(response){
+            procedimentoInformation[0].html(response.nome)
+            procedimentoInformation[1].html(response.valor)
+            $.each($(".information-service"), function(){
+                $(this).show();
+            })
+            // console.log(response)
+            showMedicos(response.profissionais);
+        },
+        error: function(response){
+            console.log(response);
+        }
+    })
+});
+
 $('#cpf').on("keyup", function(event){
     var cpfPaciente, nomePaciente, idade
     let pacienteInformation = [$('#nome-paciente'), $('#idade-paciente'), $('#sexo-paciente')];
@@ -86,7 +99,8 @@ $('#cpf').on("keyup", function(event){
     console.log(cpfPaciente + ': ' + cpfPaciente.length)
     
     if(cpfPaciente.length != 11){
-        desativarTudo(occultDivs, button)
+        pacienteInformation[0].html(' CPF inválido!')
+        desativarTudo()
         return;
     }
 
@@ -121,35 +135,21 @@ $('#cpf').on("keyup", function(event){
             showServices();
         },
         error: function(response){
-            var paragrafo = $('#nome-paciente');
-            
             pacienteInformation[0].html(' não encontrado')
             pacienteInformation[0].css({
                 'color': 'rgb(255, 0, 0)',
             })
 
-            $.each($(".information-paciente"), function(index, div){
-                div.style.disabled = "none";
-            })
-
-            $.each(occultDivs, function(index, div){
-                div.style.disabled = "none";
-            })
+            // desativarTudo();
         }
     })
 });
 
 $('document').ready(function(){
-    let medicoInformation = [$('#nome-medico'), $('#crm-medico')]
-    
-    let d = document,
-                    [occultDivs, button] = [
-                        d.querySelectorAll('.choose'),
-                        d.querySelector('#submit-button')
-                    ];
-    
+    // let medicoInformation = [$('#nome-medico'), $('#crm-medico')]  
+    desativarTudo()
     $(".select2").prop("disabled", true);
-    button.disabled = true;
+    $("#submit-button").disabled = true;
 });
 
 $('.select2').select2({

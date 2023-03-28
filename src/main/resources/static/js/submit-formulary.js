@@ -15,12 +15,22 @@ $('#submit-button').click(function(event){
     });
 
     $('.campo-comorbidade input[type=checkbox]').each(function() {
-        if ($(this).is(':checked')) {
-            comorbidades.push($(this).attr('id'));
+        if($(this).is(':checked')){
+            var data = {
+                            id: $(this).attr('id'),
+                            value: 'true'
+                        }
+        }else{
+            var data = {
+                            id: $(this).attr('id'),
+                            value: 'false'
+                        }
         }
 
-        requestData['comorbidades'] = comorbidades;
+        comorbidades.push(data);
     });
+
+    requestData['comorbidades'] = comorbidades;
     
     if(id === 'medico'){
         console.log("TESTE servicos")
@@ -31,8 +41,9 @@ $('#submit-button').click(function(event){
         });
 
         requestData['servicos'] = servicos;
-    }   
-    console.log(requestData);
+    }
+
+    console.log(JSON.stringify(requestData));
   
     $.ajax({
         type: 'POST',
