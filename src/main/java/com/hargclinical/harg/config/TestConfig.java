@@ -80,20 +80,15 @@ public class TestConfig implements CommandLineRunner{
 
         try{
             Agenda novaAgenda = new Agenda();
-
             List<Dias> dias = new ArrayList<>();
             novaAgenda.setListaDias(dias, novaAgenda);
-            // for (int i = 1; i <= 31; i++) {
-            //     Dias dia = new Dias();
-            //     dia.setDia(i);
-            //     dia.setAgenda(novaAgenda);
-            //     dias.add(dia);
-            // }
             novaAgenda.setDias(dias);
             agendaService.create(novaAgenda);
+
             Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
-            Paciente paciente1 = new Paciente("11122233344", "João Silva", LocalDate.of(1999, 7, 20), 'M', Plano.BRONZE);
+            Paciente paciente1 = new Paciente("João Silva", "124125125125", LocalDate.of(1999, 7, 20), 'M', Plano.BRONZE);
             pacienteService.insert(paciente1);
+            // medicoService.insert(medico);
             Services servico = new Services("Botox", "Dermatologia", 285.00);
             Appointment consulta = new Appointment(medico, paciente1, servico, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
             
@@ -116,40 +111,8 @@ public class TestConfig implements CommandLineRunner{
             servicoAgenda.agendarConsulta(consulta);
             medicoAgenda.agendarConsulta(consulta);
             novaAgenda.agendarConsulta(consulta);
-            
-            agendaRepository.saveAll(Arrays.asList(servicoAgenda, medicoAgenda, novaAgenda));
 
-            // Agenda agenda = new Agenda();
-            // agendaService.create(agenda);
-            // List<Dias> dias = agenda.getDias();
-            // for(Dias d : dias) {
-            //     d.setAgenda(agenda);
-            // }
-            // Appointment consulta = new Appointment(null, null, null, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
-            // appointmentRepository.save(consulta);
-            // agenda.agendarConsulta(consulta);
-
-
-            // Paciente paciente1 = new Paciente("11122233344", "João Silva", 30, 'M', Plano.NENHUM);
-            // Paciente paciente2 = new Paciente("22233344455", "Maria Souza", 45, 'F', Plano.SUS);
-            // Paciente paciente3 = new Paciente("33344455566", "Pedro Santos", 22, 'M', Plano.PARTICULAR);
-            // Paciente paciente4 = new Paciente("44455566677", "Ana Paula Oliveira", 28, 'F', Plano.SUS);
-            // Paciente paciente5 = new Paciente("55566677788", "Roberto Alves", 50, 'M', Plano.NENHUM);
-            // Paciente paciente6 = new Paciente("66677788899", "Fernanda Costa", 35, 'F', Plano.PARTICULAR);
-            // Paciente paciente7 = new Paciente("77788899900", "Lucas Oliveira", 19, 'M', Plano.SUS);
-            // Paciente paciente8 = new Paciente("88899900011", "Juliana Fernandes", 42, 'F', Plano.NENHUM);
-            // Paciente paciente9 = new Paciente("99900011122", "Gustavo Rodrigues", 27, 'M', Plano.SUS);
-            // Paciente paciente10 = new Paciente("00011122233", "Isabela Silva", 33, 'F', Plano.PARTICULAR);
-
-            // Paciente paciente11 = new Paciente("16543122515616", "Manoel Gomes", 36, 'M', Plano.PROFISSIONAL);
-            // Paciente paciente12 = new Paciente("1654156415616", "Higor Gomes", 36, 'M', Plano.PROFISSIONAL);
-            // Paciente paciente13 = new Paciente("1654116515616", "Guilherme Gomes", 36, 'M', Plano.PROFISSIONAL);
-            // Paciente paciente14 = new Paciente("165411515616", "Anderson Silva", 36, 'M', Plano.PROFISSIONAL);
-            // Paciente paciente15 = new Paciente("16543515616", "Ana de Kassia Lemos", 36, 'F', Plano.PROFISSIONAL);
-
-            // pacienteRepository.saveAll(Arrays.asList(paciente1, paciente2, paciente3, paciente4, paciente5, paciente6, paciente7, paciente8,
-            //                                          paciente9, paciente10, paciente11, paciente12, paciente13, paciente14, paciente15));
-            
+            appointmentRepository.save(consulta);
         }catch(Exception e){
             System.out.println("TESTE ERROR");
             System.out.println(e.getMessage());
