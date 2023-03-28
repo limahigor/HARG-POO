@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>HARG Medical</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" th:href="@{/css/styles.css}">
-        <link rel="stylesheet" th:href="@{/css/cadastrar-medico.css}">
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <div id="all">
-            <!-------------- CONTEÚDO PRINCIPAL ---------------->
-            <div id="main-card">
-                <!-------------- TOPO ---------------->
-                <div id="top">
-                    <a href="/"><img th:src="@{/img/logo1.png}" id="img-top"></a>
-                </div>
-                <!---------------- MEIO -------------->
-                <div id="mid">
-                    <div class="forms">
-                        <form id="medico">
-                            <div class="content-forms">
-                                <div class="text-box">
-                                    <div class="div-dados">
-                                        <div>
-                                            <label for="nome">nome</label>
-                                            <input class="campo-nome" type="text" id="nome" name="nome">
-                                        </div>
+<head>
+    <title>HARG Medical</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/cadastrar-servico.css}">
 
-                                        <div>
-                                            <label for="nome">valor</label>
-                                            <input class="campo-valor" type="text" id="valor" name="valor">
-                                        </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
 
-                                        <div>
-                                            <select class="selectHoras" id="input-tipo">
-                                                <option></option>
-                                                <option value="exame">Exame</option>
-                                                <option value="consulta">Consulta</option>
-                                                <option value="procedimento">Procedimento</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="button">
-                                <input id="submit-button" type="submit" value="Cadastrar">
-                                <p id="result-cadastro">Resultado</p>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-
-                <!---------------- RODAPE -------------->
-                <div id="bottom">
-                    <img th:src="@{/img/logo2.png}" id="img-bottom">
-                    <p id="tel-bottom">Telefone: <strong>(82) 3252-9081</strong></p>
-                    <p id="copy-bottom">© 2023 HARG. Todos os direitos reservados.</p>
-                </div>
-            <!----------- FIM CONTEÚDO PRINCIPAL ------------->
+<body>
+    <div id="all">
+        <!-------------- CONTEÚDO PRINCIPAL ---------------->
+        <div id="main-card">
+            <!-------------- TOPO ---------------->
+            <div id="top">
+                <a href="/"><img th:src="@{/img/logo1.png}" id="img-top"></a>
             </div>
-        </div>
+            <!---------------- MEIO -------------->
+            <div id="mid">
+                <div class="forms">
+                    <form id="medico">
+                        <div class="content-forms">
+                            <div class="nome">
+                                <label for="nome">Nome</label>
+                                <input class="campo-nome" type="text" id="nome" name="nome">
+                            </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <script th:src="@{/js/verify-form-paciente.js}"></script>
-        <script th:src="@{/js/submit-formulary.js}"></script>
-    </body>
+                            <div class="valor">
+                                <label for="nome">Valor</label>
+                                <input class="campo-valor" type="text" id="valor" name="valor">
+                            </div>
+
+                            <div class="select">
+                                <label for="input-tipo">Tipo</label>
+                                <select class="selectType" id="input-tipo">
+                                    <option></option>
+                                    <option value="exame">Exame</option>
+                                    <option value="consulta">Consulta</option>
+                                    <option value="procedimento">Procedimento</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="button">
+                            <input id="submit-button" type="submit" value="Cadastrar">
+                            <p id="result-cadastro">Resultado</p>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <!---------------- RODAPE -------------->
+            <div id="bottom">
+                <img th:src="@{/img/logo2.png}" id="img-bottom">
+                <p id="tel-bottom">Telefone: <strong>(82) 3252-9081</strong></p>
+                <p id="copy-bottom">© 2023 HARG. Todos os direitos reservados.</p>
+            </div>
+            <!----------- FIM CONTEÚDO PRINCIPAL ------------->
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script th:src="@{/js/form-servico.js}"></script>
+    <script th:src="@{/js/submit-formulary.js}"></script>
+</body>
+
 </html>

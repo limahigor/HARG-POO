@@ -10,8 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,7 +27,7 @@ public class Dias implements Serializable {
     @JoinColumn(name = "agenda_id")
     private Agenda agenda;
 
-    @OneToMany(mappedBy = "dia", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "dia", cascade = CascadeType.ALL)
     private List<Appointment> consultas = new ArrayList<>();
 
     private int dia;
