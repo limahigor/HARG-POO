@@ -15,11 +15,18 @@ public class Comorbidades implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean tabagismo=false, obesidade=false, hipertensao=false, gestante=false, diabetes=false;
-    private int idade, factorR=0;
+    private boolean tabagismo, obesidade, hipertensao, gestante, diabetes;
+    private int idade, factorR;
 
     
      public Comorbidades() {
+        this.tabagismo = false;
+        this.obesidade = false;
+        this.hipertensao = false;
+        this.gestante = false;
+        this.diabetes = false;
+        this.factorR = 0;
+        this.idade = 0;
      }
 
     public Comorbidades(boolean tabagismo, boolean obesidade, boolean hipertensao, boolean gestante, boolean diabetes, int idade) {
