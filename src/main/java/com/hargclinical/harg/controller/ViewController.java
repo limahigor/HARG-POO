@@ -37,4 +37,9 @@ public class ViewController {
     public String agendarPaciente() {
         return "html/marcar/marcar-consulta";
     }
+
+    @GetMapping("/cadastrar-servico")
+    public String cadastrarServico() {
+        return "html/cadastrar/cadastrar-servico";
+    }
 }

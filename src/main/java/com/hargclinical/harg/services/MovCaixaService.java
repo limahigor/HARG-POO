@@ -1,20 +1,20 @@
-package com.hargclinical.harg.services;
+// package com.hargclinical.harg.services;
 
-import java.util.List;
+// import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.stereotype.Service;
 
-import com.hargclinical.harg.entities.MovimentacaoCaixa;
-import com.hargclinical.harg.repositories.MovimentacaoRepository;
+// import com.hargclinical.harg.entities.MovimentacaoCaixa;
+// import com.hargclinical.harg.repositories.MovimentacaoRepository;
 
-@Service
-public class MovCaixaService {
+// @Service
+// public class MovCaixaService {
    
-    @Autowired
-	private MovimentacaoRepository repository;
+//     @Autowired
+// 	private MovimentacaoRepository repository;
 
-    public List<MovimentacaoCaixa> findAlList() {
-		return repository.findAll();
-	}
-}
+//     public List<MovimentacaoCaixa> findAlList() {
+// 		return repository.findAll();
+// 	}
+// }
