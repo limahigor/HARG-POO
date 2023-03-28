@@ -15,6 +15,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
 
@@ -37,6 +38,9 @@ public class Medico extends Pessoa{
     @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
 
+    @OneToOne(mappedBy = "medico", cascade = CascadeType.ALL)
+    private Agenda agenda;
+
     public Medico(){
         super();
     }
@@ -45,6 +49,14 @@ public class Medico extends Pessoa{
         super(nome, cpf, date, sexo); 
         this.especializacao = especializacao;
         this.crm = crm;
+    }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
     }
 
     public String getCrm() {

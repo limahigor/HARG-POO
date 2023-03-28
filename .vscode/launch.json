@@ -8,6 +8,13 @@
             "type": "java",
             "name": "HargClinicalApplication",
             "request": "launch",
+            "mainClass": "main.java.com.hargclinical.harg.HargClinicalApplication",
+            "projectName": "HARG-POO_c52d822e"
+        },
+        {
+            "type": "java",
+            "name": "HargClinicalApplication",
+            "request": "launch",
             "mainClass": "com.hargclinical.harg.HargClinicalApplication",
             "projectName": "harg"
         },

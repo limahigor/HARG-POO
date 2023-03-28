@@ -1,7 +1,7 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -26,30 +26,37 @@ public class Dias implements Serializable {
     @JoinColumn(name = "agenda_id")
     private Agenda agenda;
 
-    @OneToMany(mappedBy = "dia_consulta")
-    private List<Appointment> consultas;
+    @OneToMany(mappedBy = "dia")
+    private List<Appointment> consultas = new ArrayList<>();
 
-    LocalDate data;
+    private int dia;
 
     public Dias() {
 
     }
 
-    public Dias(LocalDate data, List<Appointment> consultas) {
-        this.data = data;
-        this.consultas = consultas;
+    public int getDia() {
+        return dia;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
     }
 
     public List<Appointment> getConsultas() {
         return consultas;
     }
-    
-    public LocalDate getData() {
-        return data;
+
+    public Agenda getAgenda() {
+        return agenda;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override

@@ -1,13 +1,19 @@
 package com.hargclinical.harg.config;
 
+import com.hargclinical.harg.repositories.AgendaRepository;
+import com.hargclinical.harg.repositories.AppointmentRepository;
 import com.hargclinical.harg.repositories.MedicamentoPrescritoRepository;
 import com.hargclinical.harg.repositories.MedicoRepository;
 import com.hargclinical.harg.repositories.PacienteRepository;
 import com.hargclinical.harg.repositories.PrescricaoRepository;
 import com.hargclinical.harg.repositories.ServicesRepository;
+import com.hargclinical.harg.services.AgendaService;
 import com.hargclinical.harg.services.MedicoService;
 import com.hargclinical.harg.services.PacienteService;
 import com.hargclinical.harg.services.ServicesService;
+import com.hargclinical.harg.entities.Agenda;
+import com.hargclinical.harg.entities.Appointment;
+import com.hargclinical.harg.entities.Dias;
 import com.hargclinical.harg.entities.MedicamentoPrescrito;
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.entities.Paciente;
@@ -18,6 +24,8 @@ import com.hargclinical.harg.entities.ServProcedimento;
 import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.entities_enums.Plano;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,10 +66,25 @@ public class TestConfig implements CommandLineRunner{
     @Autowired
     private MedicoService medicoService;
 
+    @Autowired
+    private AgendaService agendaService;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
         try{
+            Agenda agenda = new Agenda();
+            agendaService.create(agenda);
+            List<Dias> dias = agenda.getDias();
+            for(Dias d : dias) {
+                d.setAgenda(agenda);
+            }
+            Appointment consulta = new Appointment(null, null, null, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
+            appointmentRepository.save(consulta);
+            agenda.agendarConsulta(consulta);
             // Paciente paciente1 = new Paciente("11122233344", "João Silva", 30, 'M', Plano.NENHUM);
             // Paciente paciente2 = new Paciente("22233344455", "Maria Souza", 45, 'F', Plano.SUS);
             // Paciente paciente3 = new Paciente("33344455566", "Pedro Santos", 22, 'M', Plano.PARTICULAR);
