@@ -65,15 +65,17 @@ public class MedicoResource{
             }
         }
 
+        if(medicos.isEmpty())return ResponseEntity.badRequest().body(null);
+        
         return ResponseEntity.ok().body(medicos);
     }
 
-    @GetMapping("/buscar/{id}")
-    public ResponseEntity<Medico> searchMedicoById(@PathVariable Long id){
-        Medico medico = service.findById(id);
+    // @GetMapping("/buscar/{id}")
+    // public ResponseEntity<Medico> searchMedicoById(@PathVariable Long id){
+    //     Medico medico = service.findById(id);
         
-        return ResponseEntity.ok().body(medico);
-    }
+    //     return ResponseEntity.ok().body(medico);
+    // }
     
     @GetMapping("/{id}")
     public ModelAndView paginaPaciente(ModelMap model, @PathVariable Long id){
@@ -142,7 +144,9 @@ public class MedicoResource{
             
             newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, plano);
             servicoPaciente.insert(newPaciente);
+            
             newPaciente.setComorbidades(comorbidadesJson);
+            comorbidadesJson.setPaciente(newPaciente);
             servicoPaciente.insert(newPaciente);
 
             newMedico = new Medico(nome, cpf, dataNascimento, sexo, especializacao, crm);
