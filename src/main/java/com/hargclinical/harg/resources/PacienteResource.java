@@ -1,5 +1,6 @@
 package com.hargclinical.harg.resources;
 
+import java.io.Console;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,14 @@ public class PacienteResource{
 
     @Autowired
     private PacienteService service;
+
+
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<Paciente> searchPacienteByName(@PathVariable Long id) {
+        Paciente paciente = service.findById(id);
+        
+        return ResponseEntity.ok().body(paciente);
+    }
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Paciente>> searchPacienteByName(@RequestParam("name") String name) {
@@ -120,10 +129,12 @@ public class PacienteResource{
 
             Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
             newPaciente = new Paciente(nome, cpf, date, sexo, plano);
-            
             service.insert(newPaciente);
+
             newPaciente.setComorbidades(comorbidadesJson);
+            comorbidadesJson.setPaciente(newPaciente);
             service.insert(newPaciente);
+            
 
             System.out.println("Finalizando...\n==================================");
             

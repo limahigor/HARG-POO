@@ -49,22 +49,6 @@ public class Comorbidades implements Serializable{
         
     }
 
-    public boolean getIdade() {
-        return idade;
-    }
-
-    public boolean getTabagismo() {
-        return tabagismo;
-    }
-
-    public int getFactorR() {
-            return factorR;
-        }
-
-    public void setTabagismo(boolean tabagismo) {
-        this.tabagismo = tabagismo;
-    }
-
     public void setFactorR(){
         if(idade){
             factorR += 1;
@@ -91,42 +75,71 @@ public class Comorbidades implements Serializable{
         }
     }
 
-    public boolean getObesidade() {
-        return obesidade;
+    public Long getId() {
+        return id;
     }
 
+    public boolean isTabagismo() {
+        return tabagismo;
+    }
+
+    public void setTabagismo(boolean tabagismo) {
+        this.tabagismo = tabagismo;
+    }
+
+    public boolean isObesidade() {
+        return obesidade;
+    }
 
     public void setObesidade(boolean obesidade) {
         this.obesidade = obesidade;
     }
 
-
-    public boolean getHipertensao() {
+    public boolean isHipertensao() {
         return hipertensao;
     }
-
 
     public void setHipertensao(boolean hipertensao) {
         this.hipertensao = hipertensao;
     }
 
-
-    public boolean getGestante() {
+    public boolean isGestante() {
         return gestante;
     }
-
 
     public void setGestante(boolean gestante) {
         this.gestante = gestante;
     }
 
-
-    public boolean getDiabetes() {
+    public boolean isDiabetes() {
         return diabetes;
     }
 
-
     public void setDiabetes(boolean diabetes) {
         this.diabetes = diabetes;
+    }
+
+    public boolean isIdade() {
+        return idade;
+    }
+
+    public void setIdade(boolean idade) {
+        this.idade = idade;
+    }
+
+    public int getFactorR() {
+        return factorR;
+    }
+
+    public void setFactorR(int factorR) {
+        this.factorR = factorR;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 }
