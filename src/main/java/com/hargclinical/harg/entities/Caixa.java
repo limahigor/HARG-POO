@@ -19,9 +19,10 @@ public class Caixa {
     @OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
     private List<Orcamento> movimentacoes = new ArrayList<>();
 
+
     public Caixa(){
         this.saldo = 0.0;
-        this.aberto = true;
+        this.aberto = false;
     }
     
     public Double getSaldo() {
