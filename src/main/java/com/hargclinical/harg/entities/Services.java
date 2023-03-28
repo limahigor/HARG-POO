@@ -7,6 +7,7 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hargclinical.harg.serializables.ServicesSerializer;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
@@ -48,6 +50,13 @@ public class Services implements Serializable{
     @JoinColumn(name = "orcamento_id")
     protected OrcamentoServicos orcamento;
 
+    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL)
+    private Agenda agenda;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "consulta_id")
+    private Appointment consulta;
+
     public Services() {
         
     }
@@ -68,6 +77,14 @@ public class Services implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
     }
 
     public String getNome() {

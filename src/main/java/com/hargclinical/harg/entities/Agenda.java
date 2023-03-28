@@ -31,14 +31,23 @@ public class Agenda implements Serializable {
     @JoinColumn(name = "medico_id")
     private Medico medico;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "service_id")
+    private Services service;
+
     public Agenda() {
-        /*LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
+       
+    }
+
+    public void setListaDias(List<Dias> listaDias, Agenda agenda) {
+         LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
         
         for (int i = 0; i < inicioMes.lengthOfMonth(); i++) {
             Dias dia = new Dias();
             dia.setDia(i + 1);
-            this.dias.add(dia);
-        }*/
+            dia.setAgenda(agenda);
+            listaDias.add(dia);
+        }
     }
 
     public void agendarConsulta(Appointment consulta) {
@@ -48,7 +57,7 @@ public class Agenda implements Serializable {
 
         Dias dia = this.dias.get(consulta.getData().getDayOfMonth() - 1);
         dia.getConsultas().add(consulta);
-        consulta.setDia(dia);
+        consulta.getDia().add(dia);
     }
 
     public static List<Dias> listarConsultasPorMedico(Medico medico) {
@@ -65,8 +74,25 @@ public class Agenda implements Serializable {
     //     return null;
     // }
 
+    
     public List<Dias> getDias() {
         return dias;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    public Services getService() {
+        return service;
+    }
+
+    public void setService(Services service) {
+        this.service = service;
     }
 
     public void setDias(List<Dias> dias) {
