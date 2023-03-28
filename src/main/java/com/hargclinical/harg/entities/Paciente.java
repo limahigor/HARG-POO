@@ -25,9 +25,8 @@ public class Paciente extends Pessoa{
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "comorbidades")
-    private Comorbidades comorbidades = new Comorbidades();
+    @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private Comorbidades comorbidades;
     
     public Paciente(){
         super();

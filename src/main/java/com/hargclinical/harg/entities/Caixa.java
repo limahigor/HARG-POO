@@ -1,6 +1,5 @@
 package com.hargclinical.harg.entities;
 
-import java.util.List;
 
 public class Caixa {
     double caixa;

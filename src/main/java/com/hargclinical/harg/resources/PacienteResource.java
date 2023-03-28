@@ -1,5 +1,6 @@
 package com.hargclinical.harg.resources;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hargclinical.harg.entities.Comorbidades;
 import com.hargclinical.harg.entities.Paciente;
+import com.hargclinical.harg.entities_enums.Plano;
 import com.hargclinical.harg.services.PacienteService;
 import com.hargclinical.harg.utils.StringUtils;
 
@@ -74,11 +79,61 @@ public class PacienteResource{
         return viewPage;
     }
 
-    @PostMapping("/cadastrar")
-    public ResponseEntity<Paciente> cadastrarPaciente(@RequestBody Paciente jsonData) {
-        System.out.println(jsonData.nome);
-        jsonData = service.insert(jsonData);
-        return ResponseEntity.ok().body(jsonData);
-    }
+    // @PostMapping("/cadastrar")
+    // public ResponseEntity<Paciente> cadastrarPaciente(@RequestBody Paciente jsonData) {
+    //     System.out.println(jsonData.nome);
+    //     jsonData = service.insert(jsonData);
+    //     return ResponseEntity.ok().body(jsonData);
+    // }
 
+    @PostMapping("/cadastrar")
+    public ResponseEntity<String> cadastrarMedico(@RequestBody String jsonData){
+        ObjectMapper mapper = new ObjectMapper();
+        Paciente newPaciente = null;
+        try{
+
+            System.out.println("CADASTRANDO Paciente\n====================================");
+            JsonNode node = mapper.readTree(jsonData);
+            
+            JsonNode comorbidadesNode = node.get("comorbidades");
+            String dateString = node.get("date").asText();
+            LocalDate date = LocalDate.parse(dateString);
+            String cpf = node.get("cpf").asText();
+            String nome = node.get("nome").asText();
+            char sexo = node.get("sexo").asText().charAt(0);
+            //int num_plano = node.get("plano").asInt();
+            //precisa configurar o plano---
+            Plano plano = Plano.valueOf(1);
+            
+            boolean tabagismo=false, obesidade=false, hipertensao=false, gestante=false, diabetes=false;
+            for(JsonNode jNode : comorbidadesNode){
+                String idString = jNode.get("id").asText();
+                boolean valor = jNode.get("value").asBoolean();
+                if(idString.equals("tabagismo"))tabagismo = valor;
+                else if(idString.equals("obesidade"))obesidade = valor;
+                else if(idString.equals("hipertensao"))hipertensao = valor;
+                else if(idString.equals("gestante"))gestante = valor;
+                else if(idString.equals("diabetes"))diabetes = valor;
+            }
+            
+            System.out.println("Criando a instancia do paciente\n==================================");
+
+            Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
+            newPaciente = new Paciente(nome, cpf, date, sexo, plano);
+            
+            service.insert(newPaciente);
+            newPaciente.setComorbidades(comorbidadesJson);
+            service.insert(newPaciente);
+
+            System.out.println("Finalizando...\n==================================");
+            
+        }catch(Exception e){
+            System.out.println("ERROR!!");
+            return ResponseEntity.badRequest().build();
+        }
+        
+        
+        System.out.println("Finalizado...\n==================================");
+        return ResponseEntity.ok().body(String.valueOf(newPaciente.getId()));
+    }
 }
