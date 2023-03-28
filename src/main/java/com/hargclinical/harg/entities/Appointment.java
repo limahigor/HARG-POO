@@ -3,14 +3,20 @@ package com.hargclinical.harg.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,11 +37,17 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
-    @ManyToOne
-    @JoinColumn(name = "dia_consulta_id")
-    private Dias dia;
+    @ManyToMany
+    @JoinTable(
+        name = "dia_appointment",
+        joinColumns = @JoinColumn(name = "appointments_id"),
+        inverseJoinColumns = @JoinColumn(name = "dias_id")
+    )
+    private List<Dias> dia = new ArrayList<>();
 
+    @OneToOne(mappedBy = "consulta", cascade = CascadeType.ALL)
     private Services service;
+
     private LocalDate data;
     private LocalTime horario;
     
@@ -73,14 +85,10 @@ public class Appointment implements Serializable {
     //     return sb.toString();
     // }
 
-    public Dias getDia() {
+    public List<Dias> getDia() {
         return dia;
     }
 
-    public void setDia(Dias dia) {
-        this.dia = dia;
-    }
-    
     public Long getId() {
         return id;
     }

@@ -82,19 +82,42 @@ public class TestConfig implements CommandLineRunner{
             Agenda novaAgenda = new Agenda();
 
             List<Dias> dias = new ArrayList<>();
-            for (int i = 1; i <= 31; i++) {
-                Dias dia = new Dias();
-                dia.setDia(i);
-                dia.setAgenda(novaAgenda);
-                dias.add(dia);
-            }
+            novaAgenda.setListaDias(dias, novaAgenda);
+            // for (int i = 1; i <= 31; i++) {
+            //     Dias dia = new Dias();
+            //     dia.setDia(i);
+            //     dia.setAgenda(novaAgenda);
+            //     dias.add(dia);
+            // }
             novaAgenda.setDias(dias);
             agendaService.create(novaAgenda);
+            Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
+            Paciente paciente1 = new Paciente("11122233344", "João Silva", LocalDate.of(1999, 7, 20), 'M', Plano.BRONZE);
+            pacienteService.insert(paciente1);
+            Services servico = new Services("Botox", "Dermatologia", 285.00);
+            Appointment consulta = new Appointment(medico, paciente1, servico, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
+            
+            Agenda medicoAgenda = new Agenda();
+            List<Dias> diasMedico = new ArrayList<>();
+            medicoAgenda.setListaDias(diasMedico, medicoAgenda);
+            medicoAgenda.setDias(diasMedico);
+            medicoAgenda.setMedico(medico);
+            medico.setAgenda(medicoAgenda);
+            agendaService.create(medicoAgenda);
 
-            Appointment consulta = new Appointment(null, null, null, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
+            Agenda servicoAgenda = new Agenda();
+            List<Dias> diasServico = new ArrayList<>();
+            servicoAgenda.setListaDias(diasServico, servicoAgenda);
+            servicoAgenda.setDias(diasServico);
+            servicoAgenda.setService(servico);
+            servico.setAgenda(servicoAgenda);
+            agendaService.create(servicoAgenda);
+
+            servicoAgenda.agendarConsulta(consulta);
+            medicoAgenda.agendarConsulta(consulta);
             novaAgenda.agendarConsulta(consulta);
             
-            agendaRepository.save(novaAgenda);
+            agendaRepository.saveAll(Arrays.asList(servicoAgenda, medicoAgenda, novaAgenda));
 
             // Agenda agenda = new Agenda();
             // agendaService.create(agenda);

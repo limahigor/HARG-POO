@@ -19,11 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hargclinical.harg.entities.Agenda;
 import com.hargclinical.harg.entities.Comorbidades;
+import com.hargclinical.harg.entities.Dias;
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.entities.Paciente;
 import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.entities_enums.Plano;
+import com.hargclinical.harg.services.AgendaService;
 import com.hargclinical.harg.services.MedicoService;
 import com.hargclinical.harg.services.PacienteService;
 import com.hargclinical.harg.services.ServicesService;
@@ -41,6 +44,9 @@ public class MedicoResource{
 
     @Autowired
     private PacienteService servicoPaciente;
+
+    @Autowired
+    private AgendaService agendaService;
 
     @GetMapping("/buscar")
     public ResponseEntity<List<Medico>> searchMedicoByName(@RequestParam("name") String name) {
@@ -150,6 +156,14 @@ public class MedicoResource{
             servicoPaciente.insert(newPaciente);
 
             newMedico = new Medico(nome, cpf, dataNascimento, sexo, especializacao, crm);
+
+            Agenda novaAgenda = new Agenda();
+            List<Dias> dias = new ArrayList<>();
+            novaAgenda.setListaDias(dias, novaAgenda);
+            novaAgenda.setDias(dias);
+            novaAgenda.setMedico(newMedico);
+            newMedico.setAgenda(novaAgenda);
+            agendaService.create(novaAgenda);
 
             System.out.println("Inserindo medico no banco\n==================================");
             service.insert(newMedico);

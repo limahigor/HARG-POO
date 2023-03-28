@@ -32,7 +32,7 @@ public class AgendaResource {
         return ResponseEntity.ok().body(agenda);
     }
 
-    @GetMapping("/{dia}")
+    @GetMapping("data/{dia}")
     public ResponseEntity<List<Appointment>> findByDay(@PathVariable int dia) {
         List<Appointment> consultas = agendaService.findByDay(dia);
         return ResponseEntity.ok().body(consultas);
