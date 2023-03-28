@@ -1,7 +1,7 @@
 function desativarTudo(){
     $(".select2").prop("disabled", true);
     
-    $("#submit-button").disabled = true;
+    $("#submit-button").prop("disabled", true)
     
     $.each($(".information-paciente"), function(){
         $(this).hide();
@@ -19,9 +19,7 @@ function desativarTudo(){
         $(this).css("visibility", "hidden");
     })
 
-    $.each($(".resumo-content"), function(){
-        $(this).css("visibility", "hidden");
-    })
+    $(".resumo-content").css("visibility", "hidden");
 
     $.each($(".select2"), function(index, div){
         $(this).empty();
@@ -74,6 +72,47 @@ function showServices(){
     });
 }
 
+function verifyDataHora(){
+    if($('#input-data').val() !== '' && $('#input-hora')[0].selectedIndex > 0){
+        $('#submit-button').prop('disabled', false);
+        
+        var nomePaciente = $('#nome-paciente').text()
+
+        var selectData = $('#selectServices').select2('data');
+        var nomeProcedimento = selectData[0].text
+        
+        selectData = $('#selectMedicos').select2('data');
+        var nomeMedico = selectData[0].text
+
+        var data = $('#input-data').val()
+        var hora  = $('#input-hora option:selected').text();
+
+        console.log(nomePaciente + ' ' + nomeProcedimento + ' ' + nomeMedico + ' ' + data + ' ' + hora + ' teste')
+
+        let resumoInformation = [$('#nome-paciente-resumo'), $('#nome-medico-resumo'), $('#nome-procedimento-resumo'),
+                                 $('#data-resumo'), $('#hora-resumo')]
+
+        resumoInformation[0].html(nomePaciente)
+        resumoInformation[1].html(nomeMedico)
+        resumoInformation[2].html(nomeProcedimento)
+        resumoInformation[3].html(data)
+        resumoInformation[4].html(hora)
+
+        $('.resumo-content').css("visibility", "visible");
+    }else{
+        $('#submit-button').prop('disabled', true);
+        $('.resumo-content').css("visibility", "hidden");
+    }
+}
+
+$('#input-hora').change(function(e){
+    verifyDataHora()
+})
+
+$('#input-data').on('change', function(e){
+    verifyDataHora()
+})
+
 $('#selectMedicos').on('select2:select', function(e){
     let medicoInformation = [$('#nome-medico'), $('#crn-medico')]
     var selectedOption = e.params.data
@@ -86,7 +125,6 @@ $('#selectMedicos').on('select2:select', function(e){
         method: 'GET',
         dataType: 'json',
         success: function(response){
-            console.log("TESTE MEDICO INICIO")
             console.log(response)
             medicoInformation[0].html(response.nome)
             medicoInformation[1].html(response.crm)
@@ -94,19 +132,18 @@ $('#selectMedicos').on('select2:select', function(e){
                 $(this).show();
             })
             
-            // var currentMonth = moment().month();
-            const date = new Date();
-            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-            const firstDayDate = firstDay.toLocaleDateString()
-            const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-            const lastDayDate = lastDay.toLocaleDateString()
-            console.log(firstDayDate) // "01/08/2022"
-            
-            $('#date').attr('min', firstDayDate);
-            $('#date').attr('max', lastDayDate);
+            var today = new Date();
+
+            var year = today.getFullYear();
+            var month = today.getMonth() + 1;
+
+            var minDate = year + '-' + (month < 10 ? '0' : '') + month + '-01';
+            var maxDate = year + '-' + (month < 10 ? '0' : '') + month + '-31';
+
+            $('#input-data').attr('min', minDate);
+            $('#input-data').attr('max', maxDate);
             
             $('.data-hora-content').css("visibility", "visible")
-            console.log("TESTE MEDICO FIM")
         },
         error: function(response){
             console.log(response)
@@ -197,13 +234,10 @@ $('#cpf').on("keyup", function(event){
 
 $('document').ready(function(){
     desativarTudo()
-    $(".select2").prop("disabled", true);
-    $("#submit-button").disabled = true;
 });
 
 $('.select2').select2({
     placeholder: 'Selecione uma opção',
-    allowClear: true,
     width : 'resolve',
     height: 'resolve'
 });
