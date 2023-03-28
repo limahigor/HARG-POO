@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hargclinical.harg.entities.Comorbidades;
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.entities.Paciente;
 import com.hargclinical.harg.entities.Services;
@@ -90,6 +91,7 @@ public class MedicoResource{
     public ResponseEntity<String> cadastrarMedico(@RequestBody String jsonData){
         ObjectMapper mapper = new ObjectMapper();
         Medico newMedico = null;
+        Paciente newPaciente = null;
 
         try{
 
@@ -99,6 +101,7 @@ public class MedicoResource{
             JsonNode servicosNode = node.get("servicos");
             List<Services> servicosJson = new ArrayList<>();
 
+
             for(JsonNode jNode : servicosNode){
                 System.out.println("Pegando Servicos\n==================================");
                 Services servico = serviceService.findById(jNode.asLong());
@@ -106,6 +109,24 @@ public class MedicoResource{
                     System.out.println("Servico: " + servico.nome);
                     servicosJson.add(servico);
                 }
+            }
+            JsonNode comorbidadesNode = node.get("comorbidades");
+            String dateString = node.get("date").asText();
+            LocalDate date = LocalDate.parse(dateString);
+            //int num_plano = node.get("plano").asInt();
+            //precisa configurar o plano---
+            Plano plano = Plano.valueOf(1);
+            
+
+            boolean tabagismo=false, obesidade=false, hipertensao=false, gestante=false, diabetes=false;
+            for(JsonNode jNode : comorbidadesNode){
+                String idString = jNode.get("id").asText();
+                boolean valor = jNode.get("value").asBoolean();
+                if(idString.equals("tabagismo"))tabagismo = valor;
+                else if(idString.equals("obesidade"))obesidade = valor;
+                else if(idString.equals("hipertensao"))hipertensao = valor;
+                else if(idString.equals("gestante"))gestante = valor;
+                else if(idString.equals("diabetes"))diabetes = valor;
             }
 
             System.out.println("Criando a instancia do medico\n==================================");
@@ -117,7 +138,11 @@ public class MedicoResource{
             String crm = node.get("crm").asText();
             LocalDate dataNascimento = LocalDate.parse(node.get("date").asText());
 
-            Paciente newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, Plano.PLATINA);
+            Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
+            
+            newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, plano);
+            servicoPaciente.insert(newPaciente);
+            newPaciente.setComorbidades(comorbidadesJson);
             servicoPaciente.insert(newPaciente);
 
             newMedico = new Medico(nome, cpf, dataNascimento, sexo, especializacao, crm);
