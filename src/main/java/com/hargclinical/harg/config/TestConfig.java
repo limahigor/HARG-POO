@@ -55,6 +55,9 @@ public class TestConfig implements CommandLineRunner{
     private PrescricaoRepository prescricaoRepository;
 
     @Autowired
+    private AgendaRepository agendaRepository;
+
+    @Autowired
     private MedicamentoPrescritoRepository medicamentoPrescritoRepository;
 
     @Autowired
@@ -76,15 +79,34 @@ public class TestConfig implements CommandLineRunner{
     public void run(String... args) throws Exception {
 
         try{
-            Agenda agenda = new Agenda();
-            agendaService.create(agenda);
-            List<Dias> dias = agenda.getDias();
-            for(Dias d : dias) {
-                d.setAgenda(agenda);
+            Agenda novaAgenda = new Agenda();
+
+            List<Dias> dias = new ArrayList<>();
+            for (int i = 1; i <= 31; i++) {
+                Dias dia = new Dias();
+                dia.setDia(i);
+                dia.setAgenda(novaAgenda);
+                dias.add(dia);
             }
+            novaAgenda.setDias(dias);
+            agendaService.create(novaAgenda);
+
             Appointment consulta = new Appointment(null, null, null, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
-            appointmentRepository.save(consulta);
-            agenda.agendarConsulta(consulta);
+            novaAgenda.agendarConsulta(consulta);
+            
+            agendaRepository.save(novaAgenda);
+
+            // Agenda agenda = new Agenda();
+            // agendaService.create(agenda);
+            // List<Dias> dias = agenda.getDias();
+            // for(Dias d : dias) {
+            //     d.setAgenda(agenda);
+            // }
+            // Appointment consulta = new Appointment(null, null, null, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
+            // appointmentRepository.save(consulta);
+            // agenda.agendarConsulta(consulta);
+
+
             // Paciente paciente1 = new Paciente("11122233344", "João Silva", 30, 'M', Plano.NENHUM);
             // Paciente paciente2 = new Paciente("22233344455", "Maria Souza", 45, 'F', Plano.SUS);
             // Paciente paciente3 = new Paciente("33344455566", "Pedro Santos", 22, 'M', Plano.PARTICULAR);

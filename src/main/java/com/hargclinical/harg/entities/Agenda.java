@@ -32,13 +32,13 @@ public class Agenda implements Serializable {
     private Medico medico;
 
     public Agenda() {
-        LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
+        /*LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
         
         for (int i = 0; i < inicioMes.lengthOfMonth(); i++) {
             Dias dia = new Dias();
             dia.setDia(i + 1);
             this.dias.add(dia);
-        }
+        }*/
     }
 
     public void agendarConsulta(Appointment consulta) {
@@ -67,6 +67,10 @@ public class Agenda implements Serializable {
 
     public List<Dias> getDias() {
         return dias;
+    }
+
+    public void setDias(List<Dias> dias) {
+        this.dias = dias;
     }
 
     @Override

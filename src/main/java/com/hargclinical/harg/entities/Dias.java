@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Dias implements Serializable {
     @JoinColumn(name = "agenda_id")
     private Agenda agenda;
 
-    @OneToMany(mappedBy = "dia")
+    @OneToMany(mappedBy = "dia", cascade = CascadeType.ALL)
     private List<Appointment> consultas = new ArrayList<>();
 
     private int dia;
