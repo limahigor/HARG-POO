@@ -140,7 +140,7 @@ public class MedicoResource{
 
             Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
             
-            newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, Plano.PLATINA);
+            newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, plano);
             servicoPaciente.insert(newPaciente);
             newPaciente.setComorbidades(comorbidadesJson);
             servicoPaciente.insert(newPaciente);
