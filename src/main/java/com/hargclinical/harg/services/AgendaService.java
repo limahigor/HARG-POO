@@ -22,7 +22,12 @@ public class AgendaService {
 
     public Agenda findById(Long id) {
 		Optional<Agenda> obj = agendaRepository.findById(id);
-		return obj.get();
+
+        if(obj.isPresent()){
+            return obj.get();
+        }else{
+            return null;
+        }
 	}
 
     public void create(Agenda agenda) {

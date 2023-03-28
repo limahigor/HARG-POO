@@ -1,7 +1,9 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -18,6 +20,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -41,21 +44,20 @@ public class Services implements Serializable{
     @Column(name = "especialidade") 
     public String especialidade;
 
+    @Column(name = "valor") 
+    public double valor;
+
     @ManyToMany(mappedBy = "medico_servicos")
     public Set<Medico> profissionais = new HashSet<>();
 
-    public double valor;
+    @ManyToMany(mappedBy = "procedimentos")
+    protected List<OrcamentoServicos> orcamento = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "orcamento_id")
-    protected OrcamentoServicos orcamento;
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    private List<Appointment> consulta = new ArrayList<>();
 
     @OneToOne(mappedBy = "service", cascade = CascadeType.ALL)
     private Agenda agenda;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "consulta_id")
-    private Appointment consulta;
 
     public Services() {
         
@@ -115,12 +117,24 @@ public class Services implements Serializable{
         this.valor = valor;
     }
 
-    public OrcamentoServicos getOrcamento() {
+    public void setProfissionais(Set<Medico> profissionais) {
+        this.profissionais = profissionais;
+    }
+
+    public List<OrcamentoServicos> getOrcamento() {
         return orcamento;
     }
 
-    public void setOrcamento(OrcamentoServicos orcamento) {
+    public void setOrcamento(List<OrcamentoServicos> orcamento) {
         this.orcamento = orcamento;
+    }
+
+    public List<Appointment> getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(List<Appointment> consulta) {
+        this.consulta = consulta;
     }
 
     @Override

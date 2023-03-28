@@ -23,4 +23,8 @@ public class ServicesService {
 		Optional<Services> obj = repository.findById(id);
 		return obj.get();
 	}
+
+    public Services insert(Services obj){
+        return repository.save(obj);
+    }
 }

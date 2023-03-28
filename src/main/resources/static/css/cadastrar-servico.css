@@ -74,7 +74,7 @@ p{
     align-items: center;
 }
 
-.nome, .valor, .select{
+.input{
     display: flex;
     flex-direction: column;
     justify-content: center;

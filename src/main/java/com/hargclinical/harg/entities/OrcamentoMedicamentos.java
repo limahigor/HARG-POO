@@ -1,14 +1,14 @@
 package com.hargclinical.harg.entities;
 
-import java.util.Scanner;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="orcamento_medicamentos")
+@PrimaryKeyJoinColumn(name = "id")
 public class OrcamentoMedicamentos extends Orcamento{
 
     @OneToOne

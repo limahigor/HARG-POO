@@ -5,15 +5,24 @@ import java.util.Set;
 
 import com.hargclinical.harg.entities_enums.Plano;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="orcamento_servicos")
+@PrimaryKeyJoinColumn(name = "id")
 public class OrcamentoServicos extends Orcamento {
 
-    @OneToMany(mappedBy = "orcamento")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "procedimentos_orcamentos",
+               joinColumns = @JoinColumn(name = "orcamento_id"),
+               inverseJoinColumns = @JoinColumn(name = "service_id"))
     protected Set<Services> procedimentos = new HashSet<>();
 
     public OrcamentoServicos() {

@@ -23,19 +23,24 @@
             <!---------------- MEIO -------------->
             <div id="mid">
                 <div class="forms">
-                    <form id="medico">
+                    <form id="cadastrar-servico">
                         <div class="content-forms">
-                            <div class="nome">
+                            <div class="nome input">
                                 <label for="nome">Nome</label>
                                 <input class="campo-nome" type="text" id="nome" name="nome">
                             </div>
 
-                            <div class="valor">
+                            <div class="especialidade input">
+                                <label for="nome">Especialidade</label>
+                                <input class="campo-nome" type="text" id="especialidade" name="especialidade">
+                            </div>
+
+                            <div class="valor input">
                                 <label for="nome">Valor</label>
                                 <input class="campo-valor" type="text" id="valor" name="valor">
                             </div>
 
-                            <div class="select">
+                            <div class="select input">
                                 <label for="input-tipo">Tipo</label>
                                 <select class="selectType" id="input-tipo">
                                     <option></option>
@@ -66,7 +71,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script th:src="@{/js/form-servico.js}"></script>
-    <script th:src="@{/js/submit-formulary.js}"></script>
 </body>
 
 </html>

@@ -36,16 +36,17 @@ public class Appointment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
-
+    
     @ManyToMany
     @JoinTable(
         name = "dia_appointment",
         joinColumns = @JoinColumn(name = "appointments_id"),
         inverseJoinColumns = @JoinColumn(name = "dias_id")
-    )
+        )
     private List<Dias> dia = new ArrayList<>();
-
-    @OneToOne(mappedBy = "consulta", cascade = CascadeType.ALL)
+        
+    @ManyToOne
+    @JoinColumn(name = "service_id")
     private Services service;
 
     private LocalDate data;

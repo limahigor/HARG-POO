@@ -2,14 +2,20 @@ package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Table;
 
-@MappedSuperclass
+@Entity  
+@Table(name = "orcamentos")  
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Orcamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +26,7 @@ public abstract class Orcamento implements Serializable {
     protected double valor;
 
     @ManyToOne
-    @JoinColumn(name = "movimentacoes")
+    @JoinColumn(name = "movimentacoes_id")
     private Caixa caixa;
 
     public Orcamento(){
