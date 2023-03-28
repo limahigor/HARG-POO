@@ -25,6 +25,9 @@ function desativarTudo(){
         $(this).empty();
     })
 
+    $('#input-data').val('');
+    $('#input-hora').val('0');
+
     $('.select2').select2({
         placeholder: 'Selecione uma opção',
         width : 'resolve',
@@ -85,7 +88,7 @@ function verifyDataHora(){
         var nomeMedico = selectData[0].text
 
         var data = $('#input-data').val()
-        var hora  = $('#input-hora option:selected').text();
+        var hora = $('#input-hora option:selected').text();
 
         console.log(nomePaciente + ' ' + nomeProcedimento + ' ' + nomeMedico + ' ' + data + ' ' + hora + ' teste')
 
@@ -99,11 +102,57 @@ function verifyDataHora(){
         resumoInformation[4].html(hora)
 
         $('.resumo-content').css("visibility", "visible");
+
+        var posicao = $("#submit-button").offset().top;
+        $(".content-forms").animate({
+            scrollTop: posicao
+        }, 1000);
     }else{
         $('#submit-button').prop('disabled', true);
         $('.resumo-content').css("visibility", "hidden");
     }
 }
+
+$('#submit-button').click(function(event){
+    event.preventDefault();
+    console.log("TESTE SUBMIT")
+
+    const form = $('#form-consulta');
+    const formData = form.serializeArray();
+    const requestData = {};
+
+    $(formData).each(function(index, obj) {
+        requestData[obj.name] = obj.value;
+    });
+
+    var hora = $('#input-hora option:selected').text();
+    
+
+    var selectData = $('#selectServices').select2('data');
+    var idProcedimento = selectData[0].id
+        
+    selectData = $('#selectMedicos').select2('data');
+    var idMedico = selectData[0].id
+
+    requestData['hora'] = hora;
+    requestData['procedimento'] = idProcedimento;
+    requestData['medico'] = idMedico;
+
+    console.log(JSON.stringify(requestData));
+    $.ajax({
+        url: '/appointments/agendar',
+        method: 'POST',
+        data: JSON.stringify(requestData),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(response){
+
+        },
+        error: function(response){
+
+        }
+    })
+})
 
 $('#input-hora').change(function(e){
     verifyDataHora()
@@ -144,6 +193,7 @@ $('#selectMedicos').on('select2:select', function(e){
             $('#input-data').attr('max', maxDate);
             
             $('.data-hora-content').css("visibility", "visible")
+            verifyDataHora()
         },
         error: function(response){
             console.log(response)
@@ -170,6 +220,7 @@ $('#selectServices').on('select2:select', function(e){
                 $(this).show();
             })
             showMedicos(response.profissionais);
+            verifyDataHora()
         },
         error: function(response){
             console.log(response);
