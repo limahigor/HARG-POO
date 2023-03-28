@@ -42,7 +42,6 @@ public class Appointment implements Serializable {
     /*public String cpfPaciente;
     public String nomeMedico;
     public String nomeServico;*/
-    
 
     public Appointment (){
 
