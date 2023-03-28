@@ -5,6 +5,8 @@ import java.io.Serializable;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -17,6 +19,10 @@ public abstract class Orcamento implements Serializable {
     protected Paciente paciente;
     protected double valor;
 
+    @ManyToOne
+    @JoinColumn(name = "movimentacoes")
+    private Caixa caixa;
+
     public Orcamento(){
     }
 
@@ -28,6 +34,14 @@ public abstract class Orcamento implements Serializable {
     
     public double getOrcamento(){
         return valor;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     public void setOrcamento(double valor){
