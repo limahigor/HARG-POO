@@ -30,6 +30,14 @@ public abstract class Orcamento implements Serializable {
         return valor;
     }
 
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
     public void setOrcamento(double valor){
         this.valor = valor;
     }
