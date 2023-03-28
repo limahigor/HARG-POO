@@ -25,19 +25,18 @@ public class Agenda implements Serializable {
     private Long id;
 
     @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL)
-    private List<Dias> dias;
+    private List<Dias> dias = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "medico_id")
     private Medico medico;
 
     public Agenda() {
-        this.dias = new ArrayList<>();
         LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
         
         for (int i = 0; i < inicioMes.lengthOfMonth(); i++) {
-            LocalDate data = inicioMes.plusDays(i);
-            Dias dia = new Dias(data, new ArrayList<>());
+            Dias dia = new Dias();
+            dia.setDia(i + 1);
             this.dias.add(dia);
         }
     }
@@ -49,6 +48,7 @@ public class Agenda implements Serializable {
 
         Dias dia = this.dias.get(consulta.getData().getDayOfMonth() - 1);
         dia.getConsultas().add(consulta);
+        consulta.setDia(dia);
     }
 
     public static List<Dias> listarConsultasPorMedico(Medico medico) {

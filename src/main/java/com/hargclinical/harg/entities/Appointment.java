@@ -33,7 +33,7 @@ public class Appointment implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "dia_consulta_id")
-    private Dias dia_consulta;
+    private Dias dia;
 
     private Services service;
     private LocalDate data;
@@ -47,6 +47,7 @@ public class Appointment implements Serializable {
     public Appointment (){
 
     }
+
     public Appointment (Medico medico, Paciente paciente, Services service, 
                         LocalDate data, LocalTime horario){
         Random random = new Random();
@@ -72,10 +73,18 @@ public class Appointment implements Serializable {
     //     return sb.toString();
     // }
 
+    public Dias getDia() {
+        return dia;
+    }
+
+    public void setDia(Dias dia) {
+        this.dia = dia;
+    }
+    
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
