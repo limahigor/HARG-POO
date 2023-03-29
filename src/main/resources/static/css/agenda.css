@@ -41,6 +41,13 @@ select{
     border-bottom: 1px solid rgba(0, 0, 0, 0.534);
 }
 
+button{
+    width: 7vw;
+    height: 3vh;
+
+
+}
+
 .input{
     text-align: center;
 
@@ -122,10 +129,6 @@ select{
     
     border-bottom: 1px solid rgba(0, 0, 0, 0.534);
     background-color: rgba(72, 121, 153, 0.699);
-}
-
-.info:hover, .info-data-hora:hover{
-    
 }
 
 .titulo{
