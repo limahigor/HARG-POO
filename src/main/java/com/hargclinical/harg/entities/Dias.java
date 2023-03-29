@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -27,7 +28,14 @@ public class Dias implements Serializable {
     @JoinColumn(name = "agenda_id")
     private Agenda agenda;
 
-    @ManyToMany(mappedBy = "dia", cascade = CascadeType.ALL)
+    // @ManyToMany(mappedBy = "dia", cascade = CascadeType.ALL)
+
+    @ManyToMany
+    @JoinTable(
+        name = "dias_consultas",
+        joinColumns = @JoinColumn(name = "dias_id"),
+        inverseJoinColumns = @JoinColumn(name = "appointments_id")
+    )
     private List<Appointment> consultas = new ArrayList<>();
 
     private int dia;

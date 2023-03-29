@@ -93,7 +93,6 @@ public class TestConfig implements CommandLineRunner{
             Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
             Paciente paciente1 = new Paciente("João Silva", "124125125125", LocalDate.of(1999, 7, 20), 'M', Plano.BRONZE);
             pacienteService.insert(paciente1);
-            // medicoService.insert(medico);
             Services servico = new Services("Botox", "Dermatologia", 285.00);
             Appointment consulta = new Appointment(medico, paciente1, servico, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
             
@@ -104,7 +103,8 @@ public class TestConfig implements CommandLineRunner{
             medicoAgenda.setMedico(medico);
             medico.setAgenda(medicoAgenda);
             agendaService.create(medicoAgenda);
-
+            medicoService.insert(medico);
+            
             Agenda servicoAgenda = new Agenda();
             List<Dias> diasServico = new ArrayList<>();
             servicoAgenda.setListaDias(diasServico, servicoAgenda);
