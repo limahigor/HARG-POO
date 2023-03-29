@@ -50,8 +50,8 @@ public class Services implements Serializable{
     @ManyToMany(mappedBy = "medico_servicos")
     public Set<Medico> profissionais = new HashSet<>();
 
-    @ManyToMany(mappedBy = "procedimentos")
-    protected List<OrcamentoServicos> orcamento = new ArrayList<>();
+    // @ManyToMany(mappedBy = "procedimentos")
+    // protected List<OrcamentoServicos> orcamento = new ArrayList<>();
 
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
     private List<Appointment> consulta = new ArrayList<>();
@@ -121,13 +121,13 @@ public class Services implements Serializable{
         this.profissionais = profissionais;
     }
 
-    public List<OrcamentoServicos> getOrcamento() {
-        return orcamento;
-    }
+    // public List<OrcamentoServicos> getOrcamento() {
+    //     return orcamento;
+    // }
 
-    public void setOrcamento(List<OrcamentoServicos> orcamento) {
-        this.orcamento = orcamento;
-    }
+    // public void setOrcamento(List<OrcamentoServicos> orcamento) {
+    //     this.orcamento = orcamento;
+    // }
 
     public List<Appointment> getConsulta() {
         return consulta;

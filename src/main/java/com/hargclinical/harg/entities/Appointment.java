@@ -36,6 +36,10 @@ public class Appointment implements Serializable {
     private Medico medico;
 
     @ManyToOne
+    @JoinColumn(name = "orcamento_id")
+    private OrcamentoServicos orcamentos;
+
+    @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     
@@ -48,10 +52,6 @@ public class Appointment implements Serializable {
 
     private LocalDate data;
     private LocalTime horario;
-    
-    /*public String cpfPaciente;
-    public String nomeMedico;
-    public String nomeServico;*/
 
     public Appointment (){
 
@@ -68,19 +68,6 @@ public class Appointment implements Serializable {
         this.data = data;
         this.horario = horario;
     }
-
-    // public String toString (Paciente paciente){
-    //     StringBuilder sb = new StringBuilder();
-
-    //     sb.append("ID da consulta: " + id + "\n");
-    //     sb.append("Nome do paciente: " + paciente.nome + "\n");
-    //     sb.append("Nome do médico: " + medico.nome + "\n");
-    //     sb.append("Procedimento: " + service.nome + "\n");
-    //     sb.append("Data da consulta: " + dia + "/" + mes + "/" + ano + "\n");
-    //     sb.append("Horário: " + hora + ":" + minuto + "\n");
-
-    //     return sb.toString();
-    // }
 
     public List<Dias> getDia() {
         return dia;
@@ -133,5 +120,48 @@ public class Appointment implements Serializable {
     public void setService(Services service) {
         this.service = service;
     }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public OrcamentoServicos getOrcamentos() {
+        return orcamentos;
+    }
+
+    public void setOrcamentos(OrcamentoServicos orcamentos) {
+        this.orcamentos = orcamentos;
+    }
+
+    public void setDia(List<Dias> dia) {
+        this.dia = dia;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Appointment other = (Appointment) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
+    
     
 }

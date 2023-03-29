@@ -1,7 +1,7 @@
 package com.hargclinical.harg.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -12,29 +12,32 @@ import jakarta.persistence.Table;
 public class OrcamentoMedicamentos extends Orcamento{
 
     @OneToOne
-    @MapsId
+    @JoinColumn(name = "prescricao_id")
     private Prescricao prescricao; 
 
     public OrcamentoMedicamentos(){
         super();
     }
-    
-    public OrcamentoMedicamentos(Paciente paciente, Prescricao prescricao) {
-        super(paciente);
+
+    public Prescricao getPrescricao() {
+        return prescricao;
+    }
+
+    public void setPrescricao(Prescricao prescricao) {
         this.prescricao = prescricao;
     }
     
-    @Override
-    public void addOrcamento(){
-        /*for(int i = 0; i < prescricao.nomes.size() ; i++){
-            Scanner sc = new Scanner(System.in);
-            int quantidade = sc.nextInt();
+    // @Override
+    // public void addOrcamento(){
+    //     for(int i = 0; i < prescricao.nomes.size() ; i++){
+    //         Scanner sc = new Scanner(System.in);
+    //         int quantidade = sc.nextInt();
 
-            this.valor = prescricao.valores.get(i) * quantidade;
+    //         this.valor = prescricao.valores.get(i) * quantidade;
 
-            sc.close();
-        }*/
-    }
+    //         sc.close();
+    //     }
+    // }
 
     /*public void removeOrcamento(String removerMedicamento){
         for(int i = 0; i < prescricao.nomes.size() ; i++){

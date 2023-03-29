@@ -1,21 +1,12 @@
 package com.hargclinical.harg.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity  
@@ -28,23 +19,12 @@ public abstract class Orcamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
-    protected Paciente paciente;
-
     protected double valor;
 
     public Orcamento(){
+        super();
     }
 
-    public Orcamento(Paciente paciente){
-        this.paciente = paciente;
-    }
-
-    public abstract void addOrcamento();
-    
-    public double getOrcamento(){
-        return valor;
-    }
 
     public double getValor() {
         return valor;
@@ -54,12 +34,18 @@ public abstract class Orcamento implements Serializable {
         this.valor = valor;
     }
 
-    public void setOrcamento(double valor){
-        this.valor = valor;
-    }
-    
-    public String printOrcamento(){
-        return "Valor total: R$ " + this.valor + "\n";
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

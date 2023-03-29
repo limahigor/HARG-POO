@@ -1,24 +1,20 @@
 
 function printDOMPrescricao(bodyId, dados, div){
     $('#' + div).empty()
-    console.log('teste')
-    console.log(dados)
-    console.log('teste')
     
     $.each(dados, function(index, value){
-        console.log(value)
-
         if(bodyId === "pagina-paciente"){
-             stringNome = '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.medico.nome + '</span></h1>'
+            stringNome =  '<a href="" class="titulo link-exame" id="' + value.id + '"> Prescrição#'+ value.id + '</a>' +
+                          '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.medico.nome + '</span></h1>'
         }else if(bodyId === "pagina-medico"){
-             stringNome = '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + value.paciente.nome + '</span></h1>'
+            stringNome =  '<h1 class="nomeTitle" id="' + value.id + '"> Prescrição#'+ value.id + '</h1>' +
+                          '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + value.paciente.nome + '</span></h1>'
         }
         
         var html = '<ul id="resultado-'+ div +'">' + 
                         '<li>' +
                             '<div class="resul">' +
                                 '<div class="info-gerais-prescricao">' +
-                                    '<a href="" class="titulo link-exame" id="' + value.id + '"> Prescrição#'+ value.id + '</a>' +
                                     stringNome +
                                 '</div>' +
                     '<div class="medicamento-list">'
@@ -26,15 +22,11 @@ function printDOMPrescricao(bodyId, dados, div){
         var mid = ""
         
         $.each(value.medicamentos, function(index, med){
-            console.log(med)
              mid += '<div class="medicamento">' +
                      '<h1 class="nome-medicamento">Nome: ' + med.nome + '</h1>' +
                      '<h1 class="intervalo-medicamento">Intervalo: ' + med.intervalo + ' horas</h1>' +
                      '</div>'
         })
-        console.log('teste med fim')
-                    
-
 
         finalhtml =             '</div>' +
                             '</div>' +
@@ -50,17 +42,19 @@ function printDOM(bodyId, dados, div){
     $('#' + div).empty()
     $.each(dados, function(index, value){
         if(bodyId === "pagina-paciente"){
-            stringNome = '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.nomeMedico + '</span></h1>'
+            stringNome = '<a href="" class="titulo link-exame" id="' + value.id + '">' + value.nomeProcedimento + '</a>' +
+            '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.nomeMedico + '</span></h1>'
+            
         }else if(bodyId === "pagina-medico"){
-            stringNome = '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + value.nomePaciente + '</span></h1>'
+            stringNome = '<h1 class="nomeTitle" id="' + value.id + '">' + value.nomeProcedimento + '</h1>' +
+                         '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + value.nomePaciente + '</span></h1>'
         }
-
+        
             $('#' + div).append('<ul id="resultado-'+ div +'">' + 
                                     '<li>' +
                                         '<div class="resul">' +
                                             '<div class="info-gerais">' +
-                                                '<a href="" class="titulo link-exame" id="' + value.id + '">' + value.nomeProcedimento + '</a>' +
-                                                    stringNome +
+                                                    stringNome+
                                             '</div>' +
                                             '<div class="data-hora">' +
                                                 '<h1 class="data">' + value.data + '</h1>' +
@@ -88,8 +82,6 @@ function ajaxRequisition(url, data, div){
             var dados = []
             var datas = {}
 
-            console.log(response)
-
             if(div !== 'prescricao'){
                 $.each(response, function (index, value) {
                     var dataResponse = {
@@ -101,7 +93,6 @@ function ajaxRequisition(url, data, div){
                                     'hora' : value.hora
                                 }
                     
-                    console.log(dataResponse)
                     dados.push(dataResponse)
                 });
             }
@@ -130,6 +121,15 @@ function getUrl(metodo){
     return url;
 }
 
+$(document).on('click', '.link-exame', function(event){
+    event.preventDefault()
+
+    console.log('teste');
+
+    var userId = $('.info-pacientes').attr('id');
+
+    window.location.href = '/orcamento/' + userId;
+});
 
 /// TAB
 function openDiv(evt, tabAtual) {
