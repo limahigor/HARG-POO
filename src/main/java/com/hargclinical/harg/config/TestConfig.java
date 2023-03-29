@@ -2,20 +2,25 @@ package com.hargclinical.harg.config;
 
 import com.hargclinical.harg.repositories.AgendaRepository;
 import com.hargclinical.harg.repositories.AppointmentRepository;
+import com.hargclinical.harg.repositories.CaixaRepository;
 import com.hargclinical.harg.repositories.MedicamentoPrescritoRepository;
 import com.hargclinical.harg.repositories.MedicoRepository;
 import com.hargclinical.harg.repositories.PacienteRepository;
 import com.hargclinical.harg.repositories.PrescricaoRepository;
 import com.hargclinical.harg.repositories.ServicesRepository;
 import com.hargclinical.harg.services.AgendaService;
+import com.hargclinical.harg.services.CaixaService;
 import com.hargclinical.harg.services.MedicoService;
 import com.hargclinical.harg.services.PacienteService;
 import com.hargclinical.harg.services.ServicesService;
 import com.hargclinical.harg.entities.Agenda;
 import com.hargclinical.harg.entities.Appointment;
+import com.hargclinical.harg.entities.Caixa;
 import com.hargclinical.harg.entities.Dias;
 import com.hargclinical.harg.entities.MedicamentoPrescrito;
 import com.hargclinical.harg.entities.Medico;
+import com.hargclinical.harg.entities.Orcamento;
+import com.hargclinical.harg.entities.OrcamentoMedicamentos;
 import com.hargclinical.harg.entities.Paciente;
 import com.hargclinical.harg.entities.Prescricao;
 import com.hargclinical.harg.entities.ServConsulta;
@@ -75,49 +80,72 @@ public class TestConfig implements CommandLineRunner{
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    @Autowired
+    private CaixaRepository caixaRepository;
+
+    @Autowired
+    private CaixaService caixaService;
+
+
     @Override
     public void run(String... args) throws Exception {
 
         try{
-            Agenda novaAgenda = agendaService.findById(1L);
+            // Agenda novaAgenda = agendaService.findById(1L);
 
-            if(novaAgenda == null){
-                novaAgenda = new Agenda();
+            // if(novaAgenda == null){
+            //     novaAgenda = new Agenda();
 
-                List<Dias> dias = new ArrayList<>();
-                novaAgenda.setListaDias(dias, novaAgenda);
-                novaAgenda.setDias(dias);
-                agendaService.create(novaAgenda);
-            }
+            //     List<Dias> dias = new ArrayList<>();
+            //     novaAgenda.setListaDias(dias, novaAgenda);
+            //     novaAgenda.setDias(dias);
+            //     agendaService.create(novaAgenda);
+            // }
 
-            Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
-            Paciente paciente1 = new Paciente("João Silva", "124125125125", LocalDate.of(1999, 7, 20), 'M', Plano.BRONZE);
-            pacienteService.insert(paciente1);
-            Services servico = new Services("Botox", "Dermatologia", 285.00);
-            Appointment consulta = new Appointment(medico, paciente1, servico, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
+            //Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
+            Paciente paciente1 = new Paciente();
+            paciente1.setNome("Anderson");
+            // pacienteService.insert(paciente1);
+            // Services servico = new Services("Botox", "Dermatologia", 285.00);
+            // Appointment consulta = new Appointment(medico, paciente1, servico, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
             
-            Agenda medicoAgenda = new Agenda();
-            List<Dias> diasMedico = new ArrayList<>();
-            medicoAgenda.setListaDias(diasMedico, medicoAgenda);
-            medicoAgenda.setDias(diasMedico);
-            medicoAgenda.setMedico(medico);
-            medico.setAgenda(medicoAgenda);
-            agendaService.create(medicoAgenda);
-            medicoService.insert(medico);
+            // Agenda medicoAgenda = new Agenda();
+            // List<Dias> diasMedico = new ArrayList<>();
+            // medicoAgenda.setListaDias(diasMedico, medicoAgenda);
+            // medicoAgenda.setDias(diasMedico);
+            // medicoAgenda.setMedico(medico);
+            // medico.setAgenda(medicoAgenda);
+            // agendaService.create(medicoAgenda);
+            // medicoService.insert(medico);
             
-            Agenda servicoAgenda = new Agenda();
-            List<Dias> diasServico = new ArrayList<>();
-            servicoAgenda.setListaDias(diasServico, servicoAgenda);
-            servicoAgenda.setDias(diasServico);
-            servicoAgenda.setService(servico);
-            servico.setAgenda(servicoAgenda);
-            agendaService.create(servicoAgenda);
+            // Agenda servicoAgenda = new Agenda();
+            // List<Dias> diasServico = new ArrayList<>();
+            // servicoAgenda.setListaDias(diasServico, servicoAgenda);
+            // servicoAgenda.setDias(diasServico);
+            // servicoAgenda.setService(servico);
+            // servico.setAgenda(servicoAgenda);
+            // agendaService.create(servicoAgenda);
 
-            servicoAgenda.agendarConsulta(consulta);
-            medicoAgenda.agendarConsulta(consulta);
-            novaAgenda.agendarConsulta(consulta);
+            // servicoAgenda.agendarConsulta(consulta);
+            // medicoAgenda.agendarConsulta(consulta);
+            // novaAgenda.agendarConsulta(consulta);
 
-            appointmentRepository.save(consulta);
+            // appointmentRepository.save(consulta);
+            
+
+            caixaService.abrirCaixa();
+
+            // List<Caixa> caixas = new ArrayList<>();
+
+            // Caixa caixa = caixas.get(0);
+            System.out.println("11111111111111111=======================================================================================");
+            // Prescricao prescricao = new Prescricao();
+            // OrcamentoMedicamentos orcamento = new OrcamentoMedicamentos(paciente1, prescricao);
+            
+            // orcamento.setOrcamento(500);
+            // caixa.addMovimentacoesCaixa(orcamento);
+            
+
         }catch(Exception e){
             System.out.println("TESTE ERROR");
             System.out.println(e.getMessage());

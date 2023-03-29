@@ -16,20 +16,31 @@ public class CaixaService {
     
     public void abrirCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
-
-        Caixa caixa = caixas.get(caixas.size()-1);
+        System.out.println("t00");
+        Caixa caixa;
+        System.out.println("t001");
         if (caixas.isEmpty()){
+            System.out.println("t10");
             caixa = new Caixa();
+            System.out.println("t11");
             caixa.setAberto(true);
+            System.out.println("t12");
             caixaRepository.save(caixa);
         }
-        
-        if (caixa.getAberto()){
-            throw new RuntimeException("Caixa já está aberto");
+        else{
+            caixa = caixas.get(caixas.size()-1);
+            System.out.println("T2");
+            if (caixa.getAberto()){
+                throw new RuntimeException("Caixa já está aberto");
+            }
+            else{
+                System.out.println("t3");
+                caixa = new Caixa();
+                caixa.setAberto(true);
+                System.out.println("T4");
+                caixaRepository.save(caixa);
+            }
         }
-        caixa = new Caixa();
-        caixa.setAberto(true);
-        caixaRepository.save(caixa);
 
     }
     
