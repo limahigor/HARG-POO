@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hargclinical.harg.entities.Appointment;
 import com.hargclinical.harg.entities.Comorbidades;
 import com.hargclinical.harg.entities.Paciente;
+import com.hargclinical.harg.entities.Prescricao;
 import com.hargclinical.harg.entities_enums.Plano;
 import com.hargclinical.harg.services.PacienteService;
 import com.hargclinical.harg.utils.StringUtils;
@@ -30,6 +32,36 @@ public class PacienteResource {
 
     @Autowired
     private PacienteService service;
+
+    @RequestMapping("/prescricao")
+    public ResponseEntity<List<Prescricao>> searchPrescricaoByBoolean(@RequestParam("id") Long id) {
+        Paciente paciente = service.findById(id);
+        List<Prescricao> prescricaoPaciente = paciente.getPrescricoes();
+        List<Prescricao> prescricao = new ArrayList<>();
+
+        for(Prescricao presc : prescricaoPaciente){
+            if(!presc.isOrcamento_gerado()){
+                prescricao.add(presc);
+            }
+        }
+
+        return ResponseEntity.ok().body(prescricao);
+    }
+
+    @RequestMapping("/appointments")
+    public ResponseEntity<List<Appointment>> searchAppointmentByBoolean(@RequestParam("id") Long id) {
+        Paciente paciente = service.findById(id);
+        List<Appointment> consultaPaciente = paciente.getAppointments();
+        List<Appointment> consultas = new ArrayList<>();
+
+        for(Appointment consul : consultaPaciente){
+            if(!consul.isOrcamento_gerado()){
+                consultas.add(consul);
+            }
+        }
+
+        return ResponseEntity.ok().body(consultas);
+    }
 
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Paciente> searchPacienteByName(@PathVariable Long id) {

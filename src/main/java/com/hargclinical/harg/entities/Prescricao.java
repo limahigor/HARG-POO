@@ -43,6 +43,8 @@ public class Prescricao implements Serializable{
     @OneToOne(mappedBy = "prescricao", cascade = CascadeType.ALL)
     private OrcamentoMedicamentos orcamentoMedicamentos;
 
+    private boolean orcamento_gerado = false;
+
     public Prescricao (){
     }
 
@@ -113,5 +115,13 @@ public class Prescricao implements Serializable{
 
     public void setMedicamentos(List<MedicamentoPrescrito> medicamentos) {
         this.medicamentos = medicamentos;
+    }
+
+    public boolean isOrcamento_gerado() {
+        return orcamento_gerado;
+    }
+
+    public void setOrcamento_gerado(boolean orcamento_gerado) {
+        this.orcamento_gerado = orcamento_gerado;
     }
 }

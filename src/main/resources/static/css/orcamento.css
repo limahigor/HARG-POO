@@ -1,0 +1,255 @@
+h1{
+    font-size: 16px;
+    color: rgb(26,87,123);
+    font-weight: bold;
+}
+
+li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+a:visited{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.paciente{
+    margin: 0;
+    width: 80vw;
+    height: 67.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-pacientes{
+    margin: 0;
+    height: 13.5vh;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.info{
+    padding-left: 10px;
+    left: 18px;
+    height: 13.5vh;
+    width: 30%;
+}
+
+.dados{
+    color: black;
+}
+
+.comorbidades{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    padding: 0;
+    height: 13.5vh;
+    width: 70%;
+
+    /* border: 1px solid red; */
+}
+
+.detalhes{
+    display: flex;
+    flex-direction: column;
+    bottom: 10px;
+    width: 50%;
+    height: 54vh;
+}
+
+button{
+    width: 8vw;
+    height: 5vh;
+
+}
+
+.selectedOrcamentos{
+    height: 54vh;
+    width: 50%;
+    border-top-left-radius: 10px;
+    padding-top: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+
+    background-color: rgb(69,115,147);
+}
+
+.select2{
+    width: 18vw;
+    height: 3vh;
+}
+
+.bottom-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+
+    overflow: hidden;
+}
+
+.menu button{
+    color: rgb(0, 0, 0);
+    letter-spacing: 2px;
+    border: 0;
+    background-color: rgb(62, 103, 133);
+    width: 200px;
+    height: 35px;
+    padding: 5px;
+    border: 0.5px solid rgba(59, 57, 57, 0.342);
+}
+
+.menu button:not([disabled]):hover{
+    background-color: rgba(72, 121, 153, 0.699);
+}
+
+.menu button.active{
+    background-color: rgba(72, 121, 153, 0.699);
+}
+
+.canto-esquerdo{
+    border-top-left-radius: 15px;
+}
+
+.canto-direito{
+    border-top-right-radius: 15px;
+}
+
+.content{
+    height: calc(54vh - 35px);
+    background-color: rgb(62, 103, 133);
+}
+
+.tabcontent{
+    overflow: auto;
+    height: calc(54vh - 35px);
+    border: 1px solid rgba(255, 0, 0, 0);
+    padding: 0;
+    margin: 0;
+    background-color: rgba(72, 121, 153, 0.699);
+}
+
+.resul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 18vh;
+    padding: 0;
+    line-height: 8px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.534);
+}
+
+.info-gerais{
+    width: 30vw;
+    padding-left: 10px;
+}
+
+.titulo{
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.nomeTitle{
+    color: black;
+}
+
+.nomeData{
+    font-weight: lighter;
+    color: black;
+}
+
+.data-hora{
+    width: 5.5vw;
+    text-align: center;
+    position: relative;
+}
+
+.comorbidades-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    width: 100%;
+}
+
+.titulos-comorbide{
+    width: 10vw;
+}
+
+.info-gerais-prescricao{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    width: 50%;
+    height: 100%;
+
+    padding-left: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.589);;
+}
+
+.medicamento-list{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    overflow: auto;
+
+    width: 50%;
+    height: 18vh;
+
+    max-height: 18vh;
+
+}
+
+.medicamento{
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    text-align: left;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.589);
+}
+
+.medicamento > h1{
+    padding-left: 5px;
+}
