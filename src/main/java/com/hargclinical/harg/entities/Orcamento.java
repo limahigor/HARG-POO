@@ -27,7 +27,10 @@ public abstract class Orcamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    
     protected Paciente paciente;
+
     protected double valor;
 
     public Orcamento(){

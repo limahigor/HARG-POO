@@ -69,6 +69,13 @@ public class Paciente extends Pessoa{
 
     public int getFactorRisco(){
        return comorbidades.getFactorR();
+    }
+    
+    public List<Prescricao> getPrescricoes() {
+        return prescricoes;
+    }
+    public void setPrescricoes(List<Prescricao> prescricoes) {
+        this.prescricoes = prescricoes;
     }  
     
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -33,6 +34,24 @@ public class PrescricaoResource {
 
     @Autowired
     private MedicoService medicoService;
+
+    @GetMapping("/medico")
+    public ResponseEntity<List<Prescricao>> findByMedico(@RequestParam("id") Long idPaciente) {
+        Paciente paciente = pacienteService.findById(idPaciente);
+        
+        List<Prescricao> prescricoes = paciente.getPrescricoes();
+        
+        return ResponseEntity.ok(prescricoes);
+    }
+
+    @GetMapping("/paciente")
+    public ResponseEntity<List<Prescricao>> findByPaciente(@RequestParam("id") Long idPaciente) {
+        Paciente paciente = pacienteService.findById(idPaciente);
+        
+        List<Prescricao> prescricoes = paciente.getPrescricoes();
+
+        return ResponseEntity.ok(prescricoes);
+    }
 
     @GetMapping
     public ResponseEntity<List<Prescricao>> listarPrescricoes() {

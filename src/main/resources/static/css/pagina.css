@@ -136,7 +136,7 @@ a:visited{
     align-items: center;
     justify-content: space-between;
 
-    height: 8vh;
+    height: 18vh;
     padding: 0;
     line-height: 8px;
 
@@ -178,4 +178,48 @@ a:visited{
 
 .titulos-comorbide{
     width: 10vw;
+}
+
+.info-gerais-prescricao{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    width: 50%;
+    height: 100%;
+
+    padding-left: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.589);;
+}
+
+.medicamento-list{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+
+    overflow: auto;
+
+    width: 50%;
+    height: 18vh;
+
+    max-height: 18vh;
+
+    /* border: 1px solid red; */
+}
+
+.medicamento{
+    width: 100%;
+    /* display: flex; */
+    align-items: center;
+    flex-direction: column;
+    text-align: left;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.589);
+}
+
+.medicamento > h1{
+    padding-left: 5px;
 }

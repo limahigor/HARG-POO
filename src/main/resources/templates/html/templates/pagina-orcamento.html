@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>HARG Medical</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <link rel="stylesheet" th:href="@{/css/pagina.css}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+        <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </head>
+    <body id="pagina-paciente">
+
+        <div id="all">
+            <!-------------- CONTEÚDO PRINCIPAL ---------------->
+            <div id="main-card">
+                <!-------------- TOPO ---------------->
+                <div id="top">
+                    <div class="img-content">
+                        <a href="/"><img th:src="@{/img/logo1.png}" id="img-top"></a>
+                    </div>
+                </div>
+
+                <!---------------- MEIO -------------->
+
+                <div id="mid">
+                    <div class="paciente">
+                        <div class="info-pacientes" th:id = "${id}">
+                            <div class="info">
+                                <h1>Nome: <span class="dados" th:text="${nome}"></span></h1>
+                                <h1>CPF: <span class="dados" th:text="${cpf}"></span></h1>
+                                <h1>Idade: <span class="dados" th:text="${idade}"></span></h1>
+                                <h1>Sexo: <span class="dados" th:text="${sexo}"></span></h1>
+                            </div>
+                            <div class="comorbidades">
+                                <div class="titulos-comorbide">
+                                    <h1 class="title">Comorbidades</h1>
+                                </div>
+                                <div class="comorbidades-info">
+                                    <h1>Fumante: <span class="dados" th:text="${fumante}"></span></h1>
+                                    <h1>Gestante: <span class="dados" th:text="${gestante}"></span></h1>
+                                    <h1>Diabetico: <span class="dados" th:text="${diabetico}"></span></h1>
+                                    <h1>Hipertenso: <span class="dados" th:text="${hipertenso}"></span></h1>
+                                    <h1>Obeso: <span class="dados" th:text="${obeso}"></span></h1>
+                                    <h1>Idoso: <span class="dados" th:text="${idoso}"></span></h1>
+                                </div>
+                                <div class="titulos-comorbide">
+                                    <h1 class="fatorRisco">Fator de Risco: <span class="dados" th:text="${fatorRisco}"></span></h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detalhes">
+                            <div class="menu">
+                                <button class="tablinks canto-esquerdo" onclick="openDiv(event, 'consulta')" id="defaultOpen">Consultas</button>
+                                <button class="tablinks canto-direito" onclick="openDiv(event, 'prescricao')">Prescrições</button>
+                            </div>
+                            <div class="content">
+                                <div class="tabcontent" >
+                                    <ul id="resultado-exames" id="exame">
+                                        
+                                    </ul>
+                                </div>
+                                <div class="tabcontent" >
+                                    <ul id="resultado-prescricoes" id="prescricao">
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!---------------- RODAPE -------------->
+                <div id="bottom">
+                    <img th:src="@{/img/logo2.png}" id="img-bottom">
+                    <p id="tel-bottom">Telefone: <strong>(82) 3252-9081</strong></p>
+                    <p id="copy-bottom">© 2023 HARG. Todos os direitos reservados.</p>
+                </div>
+                <!----------- FIM CONTEÚDO PRINCIPAL ------------->
+            </div>
+        </div>
+
+        <script th:src="@{/js/pagina.js}"></script>
+        <script>
+            document.getElementById("defaultOpen").click()
+        </script>
+    </body>
+</html>
