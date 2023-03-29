@@ -179,7 +179,7 @@ public class PacienteResource {
             String cpf = node.get("cpf").asText();
             String nome = node.get("nome").asText();
             char sexo = node.get("sexo").asText().charAt(0);
-            int plano_id = node.get("sexo").asInt();
+            int plano_id = node.get("plano").asInt();
             // int num_plano = node.get("plano").asInt();
             // precisa configurar o plano---
             Plano plano = Plano.valueOf(plano_id);
