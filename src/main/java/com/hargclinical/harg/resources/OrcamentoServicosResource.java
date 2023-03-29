@@ -1,6 +1,8 @@
 package com.hargclinical.harg.resources;
 
+import com.hargclinical.harg.entities.Caixa;
 import com.hargclinical.harg.entities.OrcamentoServicos;
+import com.hargclinical.harg.repositories.CaixaRepository;
 import com.hargclinical.harg.repositories.OrcamentoServicosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,9 @@ public class OrcamentoServicosResource {
     @Autowired
     private OrcamentoServicosRepository orcamentoServicosRepository;
 
+    @Autowired
+    private CaixaRepository caixaRepository;
+
     @GetMapping
     public List<OrcamentoServicos> getOrcamentos() {
         return orcamentoServicosRepository.findAll();
@@ -24,6 +29,9 @@ public class OrcamentoServicosResource {
 
     @PostMapping
     public OrcamentoServicos saveOrcamento(OrcamentoServicos orcamentoServicos) {
+        List<Caixa> caixas = caixaRepository.findAll();
+        Caixa caixa = caixas.get(caixas.size()-1);
+        caixa.addMovimentacoesCaixa(orcamentoServicos);
         return orcamentoServicosRepository.save(orcamentoServicos);
     }
 }

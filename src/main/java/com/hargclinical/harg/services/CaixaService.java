@@ -14,26 +14,37 @@ public class CaixaService {
     @Autowired
     private CaixaRepository caixaRepository;
     
-    public Caixa abrirCaixa() {
+    public void abrirCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
-
-        Caixa caixa = caixas.get(caixas.size()-1);
+        System.out.println("t00");
+        Caixa caixa;
+        System.out.println("t001");
         if (caixas.isEmpty()){
+            System.out.println("t10");
             caixa = new Caixa();
+            System.out.println("t11");
             caixa.setAberto(true);
-            return caixaRepository.save(caixa);
+            System.out.println("t12");
+            caixaRepository.save(caixa);
         }
-        
-        if (caixa.getAberto()){
-            throw new RuntimeException("Caixa já está aberto");
+        else{
+            caixa = caixas.get(caixas.size()-1);
+            System.out.println("T2");
+            if (caixa.getAberto()){
+                throw new RuntimeException("Caixa já está aberto");
+            }
+            else{
+                System.out.println("t3");
+                caixa = new Caixa();
+                caixa.setAberto(true);
+                System.out.println("T4");
+                caixaRepository.save(caixa);
+            }
         }
-        caixa = new Caixa();
-        caixa.setAberto(true);
-        return caixaRepository.save(caixa);
 
     }
     
-    public Caixa fecharCaixa() {
+    public void fecharCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
 
         Caixa caixa = caixas.get(caixas.size()-1);
@@ -49,7 +60,7 @@ public class CaixaService {
         caixa.setAberto(false);
         Double saldoFinal = calcularSaldoFinal(caixa);
         caixa.setSaldo(saldoFinal);
-        return caixaRepository.save(caixa);
+        caixaRepository.save(caixa);
     }
     
     private Double calcularSaldoFinal(Caixa caixa) {
@@ -59,5 +70,9 @@ public class CaixaService {
         }
         
         return saldo;
+    }
+
+    public List<Caixa> findAll() {
+        return caixaRepository.findAll();
     }
 }
