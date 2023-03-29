@@ -6,6 +6,9 @@ import com.hargclinical.harg.entities.Agenda;
 import com.hargclinical.harg.entities.Appointment;
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.entities.Paciente;
+import com.hargclinical.harg.entities.ServConsulta;
+import com.hargclinical.harg.entities.ServExame;
+import com.hargclinical.harg.entities.ServProcedimento;
 import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.repositories.AppointmentRepository;
 import com.hargclinical.harg.services.AgendaService;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Provider.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -51,6 +55,70 @@ public class AppointmentResource {
     public ResponseEntity<Appointment> findById(@PathVariable Long id) {
         Appointment appointment = appointmentRepository.findById(id).get();
         return ResponseEntity.ok().body(appointment);
+    }
+
+    @GetMapping(value = "/medico/{id}/{string}")
+    public ResponseEntity<List<Appointment>> findByProced(@PathVariable Long id, @PathVariable String servico) {
+        if(servico != null) {
+            List<Appointment> consultas = new ArrayList<>();
+            
+            if(servico.equals("procedimento")) {
+                for(Appointment consulta : medicoService.findById(id).getAppointments()) {
+                    if(consulta.getService() instanceof ServProcedimento) {
+                        consultas.add(consulta);
+                    }
+                }
+            } else if (servico.equals("consulta")) {
+                for(Appointment consulta : medicoService.findById(id).getAppointments()) {
+                    if(consulta.getService() instanceof ServConsulta) {
+                        consultas.add(consulta);
+                    }
+                }
+            } else if(servico.equals("exame")) {
+                for(Appointment consulta : medicoService.findById(id).getAppointments()) {
+                    if(consulta.getService() instanceof ServExame) {
+                        consultas.add(consulta);
+                    }
+                }
+            } else {
+                return ResponseEntity.badRequest().body(null);
+            }
+            return ResponseEntity.ok().body(consultas);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping(value = "/paciente/{id}/{string}")
+    public ResponseEntity<List<Appointment>> findByService(@PathVariable Long id, @PathVariable String servico) {
+        if(servico != null) {
+            List<Appointment> consultas = new ArrayList<>();
+            
+            if(servico.equals("procedimento")) {
+                for(Appointment consulta : pacienteService.findById(id).getAppointments()) {
+                    if(consulta.getService() instanceof ServProcedimento) {
+                        consultas.add(consulta);
+                    }
+                }
+            } else if (servico.equals("consulta")) {
+                for(Appointment consulta : pacienteService.findById(id).getAppointments()) {
+                    if(consulta.getService() instanceof ServConsulta) {
+                        consultas.add(consulta);
+                    }
+                }
+            } else if(servico.equals("exame")) {
+                for(Appointment consulta : pacienteService.findById(id).getAppointments()) {
+                    if(consulta.getService() instanceof ServExame) {
+                        consultas.add(consulta);
+                    }
+                }
+            } else {
+                return ResponseEntity.badRequest().body(null);
+            }
+            return ResponseEntity.ok().body(consultas);
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PostMapping(value = "/agendar")
