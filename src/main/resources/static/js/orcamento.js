@@ -120,6 +120,12 @@ $(document).on('click', '.link-prescricao', function(event){
         
 });
 
+$(document).on('click', '#submitButton', function(event){
+    event.preventDefault()
+
+    $('.canto-esquerdo').prop("disabled", true);
+});
+
 $(document).on('click', '.link-exame', function(event){
     event.preventDefault()
 
@@ -142,11 +148,6 @@ $(document).on('click', '.link-exame', function(event){
 
 });
 
-// $('.select2').select2({
-//     closeOnSelect: false
-// });
-
-/// TAB
 function openDiv(evt, tabAtual) {
     var i, tabcontent, tablinks;
   

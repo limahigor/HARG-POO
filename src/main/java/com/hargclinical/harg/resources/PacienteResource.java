@@ -109,6 +109,16 @@ public class PacienteResource {
         viewPage.addObject("cpf", paciente.getCpf());
         viewPage.addObject("idade", paciente.getIdade());
         viewPage.addObject("sexo", paciente.getSexo());
+
+        if(paciente.getPlano_saude().getCode() == 1){
+            viewPage.addObject("plano", "BRONZE");
+        }else if(paciente.getPlano_saude().getCode() == 2){
+            viewPage.addObject("plano", "PRATA");
+        }else if(paciente.getPlano_saude().getCode() == 3){
+            viewPage.addObject("plano", "OURO");
+        }else if(paciente.getPlano_saude().getCode() == 4){
+            viewPage.addObject("plano", "PLATINA");
+        }
         
         Comorbidades comorbidade = paciente.getComorbidades();
         viewPage.addObject("fatorRisco", comorbidade.getFactorR());
@@ -169,9 +179,10 @@ public class PacienteResource {
             String cpf = node.get("cpf").asText();
             String nome = node.get("nome").asText();
             char sexo = node.get("sexo").asText().charAt(0);
+            int plano_id = node.get("sexo").asInt();
             // int num_plano = node.get("plano").asInt();
             // precisa configurar o plano---
-            Plano plano = Plano.valueOf(1);
+            Plano plano = Plano.valueOf(plano_id);
 
             boolean tabagismo = false, obesidade = false, hipertensao = false, gestante = false, diabetes = false;
             for (JsonNode jNode : comorbidadesNode) {

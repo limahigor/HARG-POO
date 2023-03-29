@@ -10,6 +10,10 @@ label{
     padding: 3em;
     border-radius: 5px;
     background-color: rgba(212, 212, 212, 0.726);
+
+    overflow: auto;
+
+    max-height: 55vh;
 }
 
 .button{

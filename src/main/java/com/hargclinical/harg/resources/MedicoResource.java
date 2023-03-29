@@ -121,7 +121,7 @@ public class MedicoResource{
             JsonNode comorbidadesNode = node.get("comorbidades");
             String dateString = node.get("date").asText();
             LocalDate date = LocalDate.parse(dateString);
-            Plano plano = Plano.valueOf(1);
+            Plano plano = Plano.valueOf(4);
             
 
             boolean tabagismo=false, obesidade=false, hipertensao=false, gestante=false, diabetes=false;
