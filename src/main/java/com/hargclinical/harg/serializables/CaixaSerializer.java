@@ -25,7 +25,6 @@ public class CaixaSerializer extends StdSerializer<Caixa>{
         jsonGenerator.writeStringField("status", aux);
         jsonGenerator.writeStringField("saldo", caixa.getSaldo().toString());
         jsonGenerator.writeEndObject();
-    
     }
     
 }

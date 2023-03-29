@@ -60,4 +60,8 @@ public class CaixaService {
         
         return saldo;
     }
+
+    public List<Caixa> findAll() {
+        return caixaRepository.findAll();
+    }
 }

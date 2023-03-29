@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hargclinical.harg.entities.Caixa;
-import com.hargclinical.harg.repositories.CaixaRepository;
 import com.hargclinical.harg.services.CaixaService;
 
 @RestController
@@ -18,9 +17,6 @@ public class CaixaResource {
     
     @Autowired
     private CaixaService service;
-
-    @Autowired
-    private CaixaRepository caixaRepository;
 
     @GetMapping("/caixa/abrir")
     public void abrirCaixa(){
@@ -33,14 +29,8 @@ public class CaixaResource {
     }
 
     @GetMapping("/caixa/historico")
-    public ResponseEntity<Caixa> historico(){
-        List<Caixa> caixas = caixaRepository.findAll();
-
-        for (int i = 0; i < caixas.size(); i++) {
-            if(!caixas.get(i).getAberto()){
-                
-            }
-        }
-        
+    public ResponseEntity<List<Caixa>> historico(){
+        List<Caixa> caixas = service.findAll();
+        return ResponseEntity.ok().body(caixas); 
     }
 }
