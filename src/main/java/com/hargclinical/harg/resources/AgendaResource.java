@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hargclinical.harg.entities.Agenda;
 import com.hargclinical.harg.entities.Appointment;
 import com.hargclinical.harg.services.AgendaService;
+import com.hargclinical.harg.services.MedicoService;
+import com.hargclinical.harg.services.ServicesService;
 
 import java.util.List;
 
@@ -19,6 +21,12 @@ public class AgendaResource {
 
     @Autowired
     private AgendaService agendaService;
+
+    @Autowired
+    private MedicoService medicoService;
+
+    @Autowired
+    private ServicesService servicesService;
 
     @GetMapping
     public ResponseEntity<List<Agenda>> findAll() {
@@ -32,12 +40,36 @@ public class AgendaResource {
         return ResponseEntity.ok().body(agenda);
     }
 
-    @GetMapping("data/{dia}")
+    @GetMapping("/data/{dia}")
     public ResponseEntity<List<Appointment>> findByDay(@PathVariable int dia) {
         List<Appointment> consultas = agendaService.findByDay(dia);
         return ResponseEntity.ok().body(consultas);
     }
-    
+
+    @GetMapping("/medico/{id}")
+    public ResponseEntity<Agenda> findByMedico(@PathVariable long medico_id) {
+        Agenda agenda = medicoService.findById(medico_id).getAgenda();
+        return ResponseEntity.ok().body(agenda);
+    }
+
+    @GetMapping("/medico/{id}/data/{dia}")
+    public ResponseEntity<List<Appointment>> findByMedicoDay(@PathVariable Long medico_id, @PathVariable int dia) {
+        List<Appointment> consultas = medicoService.findById(medico_id).getAgenda().getDias().get(dia - 1).getConsultas();
+        return ResponseEntity.ok().body(consultas);
+    }
+
+    @GetMapping("/servico/{id}")
+    public ResponseEntity<Agenda> findByService(@PathVariable long service_id) {
+        Agenda agenda = servicesService.findById(service_id).getAgenda();
+        return ResponseEntity.ok().body(agenda);
+    }
+
+    @GetMapping("/servico/{id}/data/{dia}")
+    public ResponseEntity<List<Appointment>> findByServiceDay(@PathVariable Long service_id, @PathVariable int dia) {
+        List<Appointment> consultas = servicesService.findById(service_id).getAgenda().getDias().get(dia - 1).getConsultas();
+        return ResponseEntity.ok().body(consultas);
+    }
+
     // @GetMapping("/agenda/{ano}/{mes}/{dia}")
     // public ResponseEntity<List<Appointment>> consultasDoDia(@PathVariable int ano, @PathVariable int mes, @PathVariable int dia) {
     //     LocalDate data = LocalDate.of(ano, mes, dia);
