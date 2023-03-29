@@ -155,6 +155,11 @@ $('#more-button').click(function(event){
                                 '<input class="receita valor" type="text" name="valor">'+
                             '</div>'
                           )
+
+    var posicao = $("#submit-button").offset().top;
+    $(".content-forms").animate({
+        scrollTop: posicao
+    }, 1000);
 })
 
 $('#submit-button').click(function(event){

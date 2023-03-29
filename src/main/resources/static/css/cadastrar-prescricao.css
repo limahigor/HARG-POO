@@ -135,11 +135,28 @@ select{
 .button > #submit-button{
     height: 4.5vh;
     width: 8vw;
-    margin-right: 5px;
+    margin-right: 10px;
+
+    border-radius: 5px;
+    border: 1px solid rgba(8, 8, 8, 0.671);
+    box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+}
+
+.button > #submit-button:not([disabled]):hover, .button > #more-button:not([disabled]):hover{
+    background-color: rgba(160, 160, 160, 0.418);
 }
 
 .button > #more-button{
     height: 4.5vh;
     width: 3vw;
+
+    max-height: 4.5vh;
+    max-width: 3vw;
+
+    font-size: 1.5vw;
+
+    border-radius: 5px;
+    border: 1px solid rgba(8, 8, 8, 0.671);
+    box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
 }
 /*================================================================*/
