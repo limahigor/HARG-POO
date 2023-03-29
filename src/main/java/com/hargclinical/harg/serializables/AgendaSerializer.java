@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.hargclinical.harg.entities.Agenda;
 import com.hargclinical.harg.entities.Appointment;
 import com.hargclinical.harg.entities.Dias;
+import com.hargclinical.harg.entities.Medico;
+import com.hargclinical.harg.entities.Services;
 
 public class AgendaSerializer extends StdSerializer<Agenda> {
 
@@ -22,6 +24,17 @@ public class AgendaSerializer extends StdSerializer<Agenda> {
     public void serialize(Agenda agenda, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("id", agenda.getId().toString());
+
+        Medico medico = agenda.getMedico();
+        Services service = agenda.getService();
+        
+        if(medico != null) {
+            jsonGenerator.writeStringField("owner", medico.getNome());
+        } else if(service != null) {
+            jsonGenerator.writeStringField("owner", service.getNome());
+        } else {
+            jsonGenerator.writeStringField("owner", "geral");
+        }
 
         jsonGenerator.writeArrayFieldStart("dias");
         for(Dias dia : agenda.getDias()) {
