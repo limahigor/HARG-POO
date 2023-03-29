@@ -60,7 +60,7 @@ public class AppointmentResource {
 
         try{
             JsonNode node = mapper.readTree(jsonData);
-
+            
             String cpf = node.get("cpf").asText();
             String data = node.get("data").asText();
             LocalDate date = LocalDate.parse(data);
@@ -72,22 +72,18 @@ public class AppointmentResource {
             Medico medico = medicoService.findById(medico_id);
             Services service = servicesService.findById(service_id);
             Paciente paciente = pacienteService.findByCpfContaining(cpf).get(0);
-
+            
             newAppointment = new Appointment(medico, paciente, service, date, horario);
-
+            
             Agenda geralAgenda = agendaService.findById(1L);
-
             Agenda medicoAgenda = medico.getAgenda();
             Agenda serviceAgenda = service.getAgenda();
-
+            
             medicoAgenda.agendarConsulta(newAppointment);
             serviceAgenda.agendarConsulta(newAppointment);
             geralAgenda.agendarConsulta(newAppointment);
-
-            agendaService.create(serviceAgenda);
-            agendaService.create(geralAgenda);
-            agendaService.create(medicoAgenda);
-
+            
+            appointmentRepository.save(newAppointment);
         } catch (Exception e) {
             System.out.println("ERROR!!");
             return ResponseEntity.badRequest().build();

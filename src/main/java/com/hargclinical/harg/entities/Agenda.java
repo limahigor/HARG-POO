@@ -5,6 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hargclinical.harg.serializables.AgendaSerializer;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -17,6 +21,8 @@ import jakarta.persistence.GeneratedValue;
 
 @Entity
 @Table(name = "agenda")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonSerialize(using = AgendaSerializer.class)
 public class Agenda implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -74,7 +80,14 @@ public class Agenda implements Serializable {
     //     return null;
     // }
 
-    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public List<Dias> getDias() {
         return dias;
     }
