@@ -5,8 +5,8 @@ function printDOM(dados) {
                                     '<div class="result">' +
                                         '<div class="info">' +
                                             '<h1 class="titulo">' + data.nomeProcedimento + '</h1>' +
-                                            '<h1 class="nomeTitle">Medico: <span class="nomeData">' + data.nomePaciente + '</span></h1>' +
-                                            '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + data.nomeMedico + '</span></h1>' +
+                                            '<h1 class="nomeTitle">Medico: <span class="nomeData">' + data.nomeMedico + '</span></h1>' +
+                                            '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + data.nomePaciente + '</span></h1>' +
                                         '</div>' +
                                         '<div class="info-data-hora">' +
                                             '<h1 class="data">' + data.data + '</h1>' +
@@ -48,6 +48,17 @@ function ajaxReq(url, dataGet){
 }
 
 $('document').ready(function(){
+    var today = new Date();
+
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+
+    var minDate = year + '-' + (month < 10 ? '0' : '') + month + '-01';
+    var maxDate = year + '-' + (month < 10 ? '0' : '') + month + '-31';
+
+    $('#input-data').attr('min', minDate);
+    $('#input-data').attr('max', maxDate);
+
     ajaxReq('/agenda/geral', null)
 })
 

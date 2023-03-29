@@ -121,8 +121,6 @@ public class MedicoResource{
             JsonNode comorbidadesNode = node.get("comorbidades");
             String dateString = node.get("date").asText();
             LocalDate date = LocalDate.parse(dateString);
-            //int num_plano = node.get("plano").asInt();
-            //precisa configurar o plano---
             Plano plano = Plano.valueOf(1);
             
 

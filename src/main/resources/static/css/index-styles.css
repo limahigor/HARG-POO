@@ -65,6 +65,11 @@ h2{
 
     background: rgba(255, 255, 255, 0.7);
     border-radius: 5px;
+
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .fill-div-two{
@@ -88,7 +93,6 @@ h2{
     text-align: center;
     color: rgb(26,87,123);
     font-weight: strong;
-    top: 40%;
 }
 
 .agendar:hover{

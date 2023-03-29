@@ -26,7 +26,7 @@
 
                 <div id="mid">
                     <div class="paciente">
-                        <div class="info-pacientes">
+                        <div class="info-pacientes" th:id = "${id}">
                             <div class="info">
                                 <h1>Nome: <span class="dados" th:text="${nome}"></span></h1>
                                 <h1>CRM: <span class="dados" th:text="${crm}">134.217.384-83</span></h1>
@@ -36,28 +36,28 @@
 
                         <div class="detalhes">
                             <div class="menu">
-                                <button class="tablinks canto-esquerdo" onclick="openDiv(event, 'list-exames')" id="defaultOpen">Exames</button>
-                                <button class="tablinks" onclick="openDiv(event, 'list-consultas')">Consultas</button>
-                                <button class="tablinks" onclick="openDiv(event, 'list-procedimentos')">Procedimentos</button>
-                                <button class="tablinks canto-direito" onclick="openDiv(event, 'list-prescricoes')">Prescrições</button>
+                                <button class="tablinks canto-esquerdo" onclick="openDiv(event, 'exame')" id="defaultOpen">Exames</button>
+                                <button class="tablinks" onclick="openDiv(event, 'consulta')">Consultas</button>
+                                <button class="tablinks" onclick="openDiv(event, 'procedimento')">Procedimentos</button>
+                                <button class="tablinks canto-direito" onclick="openDiv(event, 'prescricao')">Prescrições</button>
                             </div>
                             <div class="content">
-                                <div class="tabcontent" id="list-exames">
+                                <div class="tabcontent" id="exame">
                                     <ul id="resultado-exames">
                                         
                                     </ul>
                                 </div>
-                                <div class="tabcontent" id="list-consultas">
+                                <div class="tabcontent" id="consulta">
                                     <ul id="resultado-consultas">
                                        
                                     </ul>
                                 </div>
-                                <div class="tabcontent" id="list-procedimentos">
+                                <div class="tabcontent" id="procedimento">
                                     <ul id="resultado-procedimentos">
                                         
                                     </ul>
                                 </div>
-                                <div class="tabcontent" id="list-prescricoes">
+                                <div class="tabcontent" id="prescricao">
                                     <ul id="resultado-prescricoes">
                                         
                                     </ul>

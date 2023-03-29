@@ -55,10 +55,17 @@ a:visited{
 }
 
 .comorbidades{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+
     padding: 0;
     height: 13.5vh;
     width: 70%;
+
+    /* border: 1px solid red; */
 }
 
 .detalhes{
@@ -159,4 +166,16 @@ a:visited{
     width: 5.5vw;
     text-align: center;
     position: relative;
+}
+
+.comorbidades-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    width: 100%;
+}
+
+.titulos-comorbide{
+    width: 10vw;
 }

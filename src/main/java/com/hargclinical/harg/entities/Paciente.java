@@ -24,6 +24,9 @@ public class Paciente extends Pessoa{
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Prescricao> prescricoes = new ArrayList<>();
     
     @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
     private Comorbidades comorbidades;

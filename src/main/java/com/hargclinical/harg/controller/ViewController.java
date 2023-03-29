@@ -47,4 +47,9 @@ public class ViewController {
     public String mostrarAgenda() {
         return "html/outros/mostrar-agenda";
     }
+
+    @GetMapping("/cadastrar-prescricao")
+    public String mostrarPadrao() {
+        return "html/outros/cadastrar-prescricao";
+    }
 }

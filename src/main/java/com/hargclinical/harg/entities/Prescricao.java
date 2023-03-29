@@ -12,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -25,6 +27,14 @@ public class Prescricao implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "medico_id")
+    private Medico medico;
     
     @OneToMany(mappedBy = "prescricao_id", cascade = CascadeType.ALL)
     @JsonSerialize(using = MedicamentoPrescritoSerializer.class)
@@ -85,27 +95,23 @@ public class Prescricao implements Serializable{
         return true;
     }
 
-    
-
-    /*public void addMedicamento(String medicamento, int intervalo, double valor) {
-        MedicamentoPrescrito mp = new MedicamentoPrescrito(medicamento, intervalo, valor);
-        this.medicamentos.add(mp);
-    }*/
-
-    /*public void removeMedicamento(String medicamento) {
-        for (Iterator<MedicamentoPrescrito> iterator = medicamentos.iterator();
-             iterator.hasNext(); ) {
-            MedicamentoPrescrito mp = iterator.next();
-
-            if (mp.getPrescricao().equals(this) && mp.getMedicamento().equals(medicamento)) {
-                iterator.remove();
-                mp.setPrescricao(null);
-            }
-        }
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void clearPrescricao(){
-        this.medicamentos.clear();
-    }*/
-    
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    public void setMedicamentos(List<MedicamentoPrescrito> medicamentos) {
+        this.medicamentos = medicamentos;
+    }
 }

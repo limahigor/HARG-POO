@@ -91,16 +91,16 @@ public class TestConfig implements CommandLineRunner{
     public void run(String... args) throws Exception {
 
         try{
-            // Agenda novaAgenda = agendaService.findById(1L);
+            Agenda novaAgenda = agendaService.findById(1L);
 
-            // if(novaAgenda == null){
-            //     novaAgenda = new Agenda();
+            if(novaAgenda == null){
+                novaAgenda = new Agenda();
 
-            //     List<Dias> dias = new ArrayList<>();
-            //     novaAgenda.setListaDias(dias, novaAgenda);
-            //     novaAgenda.setDias(dias);
-            //     agendaService.create(novaAgenda);
-            // }
+                List<Dias> dias = new ArrayList<>();
+                novaAgenda.setListaDias(dias, novaAgenda);
+                novaAgenda.setDias(dias);
+                agendaService.create(novaAgenda);
+            }
 
             //Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
 

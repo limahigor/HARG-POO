@@ -1,115 +1,81 @@
-// SOLICITAÇÃO AJAX
-function printDOM(bodyId, div){
-    var data = '26/03/2022'
-    var hora = '14:30'
-    var nome = 'Higor de Lima'
-    var nomeProcedimento
-    var stringNome
-
-    if(div === 'list-exames')
-        nomeProcedimento = 'Hemograma'
-    else if(div === 'list-consultas')
-        nomeProcedimento = 'Consulta Ginecologista'
-    else if(div === 'list-procedimentos')
-        nomeProcedimento = 'Botox Labial'
-    else if(div === 'list-prescricoes')
-        nomeProcedimento = 'Prescrição Paracetamol'
-
-    for (var i = 0; i < 9; i++) {
-        var id = Math.random() * (100000 - 1) + 1;
-
-
+function printDOM(bodyId, dados, div){
+    $.each(dados, function(index, value){
         if(bodyId === "pagina-paciente"){
-            stringNome = '<h1 class="nomeTitle">Medico: <span class="nomeData">' + nome + '</span></h1>'
+            stringNome = '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.nomeMedico + '</span></h1>'
         }else if(bodyId === "pagina-medico"){
-            stringNome = '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + nome + '</span></h1>'
+            stringNome = '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + value.nomePaciente + '</span></h1>'
         }
-
+    
         $('#' + div).append('<li>' +
-                                    '<div class="resul">' +
-                                        '<div class="info-gerais">' +
-                                            '<a href="" class="titulo link-exame" id="' + id + '">' + nomeProcedimento + '</a>' +
+                                '<div class="resul">' +
+                                    '<div class="info-gerais">' +
+                                        '<a href="" class="titulo link-exame" id="' + value.id + '">' + value.nomeProcedimento + '</a>' +
                                             stringNome +
-                                        '</div>' +
-                                        '<div class="data-hora">' +
-                                            '<h1 class="data">' + data + '</h1>' +
-                                            '<h1 class="hora">' + hora + '</h1>' +
-                                        '</div>' +
                                     '</div>' +
-                                '</li>'
-                                );
-    }
+                                    '<div class="data-hora">' +
+                                        '<h1 class="data">' + value.data + '</h1>' +
+                                        '<h1 class="hora">' + value.hora + '</h1>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</li>'
+                            );
+    })
+    
+
 }
 
-//     $.each(list, function(index, procedimento) {
+function ajaxRequisition(url, data, div){
+    $('ul').empty();
+    var bodyId = $('body').attr('id');
 
-//         if(bodyId === "pagina-paciente"){
-//             stringNome = '<h1 class="nomeTitle">Medico: <span class="nomeData">' + nome + '</span></h1>'
-//         }else if(bodyId === "pagina-medico"){
-//             stringNome = '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + nome + '</span></h1>'
-//         }
+    $.ajax({
+        url: url,
+        type: "GET",
+        data: data,
+        dataType: "json",
+        success: function(response) {
+            var dados = []
 
-//         $(div).append('<li>' +
-//                                     '<div class="resul">' +
-//                                         '<div class="info-gerais">' +
-//                                             '<a href="" class="titulo link-exame">' + nomeProcedimento + '</a>' +
-//                                             stringNome +
-//                                         '</div>' +
-//                                         '<div class="data-hora">' +
-//                                             '<h1 class="data">' + data + '</h1>' +
-//                                             '<h1 class="hora">' + hora + '</h1>' +
-//                                         '</div>' +
-//                                     '</div>' +
-//                                 '</li>'
-//                                 );
+            console.log(response)
 
-//     });
+            $.each(response, function (index, value) {
+                var dataResponse = {
+                                'id' : value.id,
+                                'nomeProcedimento' : value.servico.name,
+                                'nomePaciente' : value.paciente.name,
+                                'nomeMedico' : value.medico.name,
+                                'data' : value.data,
+                                'hora' : value.hora
+                            }
+                
+                console.log(dataResponse)
+                dados.push(dataResponse)
+            })
 
-// function ajaxRequisition(url, searchValue){
-//     $('ul').empty();
-//     var bodyId = $('body').attr('id');
+            printDOM(bodyId, dados, div)
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(textStatus, errorThrown);
+        }
+    });
+}
 
-//     $.ajax({
-//         url: url,
-//         type: "GET",
-//         data: {
-//             name: searchValue
-//         },
-//         dataType: "json",
-//         success: function (data) {
-//             printDOM(data, bodyId);
-//         },
-//         error: function (jqXHR, textStatus, errorThrown) {
-//             console.error(textStatus, errorThrown);
-//         }
-//     });
-// }
+function getUrl(){
+    var bodyId = $('body').attr('id');
+    var url;
 
-// function getUrl(){
-//     var bodyId = $('body').attr('id');
-//     var url;
+    if(bodyId === "pagina-medico"){
+        url = "/appointments/medico"
+    }else if(bodyId === "pagina-paciente"){
+        url = "/appointments/paciente"
+    }
 
-//     if(bodyId === "buscar-medico"){
-//         url = "/medico/buscar"
-//     }else if(bodyId === "buscar-paciente"){
-//         url = "/paciente/buscar"
-//     }
-
-//     return url;
-// }
-
-// $(document).ready(function () {
-//     var bodyId = $('body').attr('id');
-//     var url = getUrl();
-
-//     ajaxRequisition(url, "")
-// });
+    return url;
+}
 
 
 /// TAB
-function openDiv(evt, cityName) {
-    var bodyId = $('body').attr('id');
-
+function openDiv(evt, tabAtual) {
     var i, tabcontent, tablinks;
   
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -122,9 +88,15 @@ function openDiv(evt, cityName) {
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
     
-    printDOM(bodyId, cityName);
+    url = getUrl()
 
-    document.getElementById(cityName).style.display = "block";
+    idPessoa = $('.info-pacientes').attr('id');
+
+    data = {id : idPessoa, tipo : tabAtual}
+
+    ajaxRequisition(url, data, tabAtual)
+
+    document.getElementById(tabAtual).style.display = "block";
     evt.currentTarget.className += " active";
 }
 
