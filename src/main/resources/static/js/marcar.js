@@ -143,10 +143,22 @@ $('#submit-button').click(function(event){
         contentType: 'application/json',
         dataType: 'json',
         success: function(response){
+            var elementoParagrafo = $('#result-cadastro');
 
+            elementoParagrafo.text('Consulta agendada!!');
+            elementoParagrafo.css({
+                                    'color': 'rgb(19, 163, 0)',
+                                 })
+            elementoParagrafo.show();
         },
         error: function(response){
+            var elementoParagrafo = $('#result-cadastro');
 
+            elementoParagrafo.html('Erro ao agendar! Verifique os dados!');
+            elementoParagrafo.css({
+                                    'color': 'rgb(255, 0, 0)',
+                                 })
+            elementoParagrafo.show();
         }
     })
 })

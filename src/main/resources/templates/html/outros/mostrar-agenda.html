@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>HARG Medical</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" th:href="@{/css/agenda.css}">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+
+        <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>  
+    </head>
+    <body>
+
+        <div id="all">
+            <!-------------- CONTEÚDO PRINCIPAL ---------------->
+            <div id="main-card">
+                <!-------------- TOPO ---------------->
+                <div id="top">
+                    <div class="img-content">
+                        <a href="/"><img th:src="@{/img/logo1.png}" id="img-top"></a>
+                    </div>
+                </div>
+                <!---------------- MEIO -------------->
+
+                <div id="mid">
+
+                    <div class="select-options">
+
+                        <div class="input input-data">
+                            <input type="date" id="input-data">
+                        </div>
+
+                        <div class="input medico-input">
+                            <select class="select2" id="selectMedicos">
+                                <option></option>
+                            </select>
+                        </div>
+
+                        <div class="input services-input">
+                            <select class="select2" id="selectServices">
+                                <option></option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="tabcontent">
+                        <ul id="resultado">
+                            <li>
+                                <div class="result">
+                                    <div class="info">
+                                        <h1 class="titulo">Consulta Ginecologica</h1>
+                                        <h1 class="nomeTitle">Medico: <span class="nomeData">Higor de Lima</span></h1>
+                                        <h1 class="nomeTitle">Paciente: <span class="nomeData">Manoel Gomes</span></h1>
+                                    </div>
+                                    <div class="info-data-hora">
+                                        <h1 class="data">26/03/2022</h1>
+                                        <h1 class="hora">14:30</h1>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                
+                <!---------------- RODAPE -------------->
+                <div id="bottom">
+                    <img th:src="@{/img/logo2.png}" id="img-bottom">
+                    <p id="tel-bottom">Telefone: <strong>(82) 3252-9081</strong></p>
+                    <p id="copy-bottom">© 2023 HARG. Todos os direitos reservados.</p>
+                </div>
+                <!----------- FIM CONTEÚDO PRINCIPAL ------------->
+            </div>
+        </div>
+
+        <script th:src="@{/js/agenda.js}"></script>
+    </body>
+</html>

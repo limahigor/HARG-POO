@@ -90,34 +90,34 @@ public class TestConfig implements CommandLineRunner{
                 agendaService.create(novaAgenda);
             }
 
-            Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
-            Paciente paciente1 = new Paciente("João Silva", "124125125125", LocalDate.of(1999, 7, 20), 'M', Plano.BRONZE);
-            pacienteService.insert(paciente1);
-            Services servico = new Services("Botox", "Dermatologia", 285.00);
-            Appointment consulta = new Appointment(medico, paciente1, servico, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
+            // Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
+            // Paciente paciente1 = new Paciente("João Silva", "124125125125", LocalDate.of(1999, 7, 20), 'M', Plano.BRONZE);
+            // pacienteService.insert(paciente1);
+            // Services servico = new Services("Botox", "Dermatologia", 285.00);
+            // Appointment consulta = new Appointment(medico, paciente1, servico, LocalDate.of(2023, 5, 1), LocalTime.of(14, 30));
             
-            Agenda medicoAgenda = new Agenda();
-            List<Dias> diasMedico = new ArrayList<>();
-            medicoAgenda.setListaDias(diasMedico, medicoAgenda);
-            medicoAgenda.setDias(diasMedico);
-            medicoAgenda.setMedico(medico);
-            medico.setAgenda(medicoAgenda);
-            agendaService.create(medicoAgenda);
-            medicoService.insert(medico);
+            // Agenda medicoAgenda = new Agenda();
+            // List<Dias> diasMedico = new ArrayList<>();
+            // medicoAgenda.setListaDias(diasMedico, medicoAgenda);
+            // medicoAgenda.setDias(diasMedico);
+            // medicoAgenda.setMedico(medico);
+            // medico.setAgenda(medicoAgenda);
+            // agendaService.create(medicoAgenda);
+            // medicoService.insert(medico);
             
-            Agenda servicoAgenda = new Agenda();
-            List<Dias> diasServico = new ArrayList<>();
-            servicoAgenda.setListaDias(diasServico, servicoAgenda);
-            servicoAgenda.setDias(diasServico);
-            servicoAgenda.setService(servico);
-            servico.setAgenda(servicoAgenda);
-            agendaService.create(servicoAgenda);
+            // Agenda servicoAgenda = new Agenda();
+            // List<Dias> diasServico = new ArrayList<>();
+            // servicoAgenda.setListaDias(diasServico, servicoAgenda);
+            // servicoAgenda.setDias(diasServico);
+            // servicoAgenda.setService(servico);
+            // servico.setAgenda(servicoAgenda);
+            // agendaService.create(servicoAgenda);
 
-            servicoAgenda.agendarConsulta(consulta);
-            medicoAgenda.agendarConsulta(consulta);
-            novaAgenda.agendarConsulta(consulta);
+            // servicoAgenda.agendarConsulta(consulta);
+            // medicoAgenda.agendarConsulta(consulta);
+            // novaAgenda.agendarConsulta(consulta);
 
-            appointmentRepository.save(consulta);
+            // appointmentRepository.save(consulta);
         }catch(Exception e){
             System.out.println("TESTE ERROR");
             System.out.println(e.getMessage());

@@ -39,6 +39,7 @@ function printDOM(bodyId, div){
                                 '</li>'
                                 );
     }
+}
 
 //     $.each(list, function(index, procedimento) {
 
@@ -63,7 +64,6 @@ function printDOM(bodyId, div){
 //                                 );
 
 //     });
-}
 
 // function ajaxRequisition(url, searchValue){
 //     $('ul').empty();

@@ -1,13 +1,29 @@
+#mid{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+h2{
+    font-size: 1.5vw;
+}
+
 .card, .agendar{
-    margin: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
     border-radius: 5px;
     box-shadow: 7px 7px 13px 2px rgba(50, 50, 50, 0.22);
     position: relative;
     transform-style: preserve-3d;
     transition: all 0.6s ease-in;
-    margin-right: 5px;
-    width:280px;
-    height: 300px;
+
+    width: 12vw;
+    height: 30vh;
+
     background: rgba(255, 255, 255, 0.7);
 }
 
@@ -21,8 +37,9 @@
 .front-card, .back-card{
     backface-visibility: hidden;
     position: absolute;
-    width:280px;
-    height: 300px;
+
+    width: 12vw;
+    height: 30vh;
 }
 
 .back-card{
@@ -43,17 +60,19 @@
     display: block;
     margin: 0;
     padding: 0;
-    width: 280px;
+
+    width: 12vw;
+
     background: rgba(255, 255, 255, 0.7);
     border-radius: 5px;
 }
 
 .fill-div-two{
-    height: 150px;
+    height: 15vh;
 }
 
 .fill-div-three{
-    height: 100px;
+    height: 10vh;
 }
 
 .fill-div:hover{

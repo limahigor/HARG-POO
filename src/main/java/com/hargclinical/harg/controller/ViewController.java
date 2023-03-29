@@ -42,4 +42,9 @@ public class ViewController {
     public String cadastrarServico() {
         return "html/cadastrar/cadastrar-servico";
     }
+
+    @GetMapping("/mostrar-agenda")
+    public String mostrarAgenda() {
+        return "html/outros/mostrar-agenda";
+    }
 }

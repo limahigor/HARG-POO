@@ -52,8 +52,8 @@ input{
 input[type="text"]{
     border: 1px solid black;
     border-radius: 10px;
-    width: 30em;
-    height: 2em;
+    width: 25vw;
+    height: 3vh;
 }
 
 input[type="radio"]{

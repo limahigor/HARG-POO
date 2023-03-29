@@ -31,7 +31,16 @@ a{
 }
 
 #img-top{
-    width: 18em;
+    height: 100%;
+    width: auto;
+
+    margin: 0;
+    padding: 0;
+}
+
+.img-content{
+    width: 6vw;
+    height: 11vh;
 }
 
 #all{
@@ -56,9 +65,13 @@ a{
 
 #top{
     height: 12vh;
+    border: 1px solid green;
+
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -68,16 +81,20 @@ a{
     position: relative;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
 }
 
 #bottom > img{
-    position: inherit;
-    top: -40px;
-    left: -20px;
-    width: 15em;
+    width: 12%;
 }
 
 #bottom > p{
+    font-size: 0.8vw;
+
     color: rgb(0, 0, 0);
     position: absolute;  
     text-align: center;
@@ -100,4 +117,42 @@ a{
     justify-content: center;
     align-items: center;
     overflow: auto;
+}
+
+.resul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 6vh;
+    padding: 0;
+    line-height: 8px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.534);
+}
+
+.info-gerais{
+    width: 30vw;
+    padding-left: 10px;
+}
+
+.titulo{
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.nomeTitle{
+    color: black;
+}
+
+.nomeData{
+    font-weight: lighter;
+    color: black;
+}
+
+.data-hora{
+    width: 5.5vw;
+    text-align: center;
+    position: relative;
 }
