@@ -14,14 +14,14 @@ public class CaixaService {
     @Autowired
     private CaixaRepository caixaRepository;
     
-    public Caixa abrirCaixa() {
+    public void abrirCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
 
         Caixa caixa = caixas.get(caixas.size()-1);
         if (caixas.isEmpty()){
             caixa = new Caixa();
             caixa.setAberto(true);
-            return caixaRepository.save(caixa);
+            caixaRepository.save(caixa);
         }
         
         if (caixa.getAberto()){
@@ -29,11 +29,11 @@ public class CaixaService {
         }
         caixa = new Caixa();
         caixa.setAberto(true);
-        return caixaRepository.save(caixa);
+        caixaRepository.save(caixa);
 
     }
     
-    public Caixa fecharCaixa() {
+    public void fecharCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
 
         Caixa caixa = caixas.get(caixas.size()-1);
@@ -49,7 +49,7 @@ public class CaixaService {
         caixa.setAberto(false);
         Double saldoFinal = calcularSaldoFinal(caixa);
         caixa.setSaldo(saldoFinal);
-        return caixaRepository.save(caixa);
+        caixaRepository.save(caixa);
     }
     
     private Double calcularSaldoFinal(Caixa caixa) {

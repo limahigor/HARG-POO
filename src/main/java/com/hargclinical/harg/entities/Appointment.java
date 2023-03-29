@@ -37,6 +37,7 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     
+    
     @ManyToMany
     @JoinTable(
         name = "dia_appointment",
