@@ -21,18 +21,9 @@ function desativarTudo(){
 
     $(".resumo-content").css("visibility", "hidden");
 
-    $.each($(".select2"), function(index, div){
-        $(this).empty();
-    })
-
     $('#input-data').val('');
     $('#input-hora').val('0');
 
-    $('.select2').select2({
-        placeholder: 'Selecione uma opção',
-        width : 'resolve',
-        height: 'resolve'
-    });
 }
 
 function showMedicos(profissionais){
@@ -42,8 +33,10 @@ function showMedicos(profissionais){
             id: value.id,
             text: value.nome
         }
-        var newOption = new Option(data.text, data.id, false, false);
-        $('#selectMedicos').append(newOption).trigger('change');
+        if(!($('#selectMedicos').find("option[value='" + data.id + "']").length)){
+            var newOption = new Option(data.text, data.id, false, false);
+            $('#selectMedicos').append(newOption).trigger('change');
+        }
     })
 
     $('#selectMedicos').prop('disabled', false);
@@ -62,8 +55,12 @@ function showServices(){
                     id: value.id,
                     text: value.nome
                 }
-                var newOption = new Option(data.text, data.id, false, false);
-                $('#selectServices').append(newOption).trigger('change');
+
+                if(!($('#selectServices').find("option[value='" + data.id + "']").length)){
+                    console.log("TESTANDO SERVICES INPUT")
+                    var newOption = new Option(data.text, data.id, false, false);
+                    $('#selectServices').append(newOption).trigger('change');
+                }
             })
 
             $('.services-content').css("visibility", "visible");
