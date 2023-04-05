@@ -35,12 +35,11 @@ public class CaixaResource {
     }
 
     @GetMapping("/status")
-    public String status(){
+    public ResponseEntity<Caixa> status(){
         List<Caixa> caixas = service.findAll();
         Caixa caixa = caixas.get(caixas.size()-1);
-        String stts = "fechado";
-        if(caixa.getAberto())stts = "aberto";
-        return stts;
+        if(caixa.getAberto())return ResponseEntity.ok().body(caixa);
+        return ResponseEntity.ok().body(null);
     }
 
 }
