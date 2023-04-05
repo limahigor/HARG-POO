@@ -27,7 +27,8 @@ public class CaixaService {
         
         if (caixas.isEmpty()){
             caixa = new Caixa();
-            caixa.setAberto(true, data, hora);
+            caixa.setAberto(true);
+            caixa.setDataHoraAberto(data, hora);
             caixaRepository.save(caixa);
         }
         else{
@@ -37,7 +38,8 @@ public class CaixaService {
             }
             else{
                 caixa = new Caixa();
-                caixa.setAberto(true, data, hora);
+                caixa.setAberto(true);
+                caixa.setDataHoraAberto(data, hora);
                 caixaRepository.save(caixa);
             }
         }
@@ -60,7 +62,8 @@ public class CaixaService {
             throw new RuntimeException("Caixa já está fechado");
         }
 
-        caixa.setAberto(false, data, hora);
+        caixa.setAberto(false);
+        caixa.setDataHoraFechado(data, hora);
         Double saldoFinal = calcularSaldoFinal(caixa);
         caixa.setSaldo(saldoFinal);
         caixaRepository.save(caixa);
