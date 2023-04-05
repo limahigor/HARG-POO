@@ -70,15 +70,6 @@ public class Agenda implements Serializable {
         Agenda agendaMedico = medico.getAgenda();
         return agendaMedico.getDias();
     }
-    
-    // private Dias encontrarDia(LocalDate data) {
-    //     for (Dias dia : this.dias) {
-    //         if (dia.getData().equals(data)) {
-    //             return dia;
-    //         }
-    //     }
-    //     return null;
-    // }
 
     public Long getId() {
         return id;
@@ -132,7 +123,8 @@ public class Agenda implements Serializable {
         if (id == null) {
             if (other.id != null)
                 return false;
-        } else if (!id.equals(other.id))
+        }
+        else if (!id.equals(other.id))
             return false;
         return true;
     }
