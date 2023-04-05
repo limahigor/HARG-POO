@@ -57,7 +57,7 @@ public class PacienteResource {
         List<Appointment> consultas = new ArrayList<>();
 
         for (Appointment consul : consultaPaciente) {
-            if (!consul.isOrcamento_gerado()) {
+            if (!consul.isOrcamentoGerado()) {
                 consultas.add(consul);
             }
         }

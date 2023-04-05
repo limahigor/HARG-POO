@@ -52,4 +52,9 @@ public class ViewController {
     public String mostrarPadrao() {
         return "html/outros/cadastrar-prescricao";
     }
+
+    @GetMapping("/mostrar-caixa")
+    public String mostrarCaixa() {
+        return "html/outros/caixa";
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hargclinical.harg.entities.*;
 import com.hargclinical.harg.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -79,6 +80,48 @@ public class OrcamentoResource {
         } catch (Exception e) {
             e.printStackTrace();
             return "erro";
+        }
+    }
+
+    @PostMapping("/gerar")
+    public ResponseEntity cadastrarOrcamento(@RequestBody String jsonData) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            Map<String, Object> data = objectMapper.readValue(jsonData, Map.class);
+
+            String type = (String) data.get("type");
+            Long idPaciente = Long.parseLong((String) data.get("paciente"));
+            List<String> stringIds = (List<String>) data.get("ids");
+            List<Long> ids = stringIds.stream()
+                    .map(Long::parseLong)
+                    .collect(Collectors.toList());
+
+            Paciente paciente = pacienteService.findById(idPaciente);
+
+            System.out.println(ids);
+
+            if (type.equals("consultas")) {
+                List<Appointment> consultas = new ArrayList<>();
+                for (Long id : ids) {
+                    consultas.add(appointmentService.findById(id));
+                }
+                OrcamentoServicos orcamento = orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
+                orcamentoServices.insertOrcamentoServicos(orcamento);
+            } else if (type.equals("prescricao")) {
+                Prescricao prescricao = null;
+
+                for (Long id : ids) {
+                    prescricao = prescricaoService.findById(id);
+                }
+                OrcamentoMedicamentos orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricao);
+                orcamentoServices.insertOrcamentoMedicamentos(orcamento);
+            }
+
+            return ResponseEntity.ok().body("Orcamento gerado com sucesos!!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Erro ao gerar!!");
         }
     }
 }

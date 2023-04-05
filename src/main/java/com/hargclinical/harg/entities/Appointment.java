@@ -50,7 +50,7 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "service_id")
     private Services service;
 
-    private boolean orcamento_gerado = false;
+    private boolean orcamentoGerado = false;
 
     private LocalDate data;
     private LocalTime horario;
@@ -164,12 +164,12 @@ public class Appointment implements Serializable {
         return true;
     }
 
-    public boolean isOrcamento_gerado() {
-        return orcamento_gerado;
+    public boolean isOrcamentoGerado() {
+        return orcamentoGerado;
     }
 
-    public void setOrcamento_gerado(boolean orcamento_gerado) {
-        this.orcamento_gerado = orcamento_gerado;
+    public void setOrcamentoGerado(boolean orcamentoGerado) {
+        this.orcamentoGerado = orcamentoGerado;
     }
 
     
