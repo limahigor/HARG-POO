@@ -121,14 +121,17 @@ function getData(){
 
     data.paciente = $('.info-pacientes').attr('id');
 
-    if($('#resultado-consultas').children().length !== 0){
+    var elementosExame = $('#resultado-select').find('.link-exame');
+    var elementosPrescicao = $('#resultado-select').find('.link-prescricao');
+
+    if(elementosExame.length !== 0){
         $('#resultado-select .link-exame').each(function() {
             const id = $(this).attr('id');
             data.ids.push(id);
         });
 
         data.type = 'consultas'
-    }else if($('#resultado-prescricoes').children().length !== 0){
+    }else if(elementosPrescicao.length !== 0){
         $('#resultado-select .link-prescricao').each(function() {
             const id = $(this).attr('id');
             data.ids.push(id);
@@ -152,20 +155,23 @@ $(document).on('click', '#submitButton', function(event){
         type: 'POST',
         data: JSON.stringify(data),
         contentType: 'application/json',
-        dataType: 'json',
+        dataType: 'text',
         success: function(response){
-            const valorTotal = parseFloat(response).toFixed(2);
-            console.log(valorTotal)
-            $('#valor').html(valorTotal);
+            console.log("teste funciona")
+            alert('Orcamento gerado!!')
+            window.location.href = '/'
         },
-        error: function(response){
-            console.log(response)
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log("Status: ", textStatus);
+            console.log("Erro lançado: ", errorThrown);
+            console.log("Resposta do servidor: ", jqXHR.responseText);
         }
     })
 
 });
 
 $('#resultado-select').on('listaModificada', function(event) {
+    console.log($('#resultado-select').children().length)
     if($('#resultado-select').children().length === 0){
         $('.canto-esquerdo').prop("disabled", false);
         $('.canto-direito').prop("disabled", false);
@@ -175,6 +181,7 @@ $('#resultado-select').on('listaModificada', function(event) {
         $('.canto-direito').prop("disabled", true);
 
         data = getData();
+        console.log(data)
 
         $.ajax({
             url: '/orcamento/valor-total',
