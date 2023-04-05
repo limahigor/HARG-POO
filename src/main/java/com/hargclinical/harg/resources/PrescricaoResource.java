@@ -50,13 +50,13 @@ public class PrescricaoResource {
         
         List<Prescricao> prescricoes = paciente.getPrescricoes();
 
-        return ResponseEntity.ok(prescricoes);
+        return ResponseEntity.ok().body(prescricoes);
     }
 
     @GetMapping
     public ResponseEntity<List<Prescricao>> listarPrescricoes() {
         List<Prescricao> prescricoes = prescricaoRepository.findAll();
-        return ResponseEntity.ok(prescricoes);
+        return ResponseEntity.ok().body(prescricoes);
     }
 
     @PostMapping("/cadastrar")
