@@ -28,8 +28,6 @@ public class Dias implements Serializable {
     @JoinColumn(name = "agenda_id")
     private Agenda agenda;
 
-    // @ManyToMany(mappedBy = "dia", cascade = CascadeType.ALL)
-
     @ManyToMany
     @JoinTable(
         name = "dias_consultas",
