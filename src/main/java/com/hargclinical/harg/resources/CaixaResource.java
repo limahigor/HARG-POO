@@ -18,19 +18,29 @@ public class CaixaResource {
     @Autowired
     private CaixaService service;
 
-    @GetMapping("/caixa/abrir")
+    @GetMapping("/abrir")
     public void abrirCaixa(){
         service.abrirCaixa();
     }
 
-    @GetMapping("/caixa/fechar")
+    @GetMapping("/fechar")
     public void fecharCaixa(){
         service.fecharCaixa();
     }
 
-    @GetMapping("/caixa/historico")
+    @GetMapping("/historico")
     public ResponseEntity<List<Caixa>> historico(){
         List<Caixa> caixas = service.findAll();
         return ResponseEntity.ok().body(caixas); 
     }
+
+    @GetMapping("/status")
+    public String status(){
+        List<Caixa> caixas = service.findAll();
+        Caixa caixa = caixas.get(caixas.size()-1);
+        String stts = "fechado";
+        if(caixa.getAberto())stts = "aberto";
+        return stts;
+    }
+
 }
