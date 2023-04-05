@@ -30,8 +30,10 @@ public class Caixa implements Serializable{
 
     private Double saldo;
     private boolean aberto;
-    private LocalDate data;
-    private LocalTime hora;
+    private LocalDate dataAberto;
+    private LocalTime horaAberto;
+    private LocalDate dataFechado;
+    private LocalTime horaFechado;
 
     @OneToMany(mappedBy = "caixa", cascade = CascadeType.ALL)
     private List<Orcamento> movimentacoes = new ArrayList<>();
@@ -53,10 +55,18 @@ public class Caixa implements Serializable{
         return aberto;
     }
 
-    public void setAberto(boolean aberto, LocalDate data, LocalTime hora) {
-        this.data = data;
-        this.hora = hora;
+    public void setAberto(boolean aberto) {
         this.aberto = aberto;
+    }
+
+    public void setDataHoraAberto(LocalDate dataAberto, LocalTime horaAberto) {
+        this.dataAberto = dataAberto;
+        this.horaAberto = horaAberto;
+    }
+
+    public void setDataHoraFechado(LocalDate dataFechado, LocalTime horaFechado) {
+        this.dataFechado = dataFechado;
+        this.horaFechado = horaFechado;
     }
 
     public Long getId() {
@@ -67,20 +77,36 @@ public class Caixa implements Serializable{
         this.id = id;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDate getDataAberto() {
+        return dataAberto;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-    
-    public LocalTime getHora() {
-        return hora;
+    public void setDataAberto(LocalDate dataAberto) {
+        this.dataAberto = dataAberto;
     }
 
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
+    public LocalTime getHoraAberto() {
+        return horaAberto;
+    }
+
+    public void setHoraAberto(LocalTime horaAberto) {
+        this.horaAberto = horaAberto;
+    }
+
+    public LocalDate getDataFechado() {
+        return dataFechado;
+    }
+
+    public void setDataFechado(LocalDate dataFechado) {
+        this.dataFechado = dataFechado;
+    }
+
+    public LocalTime getHoraFechado() {
+        return horaFechado;
+    }
+
+    public void setHoraFechado(LocalTime horaFechado) {
+        this.horaFechado = horaFechado;
     }
 
     public List<Orcamento> getMovimentacoes() {
