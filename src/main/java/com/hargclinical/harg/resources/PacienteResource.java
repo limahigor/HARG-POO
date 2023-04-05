@@ -1,9 +1,11 @@
 package com.hargclinical.harg.resources;
 
-import java.io.Console;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -33,14 +35,14 @@ public class PacienteResource {
     @Autowired
     private PacienteService service;
 
-    @RequestMapping("/prescricao")
+    @GetMapping("/prescricao")
     public ResponseEntity<List<Prescricao>> searchPrescricaoByBoolean(@RequestParam("id") Long id) {
         Paciente paciente = service.findById(id);
         List<Prescricao> prescricaoPaciente = paciente.getPrescricoes();
         List<Prescricao> prescricao = new ArrayList<>();
 
-        for(Prescricao presc : prescricaoPaciente){
-            if(!presc.isOrcamento_gerado()){
+        for (Prescricao presc : prescricaoPaciente) {
+            if (!presc.isOrcamento_gerado()) {
                 prescricao.add(presc);
             }
         }
@@ -48,14 +50,14 @@ public class PacienteResource {
         return ResponseEntity.ok().body(prescricao);
     }
 
-    @RequestMapping("/appointments")
+    @GetMapping("/appointments")
     public ResponseEntity<List<Appointment>> searchAppointmentByBoolean(@RequestParam("id") Long id) {
         Paciente paciente = service.findById(id);
         List<Appointment> consultaPaciente = paciente.getAppointments();
         List<Appointment> consultas = new ArrayList<>();
 
-        for(Appointment consul : consultaPaciente){
-            if(!consul.isOrcamento_gerado()){
+        for (Appointment consul : consultaPaciente) {
+            if (!consul.isOrcamento_gerado()) {
                 consultas.add(consul);
             }
         }
@@ -75,7 +77,6 @@ public class PacienteResource {
         List<Paciente> pacientes = new ArrayList<>();
 
         if (name.isEmpty()) {
-            System.out.println("Parametro vazio");
             pacientes = service.findAll();
         } else {
             if (StringUtils.containsLettersAndDigits(name)) {
@@ -104,73 +105,18 @@ public class PacienteResource {
         Paciente paciente = service.findById(id);
 
         ModelAndView viewPage = new ModelAndView("/html/templates/pagina-paciente.html");
-        viewPage.addObject("id", paciente.getId());
-        viewPage.addObject("nome", paciente.getNome());
-        viewPage.addObject("cpf", paciente.getCpf());
-        viewPage.addObject("idade", paciente.getIdade());
-        viewPage.addObject("sexo", paciente.getSexo());
 
-        if(paciente.getPlano_saude().getCode() == 1){
-            viewPage.addObject("plano", "BRONZE");
-        }else if(paciente.getPlano_saude().getCode() == 2){
-            viewPage.addObject("plano", "PRATA");
-        }else if(paciente.getPlano_saude().getCode() == 3){
-            viewPage.addObject("plano", "OURO");
-        }else if(paciente.getPlano_saude().getCode() == 4){
-            viewPage.addObject("plano", "PLATINA");
-        }
-        
-        Comorbidades comorbidade = paciente.getComorbidades();
-        viewPage.addObject("fatorRisco", comorbidade.getFactorR());
-
-        if (comorbidade.isGestante())
-            viewPage.addObject("gestante", "SIM");
-        else
-            viewPage.addObject("gestante", "NÃO");
-
-        if (comorbidade.isDiabetes())
-            viewPage.addObject("diabetico", "SIM");
-        else
-            viewPage.addObject("diabetico", "NÃO");
-
-        if (comorbidade.isHipertensao())
-            viewPage.addObject("hipertenso", "SIM");
-        else
-            viewPage.addObject("hipertenso", "NÃO");
-
-        if (comorbidade.isIdade())
-            viewPage.addObject("idoso", "SIM");
-        else
-            viewPage.addObject("idoso", "NÃO");
-
-        if (comorbidade.isObesidade())
-            viewPage.addObject("obeso", "SIM");
-        else
-            viewPage.addObject("obeso", "NÃO");
-
-        if (comorbidade.isTabagismo())
-            viewPage.addObject("fumante", "SIM");
-        else
-            viewPage.addObject("fumante", "NÃO");
-
-        return viewPage;
+        return service.getModelAndView(paciente, viewPage);
     }
-
-    // @PostMapping("/cadastrar")
-    // public ResponseEntity<Paciente> cadastrarPaciente(@RequestBody Paciente
-    // jsonData) {
-    // System.out.println(jsonData.nome);
-    // jsonData = service.insert(jsonData);
-    // return ResponseEntity.ok().body(jsonData);
-    // }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<String> cadastrarMedico(@RequestBody String jsonData) {
+        final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
         ObjectMapper mapper = new ObjectMapper();
         Paciente newPaciente = null;
         try {
-
-            System.out.println("CADASTRANDO Paciente\n====================================");
+            logger.log(Level.INFO, "CADASTRANDO Paciente\n====================================");
             JsonNode node = mapper.readTree(jsonData);
 
             JsonNode comorbidadesNode = node.get("comorbidades");
@@ -179,31 +125,34 @@ public class PacienteResource {
             String cpf = node.get("cpf").asText();
             String nome = node.get("nome").asText();
             char sexo = node.get("sexo").asText().charAt(0);
-            int plano_id = node.get("plano").asInt();
-            // int num_plano = node.get("plano").asInt();
-            // precisa configurar o plano---
-            Plano plano = Plano.valueOf(plano_id);
+            int planoId = node.get("plano").asInt();
 
-            boolean tabagismo = false, obesidade = false, hipertensao = false, gestante = false, diabetes = false;
+            Plano plano = Plano.valueOf(planoId);
+
+            boolean tabagismo = false;
+            boolean hipertensao = false;
+            boolean gestante = false;
+            boolean diabetes = false;
+            boolean obesidade = false;
+
             for (JsonNode jNode : comorbidadesNode) {
                 String idString = jNode.get("id").asText();
                 boolean valor = jNode.get("value").asBoolean();
-                if (idString.equals("tabagismo"))
-                    tabagismo = valor;
-                else if (idString.equals("obesidade"))
-                    obesidade = valor;
-                else if (idString.equals("hipertensao"))
-                    hipertensao = valor;
-                else if (idString.equals("gestante"))
-                    gestante = valor;
-                else if (idString.equals("diabetes"))
-                    diabetes = valor;
+                switch (idString) {
+                    case "tabagismo" -> tabagismo = valor;
+                    case "obesidade" -> obesidade = valor;
+                    case "hipertensao" -> hipertensao = valor;
+                    case "gestante" -> gestante = valor;
+                    case "diabetes" -> diabetes = valor;
+                    default -> {
+                        return ResponseEntity.badRequest().build();
+                    }
+                }
             }
 
-            System.out.println("Criando a instancia do paciente\n==================================");
+            logger.log(Level.INFO, "Criando a instancia do paciente\n==================================");
 
-            Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes,
-                    date);
+            Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
             newPaciente = new Paciente(nome, cpf, date, sexo, plano);
             service.insert(newPaciente);
 
@@ -211,14 +160,16 @@ public class PacienteResource {
             comorbidadesJson.setPaciente(newPaciente);
             service.insert(newPaciente);
 
-            System.out.println("Finalizando...\n==================================");
+            logger.log(Level.INFO, "Finalizando...\n==================================");
 
         } catch (Exception e) {
-            System.out.println("ERROR!!");
+
+
+            logger.log(Level.INFO, "ERROR!!");
             return ResponseEntity.badRequest().build();
         }
 
-        System.out.println("Finalizado...\n==================================");
+        logger.log(Level.INFO, "Finalizado...\n==================================");
         return ResponseEntity.ok().body(String.valueOf(newPaciente.getId()));
     }
 }

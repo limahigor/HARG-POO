@@ -1,71 +1,73 @@
+function moveDiv(ulDestino, liId){
+    div = $('#' + liId).clone()
+    $('#' + liId).remove()
 
-function printDOMPrescricao(bodyId, dados, div){
-    $('#' + div).empty()
+    
+    $('#' + ulDestino).append(div)
+
+    $('#resultado-select').trigger('listaModificada');
+}
+
+function printDOMPrescricao(dados){
+    $('#resultado-prescricoes').empty()
     
     $.each(dados, function(index, value){
-        if(bodyId === "pagina-paciente"){
-            stringNome =  '<a href="" class="titulo link-prescricao" id="' + value.id + '"> Prescrição#'+ value.id + '</a>' +
-                          '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.medico.nome + '</span></h1>'
-        }
         
-        var html = '<ul id="resultado-'+ div +'">' + 
-                        '<li>' +
-                            '<div class="resul">' +
-                                '<div class="info-gerais-prescricao">' +
-                                    stringNome +
-                                '</div>' +
-                    '<div class="medicamento-list">'
+        stringNome = '<a href="" class="titulo link-prescricao" id="' + value.id + '"> Prescrição#'+ value.id + '</a>' +
+                     '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.medico.nome + '</span></h1>'
+        
+        var html = '<li id="prescricao-'+ index +'">' +
+                        '<div class="resul">' +
+                            '<div class="info-gerais-prescricao">' +
+                                stringNome +
+                            '</div>' +
+                        '<div class="medicamento-list">'
 
         var mid = ""
         
         $.each(value.medicamentos, function(index, med){
+            console.log(med)
              mid += '<div class="medicamento">' +
                      '<h1 class="nome-medicamento">Nome: ' + med.nome + '</h1>' +
                      '<h1 class="intervalo-medicamento">Intervalo: ' + med.intervalo + ' horas</h1>' +
+                     '<h1 class="valor-medicamento">Valor: R$ ' + parseFloat(med.valor).toFixed(2) + '</h1>' +
                      '</div>'
         })
 
         finalhtml =             '</div>' +
                             '</div>' +
-                        '</li>'+
-                    '</ul>'
+                        '</li>'
 
-        $('#' + div).append(html + mid + finalhtml)     
+        $('#resultado-prescricoes').append(html + mid + finalhtml)     
     })
 
 }
 
-function printDOM(bodyId, dados, div){
-    $('#' + div).empty()
+function printDOM(dados){
+    $('#resultado-consultas').empty()
     $.each(dados, function(index, value){
-        if(bodyId === "pagina-paciente"){
-            stringNome = '<a href="" class="titulo link-exame" id="' + value.id + '">' + value.nomeProcedimento + '</a>' +
-            '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.nomeMedico + '</span></h1>'
-            
-        }
+        console.log('index ' + index)
+        stringNome = '<a href="" class="titulo link-exame" id="' + value.id + '">' + value.nomeProcedimento + '</a>' +
+                     '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.nomeMedico + '</span></h1>'
         
-            $('#' + div).append('<ul id="resultado-'+ div +'">' + 
-                                    '<li>' +
-                                        '<div class="resul">' +
-                                            '<div class="info-gerais">' +
-                                                    stringNome+
+        $('#resultado-consultas').append('<li id="orcamento-'+ index +'">' +
+                                            '<div class="resul">' +
+                                                '<div class="info-gerais">' +
+                                                    stringNome +
+                                                '</div>' +
+                                                '<div class="data-hora">' +
+                                                    '<h1 class="data">' + value.data + '</h1>' +
+                                                    '<h1 class="hora">' + value.hora + '</h1>' +
+                                                '</div>' +
                                             '</div>' +
-                                            '<div class="data-hora">' +
-                                                '<h1 class="data">' + value.data + '</h1>' +
-                                                '<h1 class="hora">' + value.hora + '</h1>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</li>' +
-                                '</ul>'
-                                );
+                                        '</li>'
+                                        );
     })
-    
-
 }
 
 function ajaxRequisition(url, data, div){
-    $('ul').empty();
-    var bodyId = $('body').attr('id');
+    $('#resultado-consultas').empty();
+    $('#resultado-prescricoes').empty();
 
     $.ajax({
         url: url,
@@ -92,9 +94,9 @@ function ajaxRequisition(url, data, div){
             }
 
             if(div !== 'prescricao')
-                printDOM(bodyId, dados, div)
+                printDOM(dados)
             else
-                printDOMPrescricao(bodyId, response, div)
+                printDOMPrescricao(response)
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(textStatus, errorThrown);
@@ -103,7 +105,6 @@ function ajaxRequisition(url, data, div){
 }
 
 function getUrl(metodo){
-    var bodyId = $('body').attr('id');
     var url;
 
     url = "/paciente/" + metodo
@@ -111,41 +112,114 @@ function getUrl(metodo){
     return url;
 }
 
-$(document).on('click', '.link-prescricao', function(event){
-    event.preventDefault()
+function getData(){
+    const data = {
+        type: '',
+        paciente: '',
+        ids: []
+    };
 
-    $('.canto-esquerdo').prop("disabled", true);
+    data.paciente = $('.info-pacientes').attr('id');
 
-    
-        
-});
+    if($('#resultado-consultas').children().length !== 0){
+        $('#resultado-select .link-exame').each(function() {
+            const id = $(this).attr('id');
+            data.ids.push(id);
+        });
+
+        data.type = 'consultas'
+    }else if($('#resultado-prescricoes').children().length !== 0){
+        $('#resultado-select .link-prescricao').each(function() {
+            const id = $(this).attr('id');
+            data.ids.push(id);
+        });
+
+        data.type = 'prescricao'
+    }
+
+    console.log(JSON.stringify(data))
+
+    return data;
+}
 
 $(document).on('click', '#submitButton', function(event){
     event.preventDefault()
 
-    $('.canto-esquerdo').prop("disabled", true);
+    data = getData();
+
+    $.ajax({
+        url: '/orcamento/gerar',
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(response){
+            const valorTotal = parseFloat(response).toFixed(2);
+            console.log(valorTotal)
+            $('#valor').html(valorTotal);
+        },
+        error: function(response){
+            console.log(response)
+        }
+    })
+
+});
+
+$('#resultado-select').on('listaModificada', function(event) {
+    if($('#resultado-select').children().length === 0){
+        $('.canto-esquerdo').prop("disabled", false);
+        $('.canto-direito').prop("disabled", false);
+        $('#valor').html('00,00');
+    }else{
+        $('.canto-esquerdo').prop("disabled", true);
+        $('.canto-direito').prop("disabled", true);
+
+        data = getData();
+
+        $.ajax({
+            url: '/orcamento/valor-total',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(response){
+                const valorTotal = parseFloat(response).toFixed(2);
+                console.log(valorTotal)
+                $('#valor').html(valorTotal);
+            },
+            error: function(response){
+                console.log(response)
+            }
+        })
+    }
+});
+
+$(document).on('click', '.link-prescricao', function(event){
+    event.preventDefault()
+
+    const liId = $(this).closest('li').attr('id');
+    const ulId = $(this).closest('ul').attr('id');
+
+    if(ulId === "resultado-select"){
+        moveDiv("resultado-prescricoes", liId)
+
+    }else if(ulId === "resultado-prescricoes"){
+        moveDiv("resultado-select", liId)
+    }
 });
 
 $(document).on('click', '.link-exame', function(event){
     event.preventDefault()
 
-    $('.canto-direito').prop("disabled", true);
+    const liId = $(this).closest('li').attr('id');
+    const ulId = $(this).closest('ul').attr('id');
 
-    const el = event.target || event.srcElement;
-    id = el.id;
+    if(ulId === "resultado-select"){
+        moveDiv("resultado-consultas", liId)
 
-    console.log(id)
-
-    if ($('.select2').find("option[value='" + id + "']").length) {
-        $('.select2').val(id).trigger('change');
-    } else { 
-        var newOption = new Option("Appointment#" + id.toString(), id, false, false);
-        $('.select2').append(newOption).trigger('change');
-    } 
-
-    $(".select2 > option").prop("selected","selected");
-    $(".select2").trigger("change");
-
+    }else if(ulId === "resultado-consultas"){
+        moveDiv("resultado-select", liId)
+    }
 });
 
 function openDiv(evt, tabAtual) {
@@ -186,10 +260,3 @@ function displayNone(){
     }
 
 }
-
-$(document).ready(function(){
-    $(".select2").select2({
-        placeholder: "Click em uma opcao",
-        allowClear: false
-    });
-})

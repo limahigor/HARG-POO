@@ -10,7 +10,6 @@ import com.hargclinical.harg.serializables.PacienteSerializer;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -20,7 +19,7 @@ import jakarta.persistence.Table;
 @JsonSerialize(using = PacienteSerializer.class)
 public class Paciente extends Pessoa{
 
-    public Plano plano_saude;
+    private Plano planoSaude;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
@@ -34,29 +33,17 @@ public class Paciente extends Pessoa{
     public Paciente(){
         super();
     }
-    public Paciente(String nome, String cpf, LocalDate date, char sexo, Plano plano_saude){
+    public Paciente(String nome, String cpf, LocalDate date, char sexo, Plano planoSaude){
         super(nome, cpf, date, sexo); 
-        this.plano_saude = plano_saude;
+        this.planoSaude = planoSaude;
     }
 
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
-    public void setAppointments(Appointment appointment) {
-        appointments.add(appointment);
-    }
-
-    public Plano getPlano_saude() {
-        return plano_saude;
-    }
-
-    public void setPlano_saude(Plano plano_saude) {
-        this.plano_saude = plano_saude;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public Plano getPlanoSaude() {
+        return planoSaude;
     }
 
     public Comorbidades getComorbidades() {
@@ -74,8 +61,4 @@ public class Paciente extends Pessoa{
     public List<Prescricao> getPrescricoes() {
         return prescricoes;
     }
-    public void setPrescricoes(List<Prescricao> prescricoes) {
-        this.prescricoes = prescricoes;
-    }  
-    
 }

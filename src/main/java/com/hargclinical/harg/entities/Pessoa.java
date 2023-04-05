@@ -1,10 +1,10 @@
 package com.hargclinical.harg.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-
-import com.fasterxml.jackson.annotation.JsonView;
+import java.util.Objects;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
@@ -14,22 +14,22 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class Pessoa implements Serializable{
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    public String nome;
+    private String nome = "";
     
     @Column(unique=true)
-    public String cpf;
+    private String cpf = "";
 
-    public char sexo;
-    public long idade;
+    private char sexo;
+    private long idade;
 
-    public Pessoa(){ 
-    }
+    public Pessoa(){}
 
     public Pessoa(String nome, String cpf, LocalDate data, char sexo) {
         this.cpf = cpf;
@@ -38,12 +38,30 @@ public class Pessoa implements Serializable{
         this.idade = definirIdade(data);
     }
 
-    public Long getIdade() {
-        return idade;
+    public static long definirIdade(LocalDate data) {
+        LocalDate dateNow = LocalDate.now();
+
+        return ChronoUnit.YEARS.between(data, dateNow);
     }
 
-    public void setIdade(LocalDate data) {
-        this.idade = definirIdade(data);
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String name){
+        this.nome = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf){
+        this.cpf = cpf;
     }
 
     public char getSexo() {
@@ -54,67 +72,24 @@ public class Pessoa implements Serializable{
         this.sexo = sexo;
     }
 
-    public String getCpf() {
-        return cpf;
+    public long getIdade() {
+        return idade;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setIdade(long idade) {
+        this.idade = idade;
     }
 
-    public String getNome() {
-        return nome;
-    }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public static long definirIdade(LocalDate data) {
-        LocalDate dateNow = LocalDate.now();
-        Long diffAnos = ChronoUnit.YEARS.between(data, dateNow);
-
-        return diffAnos;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pessoa pessoa)) return false;
+        return Objects.equals(id, pessoa.id) && Objects.equals(cpf, pessoa.cpf);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-        return result;
+        return Objects.hash(id, cpf);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Pessoa other = (Pessoa) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (cpf == null) {
-            if (other.cpf != null)
-                return false;
-        } else if (!cpf.equals(other.cpf))
-            return false;
-        return true;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    
 }

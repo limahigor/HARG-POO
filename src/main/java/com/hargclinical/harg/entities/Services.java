@@ -47,7 +47,7 @@ public class Services implements Serializable{
     @Column(name = "valor") 
     public double valor;
 
-    @ManyToMany(mappedBy = "medico_servicos")
+    @ManyToMany(mappedBy = "medicoServicos")
     public Set<Medico> profissionais = new HashSet<>();
 
     // @ManyToMany(mappedBy = "procedimentos")
@@ -67,10 +67,6 @@ public class Services implements Serializable{
         this.nome = nome;
         this.especialidade = especialidade;
         this.valor = valor;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 
     public Long getId() {

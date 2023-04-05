@@ -33,7 +33,7 @@ public class Medico extends Pessoa{
         joinColumns = @JoinColumn(name = "medico_id"),
         inverseJoinColumns = @JoinColumn(name = "service_id")
     )
-	private Set<Services> medico_servicos = new HashSet<>();
+	private Set<Services> medicoServicos = new HashSet<>();
 
     @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
@@ -71,23 +71,18 @@ public class Medico extends Pessoa{
     }
 
     public Set<Services> getServicos() {
-        return medico_servicos;
+        return medicoServicos;
     }
 
     public void setCrm(String crm) {
         this.crm = crm;
     }
 
-    public void setEspecializacao(String especializacao) {
-        this.especializacao = especializacao;
-    }
-
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
-    public void setAppointments(Appointment appointment) {
-        appointments.add(appointment);
+    public List<Prescricao> getPrescricoes() {
+        return prescricoes;
     }
-    
 }

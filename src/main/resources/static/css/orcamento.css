@@ -64,8 +64,6 @@ a:visited{
     padding: 0;
     height: 13.5vh;
     width: 70%;
-
-    /* border: 1px solid red; */
 }
 
 .detalhes{
@@ -80,26 +78,6 @@ button{
     width: 8vw;
     height: 5vh;
 
-}
-
-.selectedOrcamentos{
-    height: 54vh;
-    width: 50%;
-    border-top-left-radius: 10px;
-    padding-top: 5px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-
-    background-color: rgb(69,115,147);
-}
-
-.select2{
-    width: 18vw;
-    height: 3vh;
 }
 
 .bottom-content{
@@ -152,6 +130,8 @@ button{
 .content{
     height: calc(54vh - 35px);
     background-color: rgb(62, 103, 133);
+
+    border-right: 1px solid #4e4d4d48;
 }
 
 .tabcontent{
@@ -162,6 +142,48 @@ button{
     margin: 0;
     background-color: rgba(72, 121, 153, 0.699);
 }
+
+
+/*------------------ ORCAMENTOS SELECIONADOS ----------------------*/
+
+.selectedOrcamentos{
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+    height: 54vh;
+    width: 50%;
+
+    border-top-left-radius: 10px;
+    background-color: rgb(69,115,147);
+}
+
+.content-select{
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    
+    height: 80%;
+    width: 100%;
+}
+
+.value-tag{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    height: 10%;
+    width: 100%;
+}
+
+.button{
+    height: 10%;
+    width: 100%;
+}
+/* --------------------------------------------------------------------*/
 
 .resul{
     display: flex;
@@ -238,7 +260,6 @@ button{
     height: 18vh;
 
     max-height: 18vh;
-
 }
 
 .medicamento{
@@ -246,6 +267,9 @@ button{
     align-items: center;
     flex-direction: column;
     text-align: left;
+
+    height: 7vh;
+    min-height: 7vh;
 
     border-bottom: 1px solid rgba(0, 0, 0, 0.589);
 }

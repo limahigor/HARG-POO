@@ -10,11 +10,7 @@ import com.hargclinical.harg.entities.ServConsulta;
 import com.hargclinical.harg.entities.ServExame;
 import com.hargclinical.harg.entities.ServProcedimento;
 import com.hargclinical.harg.entities.Services;
-import com.hargclinical.harg.repositories.AppointmentRepository;
-import com.hargclinical.harg.services.AgendaService;
-import com.hargclinical.harg.services.MedicoService;
-import com.hargclinical.harg.services.PacienteService;
-import com.hargclinical.harg.services.ServicesService;
+import com.hargclinical.harg.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +26,7 @@ import java.util.List;
 public class AppointmentResource {
 
     @Autowired
-    private AppointmentRepository appointmentRepository;
+    private AppointmentService appointmentService;
 
     @Autowired
     private MedicoService medicoService;
@@ -46,13 +42,17 @@ public class AppointmentResource {
 
     @GetMapping
     public ResponseEntity<List<Appointment>> findAll() {
-        List<Appointment> appointments = appointmentRepository.findAll();
+        List<Appointment> appointments = appointmentService.findAll();
         return ResponseEntity.ok().body(appointments);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Appointment> findById(@PathVariable Long id) {
-        Appointment appointment = appointmentRepository.findById(id).get();
+        Appointment appointment = appointmentService.findById(id);
+
+        if(appointment == null)
+            return ResponseEntity.badRequest().body(null);
+
         return ResponseEntity.ok().body(appointment);
     }
 
@@ -158,8 +158,8 @@ public class AppointmentResource {
             medicoAgenda.agendarConsulta(newAppointment);
             serviceAgenda.agendarConsulta(newAppointment);
             geralAgenda.agendarConsulta(newAppointment);
-            
-            appointmentRepository.save(newAppointment);
+
+            appointmentService.save(newAppointment);
         } catch (Exception e) {
             System.out.println("ERROR!!");
             return ResponseEntity.badRequest().build();
@@ -170,7 +170,7 @@ public class AppointmentResource {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
-        appointmentRepository.deleteById(id);
+        appointmentService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

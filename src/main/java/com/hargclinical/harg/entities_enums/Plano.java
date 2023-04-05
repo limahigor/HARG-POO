@@ -1,12 +1,13 @@
 package com.hargclinical.harg.entities_enums;
 
 public enum Plano {
+    NENHUM(0),
     BRONZE(1),
     PRATA(2),
     OURO(3),
     PLATINA(4);
 
-    private int code;
+    private final int code;
 
     private Plano(int code) {
         this.code = code;

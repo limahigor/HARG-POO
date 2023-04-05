@@ -1,68 +1,84 @@
 package com.hargclinical.harg.resources;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hargclinical.harg.entities.*;
+import com.hargclinical.harg.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hargclinical.harg.entities.Comorbidades;
-import com.hargclinical.harg.entities.Paciente;
-import com.hargclinical.harg.services.PacienteService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/orcamento")
 public class OrcamentoResource {
     @Autowired
-    private PacienteService service;
+    private PacienteService pacienteService;
 
+    @Autowired
+    private AppointmentService appointmentService;
+
+    @Autowired
+    private PrescricaoService prescricaoService;
+
+    @Autowired
+    private OrcamentoService orcamentoServices;
 
     @GetMapping("/{id}")
     public ModelAndView paginaOrcamento(ModelMap model, @PathVariable Long id) {
-        Paciente paciente = service.findById(id);
+        Paciente paciente = pacienteService.findById(id);
 
         ModelAndView viewPage = new ModelAndView("/html/templates/pagina-orcamento.html");
-        viewPage.addObject("id", paciente.getId());
-        viewPage.addObject("nome", paciente.getNome());
-        viewPage.addObject("cpf", paciente.getCpf());
-        viewPage.addObject("idade", paciente.getIdade());
-        viewPage.addObject("sexo", paciente.getSexo());
-        
-        Comorbidades comorbidade = paciente.getComorbidades();
-        viewPage.addObject("fatorRisco", comorbidade.getFactorR());
 
-        if (comorbidade.isGestante())
-            viewPage.addObject("gestante", "SIM");
-        else
-            viewPage.addObject("gestante", "NÃO");
+        return pacienteService.getModelAndView(paciente, viewPage);
+    }
 
-        if (comorbidade.isDiabetes())
-            viewPage.addObject("diabetico", "SIM");
-        else
-            viewPage.addObject("diabetico", "NÃO");
+    @PostMapping("/valor-total")
+    public String calcularValorTotal(@RequestBody String jsonData) {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        if (comorbidade.isHipertensao())
-            viewPage.addObject("hipertenso", "SIM");
-        else
-            viewPage.addObject("hipertenso", "NÃO");
+        try {
+            double total = 0;
+            Map<String, Object> data = objectMapper.readValue(jsonData, Map.class);
 
-        if (comorbidade.isIdade())
-            viewPage.addObject("idoso", "SIM");
-        else
-            viewPage.addObject("idoso", "NÃO");
+            String type = (String) data.get("type");
+            Long idPaciente = Long.parseLong((String)data.get("paciente"));
+            List<String> stringIds = (List<String>) data.get("ids");
+            List<Long> ids = stringIds.stream()
+                             .map(Long::parseLong)
+                             .collect(Collectors.toList());
 
-        if (comorbidade.isObesidade())
-            viewPage.addObject("obeso", "SIM");
-        else
-            viewPage.addObject("obeso", "NÃO");
+            Paciente paciente = pacienteService.findById(idPaciente);
 
-        if (comorbidade.isTabagismo())
-            viewPage.addObject("fumante", "SIM");
-        else
-            viewPage.addObject("fumante", "NÃO");
+            System.out.println(ids);
 
-        return viewPage;
+            if(type.equals("consultas")){
+                List<Appointment> consultas = new ArrayList<>();
+                for(Long id : ids){
+                    consultas.add(appointmentService.findById(id));
+                }
+                OrcamentoServicos orcamento = orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
+
+                total = orcamento.getValor();
+            }else if(type.equals("prescricao")){
+                Prescricao prescricao = null;
+
+                for(Long id : ids) {
+                    prescricao = prescricaoService.findById(id);
+                }
+                OrcamentoMedicamentos orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricao);
+
+                total = orcamento.getValor();
+            }
+
+            return String.valueOf(total);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "erro";
+        }
     }
 }
