@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity  
@@ -24,6 +26,10 @@ public abstract class Orcamento implements Serializable {
 
     protected double valor;
 
+    @ManyToOne
+    @JoinColumn(name = "caixa_id")
+    private Caixa caixa;
+    
     public Orcamento(){
         super();
     }

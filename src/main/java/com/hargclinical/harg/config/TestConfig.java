@@ -102,9 +102,12 @@ public class TestConfig implements CommandLineRunner{
                 agendaService.create(novaAgenda);
             }
 
+            caixaService.abrirCaixa();
+            System.out.println("Eu sou lindo");
+
             //Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
 
-            // Paciente paciente1 = new Paciente();
+            //Paciente paciente1 = new Paciente();
             // paciente1.setNome("Anderson");
 
             // pacienteService.insert(paciente1);
