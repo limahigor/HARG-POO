@@ -31,7 +31,6 @@ public abstract class Orcamento implements Serializable {
     private Caixa caixa;
     
     public Orcamento(){
-        super();
     }
 
     public double getValor() {

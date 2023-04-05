@@ -101,10 +101,9 @@ public class TestConfig implements CommandLineRunner{
                 novaAgenda.setDias(dias);
                 agendaService.create(novaAgenda);
             }
-
-            caixaService.abrirCaixa();
-            System.out.println("Eu sou lindo");
-            //
+            //OrcamentoMedicamentos orcamento = new OrcamentoMedicamentos();
+            
+        
 
             //Medico medico = new Medico("Manoel Gomes", "07229421500", LocalDate.of(1980, 2, 1), 'M', "Dermatologia", "05625206056");
 
