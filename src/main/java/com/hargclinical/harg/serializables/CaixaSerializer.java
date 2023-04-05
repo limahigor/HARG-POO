@@ -24,10 +24,8 @@ public class CaixaSerializer extends StdSerializer<Caixa>{
         if(caixa.getAberto())aux = "1";
         jsonGenerator.writeStringField("status", aux);
         jsonGenerator.writeStringField("saldo", caixa.getSaldo().toString());
-        jsonGenerator.writeStringField("dataAbertura", caixa.getDataAberto().toString());
-        jsonGenerator.writeStringField("horaAbertura", caixa.getHoraAberto().toString());
-        jsonGenerator.writeStringField("dataFechamento", caixa.getDataFechado().toString());
-        jsonGenerator.writeStringField("horaFechamento", caixa.getHoraFechado().toString());
+        jsonGenerator.writeStringField("dataAbertura", caixa.getDataHoraAbertura());
+        jsonGenerator.writeStringField("dataFechamento", caixa.getDataHoraFechamento());
         jsonGenerator.writeEndObject();
     }
     

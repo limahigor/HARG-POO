@@ -38,10 +38,10 @@ public class PrescricaoResource {
     @GetMapping("/medico")
     public ResponseEntity<List<Prescricao>> findByMedico(@RequestParam("id") Long idPaciente) {
         Paciente paciente = pacienteService.findById(idPaciente);
+
+        List<Prescricao> prescricaoPaciente = paciente.getPrescricoes();
         
-        List<Prescricao> prescricoes = paciente.getPrescricoes();
-        
-        return ResponseEntity.ok(prescricoes);
+        return ResponseEntity.ok().body(prescricaoPaciente);
     }
 
     @GetMapping("/paciente")

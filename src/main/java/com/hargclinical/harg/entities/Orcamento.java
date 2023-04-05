@@ -45,6 +45,14 @@ public abstract class Orcamento implements Serializable {
         this.id = id;
     }
 
+    public Caixa getCaixa() {
+        return caixa;
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
+
     public void gerarOrcamento(List<Double> valores, Plano planoSaude) {
         double total = 0;
 

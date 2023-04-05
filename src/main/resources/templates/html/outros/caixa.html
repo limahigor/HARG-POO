@@ -3,6 +3,7 @@
     <head>
         <title>HARG Medical</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" th:href="@{/css/caixa.css}">
         <link rel="stylesheet" th:href="@{/css/styles.css}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +24,26 @@
                 <!---------------- MEIO -------------->
 
                 <div id="mid">
-                    
+                    <div class="content">
+                        <div class="caixa-atual">
+                            <div class="atual-content">
+                                <div class="conteudo-caixa">
+                                    <h1>Status: <span id="status"></span></h1>
+                                    <h1>Valor atual: R$ <span id="valor-atual"></span></h1>
+                                    <h1>Data Abertura: <span id="data-abertura"></span></h1>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <button id="abrir-caixa">Abrir Caixa</button>
+                                <button id="fechar-caixa">Fechar Caixa</button>
+                            </div>
+                        </div>
+                        <div class="caixa-history">
+                            <ul id="list-caixas">
+
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 
                 <!---------------- RODAPE -------------->
@@ -35,5 +55,6 @@
                 <!----------- FIM CONTEÚDO PRINCIPAL ------------->
             </div>
         </div>
+        <script th:src="@{/js/caixa.js}"></script>
     </body>
 </html>

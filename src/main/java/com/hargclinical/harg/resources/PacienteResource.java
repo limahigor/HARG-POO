@@ -42,7 +42,7 @@ public class PacienteResource {
         List<Prescricao> prescricao = new ArrayList<>();
 
         for (Prescricao presc : prescricaoPaciente) {
-            if (!presc.isOrcamento_gerado()) {
+            if (!presc.isOrcamentoGerado()) {
                 prescricao.add(presc);
             }
         }

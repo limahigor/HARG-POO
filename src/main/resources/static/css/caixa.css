@@ -3,10 +3,35 @@
     width: 80vw;
 }
 
+/* ======================================== HISTORICO =========================================== */
 .caixa-history{
     height: 54vh;
     width: 80vw;
+
+    overflow: auto;
 }
+
+li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    padding-left: 1vw;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+h1{
+    font-size: 1.5vh;
+    color: rgb(5, 75, 116);
+    font-weight: bold;
+}
+
+/* ================================================================================================== */
 
 /* ========================================= CAIXA ATUAL ========================================= */
 
@@ -19,12 +44,10 @@
     height: 13.5vh;
     width: 80vw;
     
-    border-bottom: 1px solid rgba(0, 0, 0, 0.568);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.76);
 }
 
 .button{
-    /* border: 1px solid blue; */
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,8 +58,6 @@
 }
 
 .atual-content{
-    /* border: 1px solid red; */
-
     height: 13.5vh;
     width: 70vw;
 
@@ -46,10 +67,31 @@
 button{
     width: 8vw;
     height: 5vh;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0);
+
+    position: relative;
+    transition: top 0.1s;
 }
 
-.atual-content > h1{
+button:not([disabled]):hover{
+    background-color: rgba(240, 248, 255, 0.733);
+    cursor: pointer;
+}
+
+button:not([disabled]):active {
+    top: 1px;
+}
+
+.conteudo-caixa > h1{
     font-size: 1.6vh;
+}
+
+.atual-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
 }
 
 /* ================================================================================================== */

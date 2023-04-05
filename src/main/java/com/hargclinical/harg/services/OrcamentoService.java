@@ -25,6 +25,9 @@ public class OrcamentoService {
     @Autowired
     AppointmentRepository appointmentRepository;
 
+    @Autowired
+    CaixaService caixaService;
+
     public OrcamentoServicos gerarOrcamentoServicos(List<Appointment> consultas, Paciente paciente){
         OrcamentoServicos orcamentoServicos = new OrcamentoServicos();
         List<Appointment> list = orcamentoServicos.getAppointments();
@@ -57,6 +60,9 @@ public class OrcamentoService {
     }
 
     public void insertOrcamentoMedicamentos(OrcamentoMedicamentos orcamento){
+        orcamento.getPrescricao().setOrcamentoGerado(true);
+
+        caixaService.addOrcamento(orcamento);
 
         medicamentosRepository.save(orcamento);
     }
@@ -67,6 +73,9 @@ public class OrcamentoService {
         }
         appointmentRepository.saveAll(orcamento.getAppointments());
 
+        caixaService.addOrcamento(orcamento);
+
         servicosRepository.save(orcamento);
     }
+
 }
