@@ -1,5 +1,8 @@
 package com.hargclinical.harg.services;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,31 +16,28 @@ import com.hargclinical.harg.repositories.CaixaRepository;
 public class CaixaService {
     @Autowired
     private CaixaRepository caixaRepository;
-    
+
     public void abrirCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
-        System.out.println("t00");
         Caixa caixa;
-        System.out.println("t001");
+
+        LocalDate data = LocalDate.now();
+        LocalTime aux = LocalTime.now();
+        LocalTime hora = LocalTime.of(aux.getHour(), aux.getMinute());
+        
         if (caixas.isEmpty()){
-            System.out.println("t10");
             caixa = new Caixa();
-            System.out.println("t11");
-            caixa.setAberto(true);
-            System.out.println("t12");
+            caixa.setAberto(true, data, hora);
             caixaRepository.save(caixa);
         }
         else{
             caixa = caixas.get(caixas.size()-1);
-            System.out.println("T2");
             if (caixa.getAberto()){
                 throw new RuntimeException("Caixa já está aberto");
             }
             else{
-                System.out.println("t3");
                 caixa = new Caixa();
-                caixa.setAberto(true);
-                System.out.println("T4");
+                caixa.setAberto(true, data, hora);
                 caixaRepository.save(caixa);
             }
         }
@@ -46,8 +46,11 @@ public class CaixaService {
     
     public void fecharCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
-
         Caixa caixa = caixas.get(caixas.size()-1);
+
+        LocalDate data = LocalDate.now();
+        LocalTime aux = LocalTime.now();
+        LocalTime hora = LocalTime.of(aux.getHour(), aux.getMinute());
 
         if (caixas.isEmpty()){
             throw new RuntimeException("Não existe caixa a ser fechado");
@@ -57,7 +60,7 @@ public class CaixaService {
             throw new RuntimeException("Caixa já está fechado");
         }
 
-        caixa.setAberto(false);
+        caixa.setAberto(false, data, hora);
         Double saldoFinal = calcularSaldoFinal(caixa);
         caixa.setSaldo(saldoFinal);
         caixaRepository.save(caixa);
