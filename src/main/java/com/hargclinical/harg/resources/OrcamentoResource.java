@@ -62,7 +62,7 @@ public class OrcamentoResource {
                 for(Long id : ids){
                     consultas.add(appointmentService.findById(id));
                 }
-                OrcamentoServicos orcamento = orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
+                Orcamento orcamento = orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
 
                 total = orcamento.getValor();
             }else if(type.equals("prescricao")){
@@ -71,7 +71,7 @@ public class OrcamentoResource {
                 for(Long id : ids) {
                     prescricao = prescricaoService.findById(id);
                 }
-                OrcamentoMedicamentos orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricao);
+                Orcamento orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricao);
 
                 total = orcamento.getValor();
             }
@@ -106,7 +106,7 @@ public class OrcamentoResource {
                 for (Long id : ids) {
                     consultas.add(appointmentService.findById(id));
                 }
-                OrcamentoServicos orcamento = orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
+                OrcamentoServicos orcamento = (OrcamentoServicos) orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
                 orcamentoServices.insertOrcamentoServicos(orcamento);
             } else if (type.equals("prescricao")) {
                 Prescricao prescricao = null;
@@ -114,7 +114,7 @@ public class OrcamentoResource {
                 for (Long id : ids) {
                     prescricao = prescricaoService.findById(id);
                 }
-                OrcamentoMedicamentos orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricao);
+                OrcamentoMedicamentos orcamento = (OrcamentoMedicamentos) orcamentoServices.gerarOrcamentoPrescricao(prescricao);
                 orcamentoServices.insertOrcamentoMedicamentos(orcamento);
             }
 

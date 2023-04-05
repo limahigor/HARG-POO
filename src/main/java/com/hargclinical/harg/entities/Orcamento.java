@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity  
 @Table(name = "orcamentos")  
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Orcamento implements Serializable {
+public class Orcamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

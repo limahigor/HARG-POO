@@ -28,35 +28,43 @@ public class OrcamentoService {
     @Autowired
     CaixaService caixaService;
 
-    public OrcamentoServicos gerarOrcamentoServicos(List<Appointment> consultas, Paciente paciente){
-        OrcamentoServicos orcamentoServicos = new OrcamentoServicos();
-        List<Appointment> list = orcamentoServicos.getAppointments();
-        list.addAll(consultas);
-
+    public Orcamento gerarOrcamentoServicos(List<Appointment> consultas, Paciente paciente){
+        Orcamento orcamento = new OrcamentoServicos();
+        
         List<Double> valores = new ArrayList<>();
-
+        
         for(Appointment consulta : consultas){
             valores.add(consulta.getService().getValor());
         }
+        
+        orcamento.gerarOrcamento(valores, paciente.getPlanoSaude());
+        
+        if(orcamento instanceof OrcamentoServicos){
+            OrcamentoServicos orcamentoServicos = (OrcamentoServicos) orcamento;
+            List<Appointment> list = orcamentoServicos.getAppointments();
+            list.addAll(consultas);
+        }
 
-        orcamentoServicos.gerarOrcamento(valores, paciente.getPlanoSaude());
-
-        return orcamentoServicos;
+        return orcamento;
     }
 
-    public OrcamentoMedicamentos gerarOrcamentoPrescricao(Prescricao prescricao){
-        OrcamentoMedicamentos orcamentoMedicamentos = new OrcamentoMedicamentos();
-        orcamentoMedicamentos.setPrescricao(prescricao);
-
+    public Orcamento gerarOrcamentoPrescricao(Prescricao prescricao){
+        Orcamento orcamento = new OrcamentoMedicamentos();
+        
         List<Double> valores = new ArrayList<>();
-
+        
         for(MedicamentoPrescrito medicamentoPrescrito : prescricao.getMedicamentos()){
             valores.add(medicamentoPrescrito.getValor());
         }
+        
+        orcamento.gerarOrcamento(valores, prescricao.getPaciente().getPlanoSaude());
 
-        orcamentoMedicamentos.gerarOrcamento(valores, prescricao.getPaciente().getPlanoSaude());
+        if(orcamento instanceof OrcamentoMedicamentos){
+            OrcamentoMedicamentos orcamentoMedicamentos = (OrcamentoMedicamentos) orcamento;
+            orcamentoMedicamentos.setPrescricao(prescricao);
+        }
 
-        return orcamentoMedicamentos;
+        return orcamento;
     }
 
     public void insertOrcamentoMedicamentos(OrcamentoMedicamentos orcamento){
