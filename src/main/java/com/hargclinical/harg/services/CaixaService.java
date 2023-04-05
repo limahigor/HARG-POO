@@ -22,8 +22,7 @@ public class CaixaService {
         Caixa caixa;
 
         LocalDate data = LocalDate.now();
-        LocalTime aux = LocalTime.now();
-        LocalTime hora = LocalTime.of(aux.getHour(), aux.getMinute());
+        LocalTime hora = LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute());
         
         if (caixas.isEmpty()){
             caixa = new Caixa();
@@ -51,8 +50,7 @@ public class CaixaService {
         Caixa caixa = caixas.get(caixas.size()-1);
 
         LocalDate data = LocalDate.now();
-        LocalTime aux = LocalTime.now();
-        LocalTime hora = LocalTime.of(aux.getHour(), aux.getMinute());
+        LocalTime hora = LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute());
 
         if (caixas.isEmpty()){
             throw new RuntimeException("Não existe caixa a ser fechado");
