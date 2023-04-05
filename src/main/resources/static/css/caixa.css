@@ -1,0 +1,55 @@
+.content{
+    height: 67.5vh;
+    width: 80vw;
+}
+
+.caixa-history{
+    height: 54vh;
+    width: 80vw;
+}
+
+/* ========================================= CAIXA ATUAL ========================================= */
+
+.caixa-atual{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    height: 13.5vh;
+    width: 80vw;
+    
+    border-bottom: 1px solid rgba(0, 0, 0, 0.568);
+}
+
+.button{
+    /* border: 1px solid blue; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    height: 13.5vh;
+    width: 10vw;
+}
+
+.atual-content{
+    /* border: 1px solid red; */
+
+    height: 13.5vh;
+    width: 70vw;
+
+    padding-left: 1vw;
+}
+
+button{
+    width: 8vw;
+    height: 5vh;
+}
+
+.atual-content > h1{
+    font-size: 1.6vh;
+}
+
+/* ================================================================================================== */
