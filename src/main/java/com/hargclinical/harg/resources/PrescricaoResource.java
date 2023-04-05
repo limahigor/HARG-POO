@@ -36,12 +36,12 @@ public class PrescricaoResource {
     private MedicoService medicoService;
 
     @GetMapping("/medico")
-    public ResponseEntity<List<Prescricao>> findByMedico(@RequestParam("id") Long idPaciente) {
-        Paciente paciente = pacienteService.findById(idPaciente);
+    public ResponseEntity<List<Prescricao>> findByMedico(@RequestParam("id") Long idMedico) {
+        Medico medico = medicoService.findById(idMedico);
 
-        List<Prescricao> prescricaoPaciente = paciente.getPrescricoes();
+        List<Prescricao> prescricaoMedico = medico.getPrescricoes();
         
-        return ResponseEntity.ok().body(prescricaoPaciente);
+        return ResponseEntity.ok().body(prescricaoMedico);
     }
 
     @GetMapping("/paciente")
