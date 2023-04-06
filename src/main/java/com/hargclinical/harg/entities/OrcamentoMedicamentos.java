@@ -28,10 +28,10 @@ public class OrcamentoMedicamentos extends Orcamento{
 
         for (double indexValor : valores) {
             switch (planoSaude.getCode()) {
-                case 1 -> total += indexValor * 0.90;
-                case 2 -> total += indexValor * 0.85;
-                case 3 -> total += indexValor * 0.80;
-                case 4 -> total += indexValor * 0.75;
+                case 1 -> total  += indexValor * 0.90;
+                case 2 -> total  += indexValor * 0.85;
+                case 3 -> total  += indexValor * 0.80;
+                case 4 -> total  += indexValor * 0.75;
                 default -> total += indexValor;
             }
         }

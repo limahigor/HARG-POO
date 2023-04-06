@@ -21,6 +21,7 @@ public class PrescricaoService {
 
 	public Prescricao findById(Long id) {
 		Optional<Prescricao> obj = repository.findById(id);
-		return obj.get();
+
+		return obj.orElse(null);
 	}
 }

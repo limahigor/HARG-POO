@@ -1,17 +1,12 @@
 package com.hargclinical.harg.services;
 
 import com.hargclinical.harg.entities.*;
-import com.hargclinical.harg.entities_enums.Plano;
 import com.hargclinical.harg.repositories.AppointmentRepository;
 import com.hargclinical.harg.repositories.OrcamentoMedicamentosRepository;
 import com.hargclinical.harg.repositories.OrcamentoServicosRepository;
-import com.hargclinical.harg.repositories.ServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.expression.Lists;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -29,7 +24,7 @@ public class OrcamentoService {
     CaixaService caixaService;
 
     public Orcamento gerarOrcamentoServicos(List<Appointment> consultas, Paciente paciente){
-        Orcamento orcamento = new OrcamentoServicos();
+        OrcamentoServicos orcamento = new OrcamentoServicos();
         
         List<Double> valores = new ArrayList<>();
         
@@ -38,18 +33,15 @@ public class OrcamentoService {
         }
         
         orcamento.gerarOrcamento(valores, paciente.getPlanoSaude());
-        
-        if(orcamento instanceof OrcamentoServicos){
-            OrcamentoServicos orcamentoServicos = (OrcamentoServicos) orcamento;
-            List<Appointment> list = orcamentoServicos.getAppointments();
-            list.addAll(consultas);
-        }
+
+        List<Appointment> list = orcamento.getAppointments();
+        list.addAll(consultas);
 
         return orcamento;
     }
 
     public Orcamento gerarOrcamentoPrescricao(Prescricao prescricao){
-        Orcamento orcamento = new OrcamentoMedicamentos();
+        OrcamentoMedicamentos orcamento = new OrcamentoMedicamentos();
         
         List<Double> valores = new ArrayList<>();
         
@@ -59,10 +51,7 @@ public class OrcamentoService {
         
         orcamento.gerarOrcamento(valores, prescricao.getPaciente().getPlanoSaude());
 
-        if(orcamento instanceof OrcamentoMedicamentos){
-            OrcamentoMedicamentos orcamentoMedicamentos = (OrcamentoMedicamentos) orcamento;
-            orcamentoMedicamentos.setPrescricao(prescricao);
-        }
+        orcamento.setPrescricao(prescricao);
 
         return orcamento;
     }

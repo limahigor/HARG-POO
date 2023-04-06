@@ -1,9 +1,5 @@
 package com.hargclinical.harg.services;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.hargclinical.harg.entities.Orcamento;
@@ -23,9 +19,6 @@ public class CaixaService {
         List<Caixa> caixas = caixaRepository.findAll();
         Caixa caixa;
 
-        LocalDate data = LocalDate.now();
-        LocalTime hora = LocalTime.of(LocalTime.now().getHour(), LocalTime.now().getMinute());
-        
         if (caixas.isEmpty()){
             caixa = new Caixa();
             caixa.setAberto(true);
@@ -95,7 +88,6 @@ public class CaixaService {
             caixa.addMovimentacoesCaixa(orcamento);
             caixa.setSaldo(calcularSaldoFinal(caixa));
             orcamento.setCaixa(caixa);
-//            caixaRepository.save(caixa);
         }
     }
 }

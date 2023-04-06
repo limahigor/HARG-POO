@@ -1,5 +1,6 @@
 package com.hargclinical.harg.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import jakarta.persistence.Table;
 @Table(name = "orcamentos")  
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Orcamento implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -58,10 +60,10 @@ public class Orcamento implements Serializable {
 
         for (double indexValor : valores) {
             switch (planoSaude.getCode()) {
-                case 1 -> total += indexValor * 0.95;
-                case 2 -> total += indexValor * 0.90;
-                case 3 -> total += indexValor * 0.85;
-                case 4 -> total += indexValor * 0.80;
+                case 1 ->  total += indexValor * 0.95;
+                case 2 ->  total += indexValor * 0.90;
+                case 3 ->  total += indexValor * 0.85;
+                case 4 ->  total += indexValor * 0.80;
                 default -> total += indexValor;
             }
         }
