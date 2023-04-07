@@ -71,6 +71,7 @@ public class MedicoResource{
             }
         }
 
+        assert medicos != null;
         if(medicos.isEmpty())return ResponseEntity.badRequest().body(null);
         
         return ResponseEntity.ok().body(medicos);
@@ -147,10 +148,11 @@ public class MedicoResource{
             Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
             
             newPaciente = new Paciente(nome, cpf, dataNascimento, sexo, plano);
-            servicoPaciente.insert(newPaciente);
-            
-            newPaciente.setComorbidades(comorbidadesJson);
-            comorbidadesJson.setPaciente(newPaciente);
+//            servicoPaciente.insert(newPaciente);
+
+            newPaciente.setProntuario();
+            newPaciente.getProntuario().setComorbidades(comorbidadesJson);
+            comorbidadesJson.setProntuario(newPaciente.getProntuario());
             servicoPaciente.insert(newPaciente);
 
             newMedico = new Medico(nome, cpf, dataNascimento, sexo, especializacao, crm);
@@ -180,10 +182,6 @@ public class MedicoResource{
             System.out.println("ERROR!!");
             return ResponseEntity.badRequest().build();
         }
-        
-
-        // System.out.println(jsonData.nome);
-        // jsonData = service.insert(jsonData);
         
         System.out.println("Finalizado...\n==================================");
         return ResponseEntity.ok().body(String.valueOf(newMedico.getId()));

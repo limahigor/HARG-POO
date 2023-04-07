@@ -12,20 +12,14 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="pacientes")
-@PrimaryKeyJoinColumn(name = "pacienteId")
+@PrimaryKeyJoinColumn(name = "pessoaId")
 @JsonSerialize(using = PacienteSerializer.class)
 public class Paciente extends Pessoa{
 
     private Plano planoSaude;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
-    private final List<Appointment> appointments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
-    private final List<Prescricao> prescricoes = new ArrayList<>();
-    
     @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
-    private Comorbidades comorbidades;
+    private Prontuario prontuario;
     
     public Paciente(){
         super();
@@ -35,27 +29,22 @@ public class Paciente extends Pessoa{
         this.planoSaude = planoSaude;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
     public Plano getPlanoSaude() {
         return planoSaude;
     }
 
-    public Comorbidades getComorbidades() {
-        return comorbidades;
+    public Prontuario getProntuario() {
+        return prontuario;
     }
 
-    public void setComorbidades(Comorbidades comorbidades) {
-        this.comorbidades = comorbidades;
+    public void setProntuario() {
+        this.prontuario = new Prontuario(this);
     }
 
     public int getFactorRisco(){
-       return comorbidades.getFactorR();
+       return prontuario.getComorbidades().getFactorRisco();
     }
-    
-    public List<Prescricao> getPrescricoes() {
-        return prescricoes;
-    }
+
+
+
 }

@@ -14,7 +14,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="medicos")
-@PrimaryKeyJoinColumn(name = "medicoId")
+@PrimaryKeyJoinColumn(name = "pessoaId")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonSerialize(using = MedicoSerializer.class)
 public class Medico extends Pessoa{
@@ -43,7 +43,7 @@ public class Medico extends Pessoa{
     }
 
     public Medico(String nome, String cpf, LocalDate date, char sexo, String especializacao, String crm){
-        super(nome, cpf, date, sexo); 
+        super(nome, cpf, date, sexo);
         this.especializacao = especializacao;
         this.crm = crm;
     }

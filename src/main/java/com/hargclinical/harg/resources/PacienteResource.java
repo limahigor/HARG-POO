@@ -38,7 +38,7 @@ public class PacienteResource {
     @GetMapping("/prescricao")
     public ResponseEntity<List<Prescricao>> searchPrescricaoByBoolean(@RequestParam("id") Long id) {
         Paciente paciente = service.findById(id);
-        List<Prescricao> prescricaoPaciente = paciente.getPrescricoes();
+        List<Prescricao> prescricaoPaciente = paciente.getProntuario().getPrescricoes();
         List<Prescricao> prescricao = new ArrayList<>();
 
         for (Prescricao presc : prescricaoPaciente) {
@@ -53,7 +53,7 @@ public class PacienteResource {
     @GetMapping("/appointments")
     public ResponseEntity<List<Appointment>> searchAppointmentByBoolean(@RequestParam("id") Long id) {
         Paciente paciente = service.findById(id);
-        List<Appointment> consultaPaciente = paciente.getAppointments();
+        List<Appointment> consultaPaciente = paciente.getProntuario().getAppointments();
         List<Appointment> consultas = new ArrayList<>();
 
         for (Appointment consul : consultaPaciente) {
@@ -156,8 +156,9 @@ public class PacienteResource {
             newPaciente = new Paciente(nome, cpf, date, sexo, plano);
             service.insert(newPaciente);
 
-            newPaciente.setComorbidades(comorbidadesJson);
-            comorbidadesJson.setPaciente(newPaciente);
+            newPaciente.setProntuario();
+            newPaciente.getProntuario().setComorbidades(comorbidadesJson);
+            comorbidadesJson.setProntuario(newPaciente.getProntuario());
             service.insert(newPaciente);
 
             logger.log(Level.INFO, "Finalizando...\n==================================");

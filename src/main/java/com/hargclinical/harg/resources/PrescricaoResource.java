@@ -48,7 +48,7 @@ public class PrescricaoResource {
     public ResponseEntity<List<Prescricao>> findByPaciente(@RequestParam("id") Long idPaciente) {
         Paciente paciente = pacienteService.findById(idPaciente);
         
-        List<Prescricao> prescricoes = paciente.getPrescricoes();
+        List<Prescricao> prescricoes = paciente.getProntuario().getPrescricoes();
 
         return ResponseEntity.ok().body(prescricoes);
     }
@@ -89,7 +89,7 @@ public class PrescricaoResource {
 
             novaPrescricao.setMedicamentos(medicamentos);
             novaPrescricao.setMedico(medico);
-            novaPrescricao.setPaciente(paciente);
+            novaPrescricao.setProntuario(paciente.getProntuario());
 
             prescricaoRepository.save(novaPrescricao);
             return ResponseEntity.ok().body(novaPrescricao);

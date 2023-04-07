@@ -19,11 +19,11 @@ public class Comorbidades implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean tabagismo, obesidade, hipertensao, gestante, diabetes, idade;
-    private int factorR;
+    private int factorRisco;
     
     @OneToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente; 
+    @JoinColumn(name = "prontuario_id")
+    private Prontuario prontuario;
     
     
      public Comorbidades() {
@@ -32,7 +32,7 @@ public class Comorbidades implements Serializable{
         this.hipertensao = false;
         this.gestante = false;
         this.diabetes = false;
-        this.factorR = 0;
+        this.factorRisco = 0;
         this.idade = false;
      }
 
@@ -51,27 +51,27 @@ public class Comorbidades implements Serializable{
 
     public void setFactorR(){
         if(idade){
-            factorR += 1;
+            factorRisco += 1;
         }
 
         if(tabagismo){
-            factorR += 1;
+            factorRisco += 1;
         }
 
         if(obesidade){
-            factorR += 1;
+            factorRisco += 1;
         }
 
         if(hipertensao){
-            factorR += 1;
+            factorRisco += 1;
         }
         
         if(gestante){
-            factorR += 1;
+            factorRisco += 1;
         }
 
         if(diabetes){
-            factorR += 1;
+            factorRisco += 1;
         }
     }
 
@@ -127,19 +127,19 @@ public class Comorbidades implements Serializable{
         this.idade = idade;
     }
 
-    public int getFactorR() {
-        return factorR;
+    public int getFactorRisco() {
+        return factorRisco;
     }
 
-    public void setFactorR(int factorR) {
-        this.factorR = factorR;
+    public void setFactorRisco(int factorR) {
+        this.factorRisco = factorR;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
+    public Prontuario getProntuario() {
+        return prontuario;
     }
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setProntuario(Prontuario prontuario) {
+        this.prontuario = prontuario;
     }
 }

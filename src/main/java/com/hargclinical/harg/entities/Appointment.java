@@ -1,5 +1,6 @@
 package com.hargclinical.harg.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,6 +26,7 @@ import jakarta.persistence.Table;
 @JsonSerialize(using = AppointmentSerializer.class)
 public class Appointment implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -40,8 +42,8 @@ public class Appointment implements Serializable {
     private OrcamentoServicos orcamentos;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
+    @JoinColumn(name = "prontuario_id")
+    private Prontuario prontuario;
     
     @ManyToMany(mappedBy = "consultas", cascade = CascadeType.ALL)
     private List<Dias> dia = new ArrayList<>();
@@ -59,13 +61,13 @@ public class Appointment implements Serializable {
 
     }
 
-    public Appointment (Medico medico, Paciente paciente, Services service, 
+    public Appointment (Medico medico, Prontuario prontuario, Services service,
                         LocalDate data, LocalTime horario){
         Random random = new Random();
 
         this.id = (long) random.nextInt(999999999);
         this.medico = medico;
-        this.paciente = paciente;
+        this.prontuario = prontuario;
         this.service = service;
         this.data = data;
         this.horario = horario;
@@ -107,12 +109,12 @@ public class Appointment implements Serializable {
         this.medico = medico;
     }
     
-    public Paciente getPaciente() {
-        return paciente;
+    public Prontuario getProntuario() {
+        return prontuario;
     }
     
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setProntuario(Prontuario prontuario) {
+        this.prontuario = prontuario;
     }
     
     public Services getService() {

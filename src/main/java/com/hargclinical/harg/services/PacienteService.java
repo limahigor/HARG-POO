@@ -59,8 +59,8 @@ public class PacienteService {
             default -> viewPage.addObject(plano, "NENHUM");
         }
 
-        Comorbidades comorbidade = paciente.getComorbidades();
-        viewPage.addObject("fatorRisco", comorbidade.getFactorR());
+        Comorbidades comorbidade = paciente.getProntuario().getComorbidades();
+        viewPage.addObject("fatorRisco", comorbidade.getFactorRisco());
 
         if (comorbidade.isGestante())
             viewPage.addObject("gestante", "SIM");

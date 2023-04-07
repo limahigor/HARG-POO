@@ -49,7 +49,7 @@ public class OrcamentoService {
             valores.add(medicamentoPrescrito.getValor());
         }
         
-        orcamento.gerarOrcamento(valores, prescricao.getPaciente().getPlanoSaude());
+        orcamento.gerarOrcamento(valores, prescricao.getProntuario().getPaciente().getPlanoSaude());
 
         orcamento.setPrescricao(prescricao);
 

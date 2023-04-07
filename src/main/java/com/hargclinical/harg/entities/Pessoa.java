@@ -8,9 +8,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pessoa implements Serializable {
+@MappedSuperclass
+public class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -99,7 +99,7 @@ public class AppointmentResource {
             
             Paciente paciente = pacienteService.findById(id);
 
-            List<Appointment> consultasPaciente = paciente.getAppointments();
+            List<Appointment> consultasPaciente = paciente.getProntuario().getAppointments();
             
             if(servico.equals("procedimento")) {
                 for(Appointment consulta : consultasPaciente) {
@@ -149,7 +149,7 @@ public class AppointmentResource {
             Services service = servicesService.findById(service_id);
             Paciente paciente = pacienteService.findByCpfContaining(cpf).get(0);
             
-            newAppointment = new Appointment(medico, paciente, service, date, horario);
+            newAppointment = new Appointment(medico, paciente.getProntuario(), service, date, horario);
             
             Agenda geralAgenda = agendaService.findById(1L);
             Agenda medicoAgenda = medico.getAgenda();

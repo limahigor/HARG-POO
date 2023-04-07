@@ -25,8 +25,8 @@ public class AppointmentSerializer extends StdSerializer<Appointment>{
 
         jsonGenerator.writeFieldName("paciente");
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeStringField("id", consulta.getPaciente().getId().toString());
-        jsonGenerator.writeStringField("name", consulta.getPaciente().getNome().toString());
+        jsonGenerator.writeStringField("id", consulta.getProntuario().getPaciente().getId().toString());
+        jsonGenerator.writeStringField("name", consulta.getProntuario().getPaciente().getNome().toString());
         jsonGenerator.writeEndObject();
         
         jsonGenerator.writeFieldName("medico");

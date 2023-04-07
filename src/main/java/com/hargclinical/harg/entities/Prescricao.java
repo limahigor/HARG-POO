@@ -29,8 +29,8 @@ public class Prescricao implements Serializable{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
+    @JoinColumn(name = "prontuario_id")
+    private Prontuario prontuario;
 
     @ManyToOne
     @JoinColumn(name = "medico_id")
@@ -97,12 +97,12 @@ public class Prescricao implements Serializable{
         return true;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
+    public Prontuario getProntuario() {
+        return prontuario;
     }
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setProntuario(Prontuario prontuario) {
+        this.prontuario = prontuario;
     }
 
     public Medico getMedico() {

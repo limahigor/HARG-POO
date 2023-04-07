@@ -45,7 +45,7 @@ public class AgendaSerializer extends StdSerializer<Agenda> {
             for(Appointment consulta : dia.getConsultas()) {
                 jsonGenerator.writeStartObject();
                 jsonGenerator.writeStringField("id", consulta.getId().toString());
-                jsonGenerator.writeStringField("paciente", consulta.getPaciente().getNome());
+                jsonGenerator.writeStringField("paciente", consulta.getProntuario().getPaciente().getNome());
                 jsonGenerator.writeStringField("medico", consulta.getMedico().getNome());
                 jsonGenerator.writeStringField("servico", consulta.getService().getNome());
                 jsonGenerator.writeStringField("data", consulta.getData().toString());
