@@ -91,7 +91,9 @@ public class PrescricaoResource {
             novaPrescricao.setMedico(medico);
             novaPrescricao.setProntuario(paciente.getProntuario());
 
+            System.out.println("TESTE");
             prescricaoRepository.save(novaPrescricao);
+            System.out.println("TESTE");
             return ResponseEntity.ok().body(novaPrescricao);
         }catch(Exception e){
             return ResponseEntity.badRequest().body(null);

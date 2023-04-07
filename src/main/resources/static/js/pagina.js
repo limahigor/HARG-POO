@@ -5,10 +5,10 @@ function printDOMPrescricao(bodyId, dados, div){
     $.each(dados, function(index, value){
         if(bodyId === "pagina-paciente"){
             stringNome =  '<a href="" class="titulo link-exame" id="' + value.id + '"> Prescrição#'+ value.id + '</a>' +
-                          '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.medico.nome + '</span></h1>'
+                          '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.medico.name + '</span></h1>'
         }else if(bodyId === "pagina-medico"){
             stringNome =  '<h1 class="nomeTitle" id="' + value.id + '"> Prescrição#'+ value.id + '</h1>' +
-                          '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + value.paciente.nome + '</span></h1>'
+                          '<h1 class="nomeTitle">Paciente: <span class="nomeData">' + value.paciente.name + '</span></h1>'
         }
         
         var html = '<ul id="resultado-'+ div +'">' + 
@@ -23,7 +23,7 @@ function printDOMPrescricao(bodyId, dados, div){
         
         $.each(value.medicamentos, function(index, med){
              mid += '<div class="medicamento">' +
-                     '<h1 class="nome-medicamento">Nome: ' + med.nome + '</h1>' +
+                     '<h1 class="nome-medicamento">Nome: ' + med.name + '</h1>' +
                      '<h1 class="intervalo-medicamento">Intervalo: ' + med.intervalo + ' horas</h1>' +
                      '</div>'
         })

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.hargclinical.harg.serializables.MedicamentoPrescritoSerializer;
 
+import com.hargclinical.harg.serializables.PrescricaoSerializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +21,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="prescricoes")
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonSerialize(using = PrescricaoSerializer.class)
 public class Prescricao implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +38,6 @@ public class Prescricao implements Serializable{
     private Medico medico;
     
     @OneToMany(mappedBy = "prescricao_id", cascade = CascadeType.ALL)
-    @JsonSerialize(using = MedicamentoPrescritoSerializer.class)
     private List<MedicamentoPrescrito> medicamentos = new ArrayList<>();
     
     @OneToOne(mappedBy = "prescricao", cascade = CascadeType.ALL)
