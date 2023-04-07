@@ -10,17 +10,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hargclinical.harg.serializables.MedicoSerializer;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="medicos")
+@PrimaryKeyJoinColumn(name = "medicoId")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonSerialize(using = MedicoSerializer.class)
 public class Medico extends Pessoa{
@@ -33,13 +27,13 @@ public class Medico extends Pessoa{
         joinColumns = @JoinColumn(name = "medico_id"),
         inverseJoinColumns = @JoinColumn(name = "service_id")
     )
-	private Set<Services> medicoServicos = new HashSet<>();
+	private final Set<Services> medicoServicos = new HashSet<>();
 
     @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
-    private List<Appointment> appointments = new ArrayList<>();
+    private final List<Appointment> appointments = new ArrayList<>();
 
     @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
-    private List<Prescricao> prescricoes = new ArrayList<>();
+    private final List<Prescricao> prescricoes = new ArrayList<>();
 
     @OneToOne(mappedBy = "medico", cascade = CascadeType.ALL)
     private Agenda agenda;

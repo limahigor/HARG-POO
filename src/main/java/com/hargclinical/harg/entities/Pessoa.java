@@ -1,22 +1,16 @@
 package com.hargclinical.harg.entities;
 
-import java.io.Serial;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.MappedSuperclass;
-
-@MappedSuperclass
-public class Pessoa implements Serializable{
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Pessoa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +23,8 @@ public class Pessoa implements Serializable{
     private char sexo;
     private long idade;
 
-    public Pessoa(){}
+    public Pessoa(){
+    }
 
     public Pessoa(String nome, String cpf, LocalDate data, char sexo) {
         this.cpf = cpf;
@@ -75,11 +70,6 @@ public class Pessoa implements Serializable{
     public long getIdade() {
         return idade;
     }
-
-    public void setIdade(long idade) {
-        this.idade = idade;
-    }
-
 
     @Override
     public boolean equals(Object o) {

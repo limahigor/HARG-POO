@@ -26,8 +26,8 @@ public class Prontuario implements Serializable {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
     
-    private List<Appointment> consultas = new ArrayList<>();
-    private List<Prescricao> prescricoes = new ArrayList<>();
+    private final List<Appointment> consultas = new ArrayList<>();
+    private final List<Prescricao> prescricoes = new ArrayList<>();
     
     public Prontuario() {
     }
@@ -35,36 +35,6 @@ public class Prontuario implements Serializable {
     public Prontuario(Paciente paciente){
         this.paciente = paciente;
     }
-
-
-    
-    // public String toString(){
-    //     StringBuilder sb = new StringBuilder();
-
-    //     List<Appointment> consultas = paciente.getAppointments();
-    //     //List<Prescricao> prescricoes = paciente.get
-        
-    //     sb.append("================ PRONTUARIO ================\n");
-    //     sb.append("Nome: " + paciente.getNome() + "\n");
-    //     sb.append("CPF: " + paciente.getCpf() + "\n");
-    //     sb.append("Idade: " + paciente.getIdade() + "\n");
-    //     //sb.append("Fator de Risco: " + ??? + "\n");
-    //     sb.append("Convenio: " + paciente.getPlano() + "\n");
-        
-    //     for(Appointment consulta : consultas) {
-    //         sb.append(consultas.toString());
-    //         sb.append("----------------------------------\n");
-    //     }
-
-    //     /*for(Prescricao prescricao : prescricoes) {
-    //         sb.append(prescricao.toString());
-    //         sb.append("\n----------------------------------\n");
-    //     }*/
-
-    //     System.out.println("============================================");
-
-    //     return sb.toString();
-    // }
 
     public Paciente getPaciente() {
         return null;
