@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -102,11 +103,15 @@ public class PacienteResource {
 
     @GetMapping("/{id}")
     public ModelAndView paginaPaciente(ModelMap model, @PathVariable Long id) {
-        Paciente paciente = service.findById(id);
+        try {
+            Paciente paciente = service.findById(id);
+            ModelAndView viewPage = new ModelAndView("/html/templates/pagina-paciente.html");
 
-        ModelAndView viewPage = new ModelAndView("/html/templates/pagina-paciente.html");
-
-        return service.getModelAndView(paciente, viewPage);
+            return service.getModelAndView(paciente, viewPage);
+        }catch(ResourceNotFoundException e) {
+            ModelAndView viewPage = new ModelAndView("/html/templates/404.html");
+            return viewPage;
+        }
     }
 
     @PostMapping("/cadastrar")

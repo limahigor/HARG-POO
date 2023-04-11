@@ -3,11 +3,15 @@ package com.hargclinical.harg.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.hargclinical.harg.entities.Comorbidades;
+import com.hargclinical.harg.entities.Paciente;
+import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.repositories.MedicoRepository;
+import org.springframework.web.servlet.ModelAndView;
 
 @Service
 public class MedicoService {
@@ -21,7 +25,7 @@ public class MedicoService {
 
 	public Medico findById(Long id) {
 		Optional<Medico> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
     public List<Medico> findByNameContaining(String nome){
@@ -34,6 +38,13 @@ public class MedicoService {
 
 	public Medico insert(Medico obj){
         return repository.save(obj);
-
     }
+
+	public ModelAndView getModelAndView(Medico medico, ModelAndView viewPage) {
+		viewPage.addObject("nome", medico.getNome());
+		viewPage.addObject("crm", medico.getCrm());
+		viewPage.addObject("especializacao", medico.getEspecializacao());
+
+		return viewPage;
+	}
 }

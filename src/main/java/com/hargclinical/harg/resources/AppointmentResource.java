@@ -142,11 +142,11 @@ public class AppointmentResource {
             LocalDate date = LocalDate.parse(data);
             String hora = node.get("hora").asText();
             LocalTime horario = LocalTime.parse(hora);
-            Long service_id = node.get("procedimento").asLong();
-            Long medico_id = node.get("medico").asLong();
+            Long serviceId = node.get("procedimento").asLong();
+            Long medicoId = node.get("medico").asLong();
             
-            Medico medico = medicoService.findById(medico_id);
-            Services service = servicesService.findById(service_id);
+            Medico medico = medicoService.findById(medicoId);
+            Services service = servicesService.findById(serviceId);
             Paciente paciente = pacienteService.findByCpfContaining(cpf).get(0);
             
             newAppointment = new Appointment(medico, paciente.getProntuario(), service, date, horario);

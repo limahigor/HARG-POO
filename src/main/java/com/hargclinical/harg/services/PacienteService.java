@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.hargclinical.harg.entities.Comorbidades;
+import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +23,8 @@ public class PacienteService {
     }
 
     public Paciente findById(Long id) {
-
         Optional<Paciente> obj = repository.findById(id);
-        if(obj.isPresent()){
-            return obj.get();
-        }else{
-            return null;
-        }
-
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public List<Paciente> findByCpfContaining(String name) {

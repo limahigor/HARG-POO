@@ -1,0 +1,16 @@
+.error{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+h1{
+    font-size: 2vh;
+}
+
+h2{
+    font-weight: normal;
+    font-size: 2vh;
+}

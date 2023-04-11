@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Página não encontrada</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/404.css}">
+</head>
+<body>
+
+<div id="all">
+    <!-------------- CONTEÚDO PRINCIPAL ---------------->
+    <div id="main-card">
+        <!-------------- TOPO ---------------->
+        <div id="top">
+            <div class="img-content">
+                <a href="/"><img th:src="@{/img/logo1.png}" id="img-top"></a>
+            </div>
+        </div>
+        <!---------------- MEIO -------------->
+
+        <div id="mid">
+            <div class="error">
+                <h1>Esta página não está disponível.</h1>
+                <h2>O link em que você clicou pode não estar funcionando, ou a página pode ter sido removida. <span><a href="/">Voltar para o inicio.</a></span></h2>
+            </div>
+        </div>
+
+        <!---------------- RODAPE -------------->
+        <div id="bottom">
+            <img th:src="@{/img/logo2.png}" id="img-bottom">
+            <p id="tel-bottom">Telefone: <strong>(82) 3252-9081</strong></p>
+            <p id="copy-bottom">© 2023 HARG. Todos os direitos reservados.</p>
+        </div>
+        <!----------- FIM CONTEÚDO PRINCIPAL ------------->
+    </div>
+</div>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.hargclinical.harg.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,7 @@ public class AgendaService {
     public Agenda findById(Long id) {
 		Optional<Agenda> obj = agendaRepository.findById(id);
 
-        if(obj.isPresent()){
-            return obj.get();
-        }else{
-            return null;
-        }
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
     public void create(Agenda agenda) {
