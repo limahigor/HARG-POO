@@ -23,7 +23,6 @@ public class AgendaService {
 
     public Agenda findById(Long id) {
 		Optional<Agenda> obj = agendaRepository.findById(id);
-
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
