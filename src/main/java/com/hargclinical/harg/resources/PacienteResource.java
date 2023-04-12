@@ -141,7 +141,7 @@ public class PacienteResource {
             int planoId = node.get("plano").asInt();
 
             Plano plano = Plano.valueOf(planoId);
-
+            
             boolean tabagismo = false;
             boolean hipertensao = false;
             boolean gestante = false;

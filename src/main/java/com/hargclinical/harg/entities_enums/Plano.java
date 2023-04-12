@@ -1,5 +1,7 @@
 package com.hargclinical.harg.entities_enums;
 
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
+
 public enum Plano {
     NENHUM(0),
     BRONZE(1),
@@ -23,8 +25,8 @@ public enum Plano {
                 return value;
             }
         }
-        return null;
-        // throw new IllegalArgumentException("Código de plano inválido!");
+        
+        throw new IllegalArgument("Código de plano inválido!");
     }
 
 }
