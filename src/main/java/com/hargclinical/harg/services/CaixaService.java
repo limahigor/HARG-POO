@@ -16,7 +16,7 @@ public class CaixaService {
     @Autowired
     private CaixaRepository caixaRepository;
 
-    public void abrirCaixa() {
+    public Caixa abrirCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
         Caixa caixa;
 
@@ -41,9 +41,10 @@ public class CaixaService {
             }
         }
 
+        return caixa;
     }
     
-    public void fecharCaixa() {
+    public Caixa fecharCaixa() {
         List<Caixa> caixas = caixaRepository.findAll();
         Caixa caixa = caixas.get(caixas.size() - 1);
 
@@ -58,6 +59,7 @@ public class CaixaService {
         caixa.setAberto(false);
         caixa.setDataHoraFechamento();
         caixaRepository.save(caixa);
+        return caixa;
     }
     
     public Double calcularSaldoFinal(Caixa caixa) {

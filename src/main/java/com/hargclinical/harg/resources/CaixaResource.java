@@ -20,17 +20,17 @@ public class CaixaResource {
     private CaixaService service;
 
     @PostMapping("/abrir")
-    public String abrirCaixa(){
-        service.abrirCaixa();
+    public ResponseEntity<Object> abrirCaixa(){
+        Caixa caixa = service.abrirCaixa();
 
-        return "aberto";
+        return ResponseEntity.ok().body(caixa);
     }
 
     @PostMapping("/fechar")
-    public String fecharCaixa(){
-        service.fecharCaixa();
+    public ResponseEntity<Object> fecharCaixa(){
+        Caixa caixa = service.fecharCaixa();
 
-        return "fechado";
+        return ResponseEntity.ok().body(caixa);
     }
 
     @GetMapping("/historico")

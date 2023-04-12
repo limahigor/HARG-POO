@@ -182,7 +182,7 @@ public class PacienteResource {
             }
             throw e;
         }catch(Exception e) {
-            return ResponseEntity.badRequest().build();
+            throw new IllegalArgument("Erro ao cadastrar! Verifique os dados!");
         }
 
         logger.log(Level.INFO, "Finalizado...\n==================================");
