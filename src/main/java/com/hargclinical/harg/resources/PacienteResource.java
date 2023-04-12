@@ -158,7 +158,7 @@ public class PacienteResource {
                     case "gestante" -> gestante = valor;
                     case "diabetes" -> diabetes = valor;
                     default -> {
-                        return ResponseEntity.badRequest().build();
+                        throw new IllegalArgument("Comorbidade inválida!!");
                     }
                 }
             }

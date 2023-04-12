@@ -144,11 +144,16 @@ public class MedicoResource{
             for(JsonNode jNode : comorbidadesNode){
                 String idString = jNode.get("id").asText();
                 boolean valor = jNode.get("value").asBoolean();
-                if(idString.equals("tabagismo"))tabagismo = valor;
-                else if(idString.equals("obesidade"))obesidade = valor;
-                else if(idString.equals("hipertensao"))hipertensao = valor;
-                else if(idString.equals("gestante"))gestante = valor;
-                else if(idString.equals("diabetes"))diabetes = valor;
+                switch (idString) {
+                    case "tabagismo" -> tabagismo = valor;
+                    case "obesidade" -> obesidade = valor;
+                    case "hipertensao" -> hipertensao = valor;
+                    case "gestante" -> gestante = valor;
+                    case "diabetes" -> diabetes = valor;
+                    default -> {
+                        throw new IllegalArgument("Comorbidade inválida!!");
+                    }
+                }
             }
 
             System.out.println("Criando a instancia do medico\n==================================");
