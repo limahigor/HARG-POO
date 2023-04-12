@@ -104,8 +104,8 @@ public class MedicoResource{
     @PostMapping("/cadastrar")
     public ResponseEntity<Medico> cadastrarMedico(@RequestBody String jsonData){
         ObjectMapper mapper = new ObjectMapper();
-        Medico newMedico = null;
-        Paciente newPaciente = null;
+        Medico newMedico;
+        Paciente newPaciente;
 
         try{
             System.out.println("CADASTRANDO MEDICO\n====================================");
@@ -128,14 +128,10 @@ public class MedicoResource{
             if(servicosJson.isEmpty()){
                 throw new IllegalArgument("Médico sem serviços cadastrados.");
             }
-            
+
             for (Services servico : servicosJson) {
 
-                if (servicosJson.isEmpty()) {
-                    throw new IllegalArgument("Não há serviços cadastrados para essa especialidade.");
-                }
-
-                else if (!servico.getEspecialidade().equals(especializacao)) {
+                if (!servico.getEspecialidade().equals(especializacao)) {
                     throw new IllegalArgument("Especialidade do serviço é diferente da especialidade do médico.");
                 }
 

@@ -152,6 +152,12 @@ public class AppointmentResource {
                 }
             }
 
+            for(Appointment consulta : pacienteService.findByCpfContaining(cpf).get(0).getProntuario().getAppointments()) {
+                if(consulta.getData().isEqual(date) && consulta.getHorario().equals(horario)) {
+                    throw new IllegalArgument("Horário já agendado.");
+                }
+            }
+
             if(cpf.equals(medicoService.findById(medicoId).getCpf())) {
                 throw new IllegalArgument("Médico não pode fazer uma consulta com ele mesmo.");
             }
