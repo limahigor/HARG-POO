@@ -23,7 +23,7 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(IllegalArgument.class)
     public ResponseEntity<StandardError> argumentInvalid(IllegalArgument e, HttpServletRequest request){
-        String error = "Resource not found";
+        String error = "Illegal Argument";
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 
