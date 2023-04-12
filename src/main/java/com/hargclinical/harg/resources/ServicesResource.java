@@ -23,6 +23,7 @@ import com.hargclinical.harg.entities.ServProcedimento;
 import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.services.AgendaService;
 import com.hargclinical.harg.services.ServicesService;
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 
 @RestController
 @RequestMapping("/services")
@@ -63,6 +64,17 @@ public class ServicesResource {
             double valorService = node.get("valor").asDouble();
             String tipoService = node.get("tipo").asText();
 
+            List <Services> servicos = service.findAll();
+            for(Services servico : servicos) {
+                if(servico.getNome().equals(nomeService)) {
+                    throw new IllegalArgument("Nome de serviço já cadastrado.");
+                }
+            }
+
+            if(valorService <= 0) {
+                throw new IllegalArgument("Valor inválido.");
+            }
+
             if(tipoService.equals("exame")){
                 newServices = new ServExame();
             }else if(tipoService.equals("consulta")){
@@ -90,6 +102,11 @@ public class ServicesResource {
             service.insert(newServices);
 
             return ResponseEntity.ok().body("Êxito ao cadastrar");
+
+        }catch (IllegalArgument e) {
+            System.out.println("ERROR!");
+            return ResponseEntity.badRequest().build();
+
         }catch(Exception e){
             System.out.println("Servico Error!!!");
             System.out.println(e.getMessage());
@@ -98,6 +115,5 @@ public class ServicesResource {
         }
 
     }
-
     
 }
