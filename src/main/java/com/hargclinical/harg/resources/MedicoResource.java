@@ -169,10 +169,6 @@ public class MedicoResource{
                 throw new IllegalArgument("Falha ao cadastrar!");
             }
 
-            if(!StringUtils.containsOnlyDigits(cpf)){
-                throw new IllegalArgument("CPF Inválido! Somente dígitos!");
-            }
-
             if(!CPF.isCPFValid(cpf)){
                 throw new IllegalArgument("CPF Inválido!");
             }
