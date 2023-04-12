@@ -39,7 +39,9 @@ public class OrcamentoResource {
 
             return pacienteService.getModelAndView(paciente, viewPage);
         }catch(ResourceNotFoundException e) {
+
             return new ModelAndView("/html/templates/404.html");
+
         }
     }
 

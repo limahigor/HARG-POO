@@ -156,7 +156,7 @@ public class AppointmentResource {
                 throw new IllegalArgument("Data inválida.");
             }
 
-            if(horario.isBefore(LocalTime.now())) {
+            if(horario.isBefore(LocalTime.now()) && date.isEqual(LocalDate.now())) {
                 throw new IllegalArgument("Horário inválido.");
             }
 
