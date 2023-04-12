@@ -101,7 +101,7 @@ public class MedicoResource{
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrarMedico(@RequestBody String jsonData){
+    public ResponseEntity<Medico> cadastrarMedico(@RequestBody String jsonData){
         ObjectMapper mapper = new ObjectMapper();
         Medico newMedico = null;
         Paciente newPaciente = null;
@@ -125,14 +125,21 @@ public class MedicoResource{
             }
 
             String especializacao = node.get("especializacao").asText();
+
+            if(servicosJson.isEmpty()){
+                throw new IllegalArgument("Médico sem serviços cadastrados.");
+            }
+            
             for (Services servico : servicosJson) {
+
                 if (servicosJson.isEmpty()) {
-                    throw new IllegalArgumentException("Não há serviços cadastrados para essa especialidade.");
+                    throw new IllegalArgument("Não há serviços cadastrados para essa especialidade.");
                 }
 
-                if (!servico.getEspecialidade().equals(especializacao)) {
+                else if (!servico.getEspecialidade().equals(especializacao)) {
                     throw new IllegalArgument("Especialidade do serviço é diferente da especialidade do médico.");
                 }
+
             }
 
             JsonNode comorbidadesNode = node.get("comorbidades");
@@ -150,9 +157,7 @@ public class MedicoResource{
                     case "hipertensao" -> hipertensao = valor;
                     case "gestante" -> gestante = valor;
                     case "diabetes" -> diabetes = valor;
-                    default -> {
-                        throw new IllegalArgument("Comorbidade inválida!!");
-                    }
+                    default -> throw new IllegalArgument("Comorbidade inválida!!");
                 }
             }
 
@@ -203,15 +208,13 @@ public class MedicoResource{
             }
             throw e;
         }catch(IllegalArgument e){
-            System.out.println("ERROR!");
-            return ResponseEntity.badRequest().build();
+            throw new IllegalArgument(e.getMessage());
         }catch(Exception e){
-            System.out.println("ERROR!!");
-            return ResponseEntity.badRequest().build();
+            throw new IllegalArgument("Falha ao cadastrar!");
         }
         
         System.out.println("Finalizado...\n==================================");
-        return ResponseEntity.ok().body(String.valueOf(newMedico.getId()));
+        return ResponseEntity.ok().body(newMedico);
     }
 
 }
