@@ -95,7 +95,9 @@ public class PrescricaoResource {
             prescricaoRepository.save(novaPrescricao);
             return ResponseEntity.ok().body(novaPrescricao);
         }catch(Exception e){
+
             throw new IllegalArgument("Erro ao gerar prescrição!");
+
         }
     }
     
