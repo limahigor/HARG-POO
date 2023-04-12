@@ -125,6 +125,11 @@ public class MedicoResource{
             }
 
             String especializacao = node.get("especializacao").asText();
+
+            if(servicosJson.isEmpty()){
+                throw new IllegalArgument("Médico sem serviços cadastrados.");
+            }
+            
             for (Services servico : servicosJson) {
 
                 if (servicosJson.isEmpty()) {
@@ -134,7 +139,7 @@ public class MedicoResource{
                 else if (!servico.getEspecialidade().equals(especializacao)) {
                     throw new IllegalArgument("Especialidade do serviço é diferente da especialidade do médico.");
                 }
-                
+
             }
 
             JsonNode comorbidadesNode = node.get("comorbidades");
