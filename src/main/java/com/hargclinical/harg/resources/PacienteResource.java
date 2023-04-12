@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.hargclinical.harg.services.exceptions.DuplicateEntryException;
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -178,7 +178,7 @@ public class PacienteResource {
 
         }catch(DataIntegrityViolationException e) {
             if (e.getMessage().contains("constraint") && e.getMessage().contains("pacientes.UK_1mj2svx930q0tkx1d18qa9rtf")) {
-                throw new DuplicateEntryException("CPF já cadastrado!");
+                throw new IllegalArgument("CPF já cadastrado!");
             }
             throw e;
         }catch(Exception e) {
