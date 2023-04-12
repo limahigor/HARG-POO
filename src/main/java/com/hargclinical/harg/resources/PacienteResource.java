@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -109,8 +111,7 @@ public class PacienteResource {
 
             return service.getModelAndView(paciente, viewPage);
         }catch(ResourceNotFoundException e) {
-            ModelAndView viewPage = new ModelAndView("/html/templates/404.html");
-            return viewPage;
+            return new ModelAndView("/html/templates/404.html");
         }
     }
 
@@ -122,14 +123,21 @@ public class PacienteResource {
         Paciente newPaciente = null;
         try {
             logger.log(Level.INFO, "CADASTRANDO Paciente\n====================================");
+
             JsonNode node = mapper.readTree(jsonData);
 
             JsonNode comorbidadesNode = node.get("comorbidades");
+
             String dateString = node.get("date").asText();
+
             LocalDate date = LocalDate.parse(dateString);
+
             String cpf = node.get("cpf").asText();
+
             String nome = node.get("nome").asText();
+
             char sexo = node.get("sexo").asText().charAt(0);
+
             int planoId = node.get("plano").asInt();
 
             Plano plano = Plano.valueOf(planoId);
@@ -168,10 +176,12 @@ public class PacienteResource {
 
             logger.log(Level.INFO, "Finalizando...\n==================================");
 
-        } catch (Exception e) {
-
-
-            logger.log(Level.INFO, "ERROR!!");
+        }catch(DataIntegrityViolationException e) {
+            if (e.getMessage().contains("constraint") && e.getMessage().contains("pacientes.UK_1mj2svx930q0tkx1d18qa9rtf")) {
+                throw new IllegalArgument("CPF já cadastrado!");
+            }
+            throw e;
+        }catch(Exception e) {
             return ResponseEntity.badRequest().build();
         }
 

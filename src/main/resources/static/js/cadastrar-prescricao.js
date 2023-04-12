@@ -197,11 +197,9 @@ $('#submit-button').click(function(event){
         contentType: 'application/json',
         dataType: 'json',
         success: function(response){
-            console.log(response)
-            console.log("Prescricao cadastrada");
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.text('Prescrição emitida!!');
+            elementoParagrafo.text(response);
             elementoParagrafo.css({
                                     'color': 'rgb(19, 163, 0)',
                                  })
@@ -210,10 +208,9 @@ $('#submit-button').click(function(event){
             $('#more-button').prop("disabled", true)
         },
         error: function(response){
-            console.log(response)
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.html('Erro ao emitir! Verifique os dados!');
+            elementoParagrafo.html(response);
             elementoParagrafo.css({
                                     'color': 'rgb(255, 0, 0)',
                                  })

@@ -1,5 +1,5 @@
 h1{
-    font-size: 16px;
+    font-size: 1.8vh;
     color: rgb(26,87,123);
     font-weight: bold;
 }
@@ -29,8 +29,10 @@ a:visited{
 
 .paciente{
     margin: 0;
+
     width: 80vw;
     height: 67.5vh;
+
     display: flex;
     flex-direction: column;
 }
@@ -39,6 +41,8 @@ a:visited{
     margin: 0;
     height: 13.5vh;
 
+    width: 80vw;
+
     display: flex;
     flex-direction: row;
 }
@@ -46,8 +50,9 @@ a:visited{
 .info{
     padding-left: 10px;
     left: 18px;
-    height: 13.5vh;
-    width: 30%;
+    height: 10vh;
+
+    width: 24vw;
 }
 
 .dados{
@@ -62,10 +67,9 @@ a:visited{
     text-align: center;
 
     padding: 0;
-    height: 13.5vh;
-    width: 70%;
 
-    /* border: 1px solid red; */
+    height: 12vh;
+    width: 56vw;
 }
 
 .detalhes{

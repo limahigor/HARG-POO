@@ -11,6 +11,7 @@ import com.hargclinical.harg.entities.ServExame;
 import com.hargclinical.harg.entities.ServProcedimento;
 import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.services.*;
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -144,6 +145,16 @@ public class AppointmentResource {
             LocalTime horario = LocalTime.parse(hora);
             Long serviceId = node.get("procedimento").asLong();
             Long medicoId = node.get("medico").asLong();
+
+            for(Appointment consulta : medicoService.findById(medicoId).getAppointments()) {
+                if(consulta.getData().isEqual(date) && consulta.getHorario().equals(horario)) {
+                    throw new IllegalArgument("Horário já agendado.");
+                }
+            }
+
+            if(date.isBefore(LocalDate.now())) {
+                throw new IllegalArgument("Data inválida.");
+            }
             
             Medico medico = medicoService.findById(medicoId);
             Services service = servicesService.findById(serviceId);
@@ -160,6 +171,11 @@ public class AppointmentResource {
             geralAgenda.agendarConsulta(newAppointment);
 
             appointmentService.save(newAppointment);
+
+        } catch (IllegalArgument e) { 
+            System.out.println("ERROR!");
+            return ResponseEntity.badRequest().build();
+
         } catch (Exception e) {
             System.out.println("ERROR!!");
             return ResponseEntity.badRequest().build();

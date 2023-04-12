@@ -42,8 +42,6 @@ $('#submit-button').click(function(event){
 
         requestData['servicos'] = servicos;
     }
-
-    console.log(JSON.stringify(requestData));
   
     $.ajax({
         type: 'POST',
@@ -67,13 +65,13 @@ $('#submit-button').click(function(event){
         error: function(error){
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.html('Erro ao cadastrar! Verifique os dados!');
+            response = error.responseJSON;
+
+            elementoParagrafo.html(response.message);
             elementoParagrafo.css({
                                     'color': 'rgb(255, 0, 0)',
                                  })
             elementoParagrafo.show();
-
-            console.log(error)
         }
     })
 });
