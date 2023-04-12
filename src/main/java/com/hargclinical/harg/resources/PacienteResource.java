@@ -139,6 +139,9 @@ public class PacienteResource {
             }
 
             String nome = node.get("nome").asText();
+            if(StringUtils.containsOnlyDigits(nome) || StringUtils.containsLettersAndDigits(nome)){
+                throw new IllegalArgument("Nome inválido!!");
+            }
 
             char sexo = node.get("sexo").asText().charAt(0);
             int planoId;

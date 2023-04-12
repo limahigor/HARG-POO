@@ -24,6 +24,7 @@ import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.services.AgendaService;
 import com.hargclinical.harg.services.ServicesService;
 import com.hargclinical.harg.services.exceptions.IllegalArgument;
+import com.hargclinical.harg.utils.StringUtils;
 
 @RestController
 @RequestMapping("/services")
@@ -60,6 +61,10 @@ public class ServicesResource {
             JsonNode node = mapper.readTree(servicoJson);
 
             String nomeService = node.get("nome").asText();
+            if(StringUtils.containsOnlyDigits(nomeService) || StringUtils.containsLettersAndDigits(nomeService)){
+                throw new IllegalArgument("Nome inválido!!");
+            }
+
             String especialidadeService = node.get("especialidade").asText();
             double valorService = node.get("valor").asDouble();
             String tipoService = node.get("tipo").asText();
@@ -83,7 +88,7 @@ public class ServicesResource {
                     newServices = aux;
                 }
                 case "procedimento" -> newServices = new ServProcedimento();
-                default -> throw new IllegalArgument("Falha ao cadastrar");
+                default -> throw new IllegalArgument("Tipo inválido");
             }
 
             newServices.setNome(nomeService);

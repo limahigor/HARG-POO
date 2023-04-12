@@ -27,7 +27,7 @@ function printDOMPrescricao(dados){
         
         $.each(value.medicamentos, function(index, med){
              mid += '<div class="medicamento">' +
-                     '<h1 class="nome-medicamento">Nome: ' + med.nome + '</h1>' +
+                     '<h1 class="nome-medicamento">Nome: ' + med.name + '</h1>' +
                      '<h1 class="intervalo-medicamento">Intervalo: ' + med.intervalo + ' horas</h1>' +
                      '<h1 class="valor-medicamento">Valor: R$ ' + parseFloat(med.valor).toFixed(2) + '</h1>' +
                      '</div>'
@@ -142,7 +142,7 @@ function getData(){
 }
 
 function verificarSelect(){
-    var elementosSelect = $('#resultado-select').find('.link-exame');
+    var elementosSelect = $('#resultado-select').find('.titulo');
 
     console.log("VERIFICANDO SELECT");
     console.log(elementosSelect.length);

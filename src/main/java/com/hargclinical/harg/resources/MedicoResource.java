@@ -159,7 +159,12 @@ public class MedicoResource{
             System.out.println("Criando a instancia do medico\n==================================");
 
             char sexo = node.get("sexo").asText().charAt(0);
+
             String nome = node.get("nome").asText();
+            if(StringUtils.containsOnlyDigits(nome) || StringUtils.containsLettersAndDigits(nome)){
+                throw new IllegalArgument("Nome inválido!!");
+            }
+
             String cpf = node.get("cpf").asText();
             especializacao = node.get("especializacao").asText();
             String crm = node.get("crm").asText();
