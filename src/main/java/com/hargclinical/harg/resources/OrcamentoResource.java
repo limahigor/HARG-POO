@@ -3,6 +3,7 @@ package com.hargclinical.harg.resources;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hargclinical.harg.entities.*;
 import com.hargclinical.harg.services.*;
+import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -30,12 +31,15 @@ public class OrcamentoResource {
     private OrcamentoService orcamentoServices;
 
     @GetMapping("/{id}")
-    public ModelAndView paginaOrcamento(ModelMap model, @PathVariable Long id) {
-        Paciente paciente = pacienteService.findById(id);
+    public ModelAndView paginaOrcamento(@PathVariable Long id) {
+        try {
+            Paciente paciente = pacienteService.findById(id);
+            ModelAndView viewPage = new ModelAndView("/html/templates/pagina-paciente.html");
 
-        ModelAndView viewPage = new ModelAndView("/html/templates/pagina-orcamento.html");
-
-        return pacienteService.getModelAndView(paciente, viewPage);
+            return pacienteService.getModelAndView(paciente, viewPage);
+        }catch(ResourceNotFoundException e) {
+            return new ModelAndView("/html/templates/404.html");
+        }
     }
 
     @PostMapping("/valor-total")
@@ -54,8 +58,6 @@ public class OrcamentoResource {
                              .collect(Collectors.toList());
 
             Paciente paciente = pacienteService.findById(idPaciente);
-
-            System.out.println(ids);
 
             if(type.equals("consultas")){
                 List<Appointment> consultas = new ArrayList<>();
@@ -84,7 +86,7 @@ public class OrcamentoResource {
     }
 
     @PostMapping("/gerar")
-    public ResponseEntity cadastrarOrcamento(@RequestBody String jsonData) {
+    public ResponseEntity<String> cadastrarOrcamento(@RequestBody String jsonData) {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
@@ -98,8 +100,6 @@ public class OrcamentoResource {
                     .collect(Collectors.toList());
 
             Paciente paciente = pacienteService.findById(idPaciente);
-
-            System.out.println(ids);
 
             if (type.equals("consultas")) {
                 List<Appointment> consultas = new ArrayList<>();
@@ -118,7 +118,7 @@ public class OrcamentoResource {
                 orcamentoServices.insertOrcamentoMedicamentos(orcamento);
             }
 
-            return ResponseEntity.ok().body("Orcamento gerado com sucesos!!");
+            return ResponseEntity.ok().body("Orçamento gerado com sucesso!!");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Erro ao gerar!!");
