@@ -75,6 +75,10 @@ public class PrescricaoResource {
             Medico medico = medicoService.findById(medicoId);
             Paciente paciente = pacienteService.findById(pacienteId);
 
+            if (paciente.getCpf().equals(medico.getCpf())) {
+                throw new Exception("O paciente e o médico são a mesma pessoa");
+            }
+
             for(JsonNode aux : node.get("medicamentos")){
                 String nomeMedicament = aux.get("nome").asText();
                 double valorMedicamento = aux.get("valor").asDouble();
@@ -94,6 +98,9 @@ public class PrescricaoResource {
 
             prescricaoRepository.save(novaPrescricao);
             return ResponseEntity.ok().body(novaPrescricao);
+        }catch(IllegalArgument e){
+            System.out.println("ERROR!");
+            return ResponseEntity.badRequest().build();
         }catch(Exception e){
 
             throw new IllegalArgument("Erro ao gerar prescrição!");
