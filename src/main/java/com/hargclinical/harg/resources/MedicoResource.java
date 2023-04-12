@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -186,13 +187,12 @@ public class MedicoResource{
             service.insert(newMedico);
             System.out.println("Finalizando...\n==================================");
             
-        }catch(Exception e){
-            System.out.println("ERROR!!");
-            return ResponseEntity.badRequest().build();
         }catch(IllegalArgument e){
             System.out.println("ERROR!");
             return ResponseEntity.badRequest().build();
-
+        }catch(Exception e){
+            System.out.println("ERROR!!");
+            return ResponseEntity.badRequest().build();
         }
         
         System.out.println("Finalizado...\n==================================");
