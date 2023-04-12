@@ -157,9 +157,7 @@ public class PacienteResource {
                     case "hipertensao" -> hipertensao = valor;
                     case "gestante" -> gestante = valor;
                     case "diabetes" -> diabetes = valor;
-                    default -> {
-                        throw new IllegalArgument("Comorbidade inválida!!");
-                    }
+                    default -> throw new IllegalArgument("Comorbidade inválida!!");
                 }
             }
 
