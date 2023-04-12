@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
+import com.hargclinical.harg.utils.CPF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -116,7 +117,7 @@ public class PacienteResource {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrarMedico(@RequestBody String jsonData) {
+    public ResponseEntity<Paciente> cadastrarMedico(@RequestBody String jsonData) {
         final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -133,12 +134,28 @@ public class PacienteResource {
             LocalDate date = LocalDate.parse(dateString);
 
             String cpf = node.get("cpf").asText();
+            if(!StringUtils.containsOnlyDigits(cpf)){
+                throw new IllegalArgument("CPF Inválido! Somente dígitos!");
+            }
+
+            if(!CPF.isCPFValid(cpf)){
+                throw new IllegalArgument("CPF Inválido!");
+            }
 
             String nome = node.get("nome").asText();
 
             char sexo = node.get("sexo").asText().charAt(0);
+            int planoId;
 
-            int planoId = node.get("plano").asInt();
+            String planoIdStr = node.get("plano").asText();
+            if(!StringUtils.containsOnlyDigits(planoIdStr)){
+                throw new IllegalArgument("Plano inválido! Somente dígitos [0-4]!");
+            }else{
+                planoId = Integer.parseInt(planoIdStr);
+            }
+
+            System.out.println(planoIdStr);
+            System.out.println(planoId);
 
             Plano plano = Plano.valueOf(planoId);
             
@@ -161,6 +178,10 @@ public class PacienteResource {
                 }
             }
 
+            if(sexo == 'M' && gestante){
+                throw new IllegalArgument("Falha ao cadastrar!");
+            }
+
             logger.log(Level.INFO, "Criando a instancia do paciente\n==================================");
 
             Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
@@ -173,17 +194,18 @@ public class PacienteResource {
             service.insert(newPaciente);
 
             logger.log(Level.INFO, "Finalizando...\n==================================");
-
         }catch(DataIntegrityViolationException e) {
             if (e.getMessage().contains("constraint") && e.getMessage().contains("pacientes.UK_1mj2svx930q0tkx1d18qa9rtf")) {
                 throw new IllegalArgument("CPF já cadastrado!");
             }
             throw e;
+        }catch (IllegalArgument e){
+            throw new IllegalArgument(e.getMessage());
         }catch(Exception e) {
             throw new IllegalArgument("Erro ao cadastrar! Verifique os dados!");
         }
 
         logger.log(Level.INFO, "Finalizado...\n==================================");
-        return ResponseEntity.ok().body(String.valueOf(newPaciente.getId()));
+        return ResponseEntity.ok().body(newPaciente);
     }
 }

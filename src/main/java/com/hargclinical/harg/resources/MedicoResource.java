@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
+import com.hargclinical.harg.utils.CPF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -107,13 +108,11 @@ public class MedicoResource{
         Paciente newPaciente = null;
 
         try{
-
             System.out.println("CADASTRANDO MEDICO\n====================================");
             JsonNode node = mapper.readTree(jsonData);
 
             JsonNode servicosNode = node.get("servicos");
             List<Services> servicosJson = new ArrayList<>();
-
 
             for(JsonNode jNode : servicosNode){
                 System.out.println("Pegando Servicos\n==================================");
@@ -169,6 +168,18 @@ public class MedicoResource{
             especializacao = node.get("especializacao").asText();
             String crm = node.get("crm").asText();
             LocalDate dataNascimento = LocalDate.parse(node.get("date").asText());
+
+            if(sexo == 'M' && gestante){
+                throw new IllegalArgument("Falha ao cadastrar!");
+            }
+
+            if(!StringUtils.containsOnlyDigits(cpf)){
+                throw new IllegalArgument("CPF Inválido! Somente dígitos!");
+            }
+
+            if(!CPF.isCPFValid(cpf)){
+                throw new IllegalArgument("CPF Inválido!");
+            }
 
             Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
             

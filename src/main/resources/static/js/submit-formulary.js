@@ -50,6 +50,7 @@ $('#submit-button').click(function(event){
         contentType:'application/json',
         success: function(response){
             console.log('Cadastro realizado!!');
+            console.log(response)
             var elementoParagrafo = $('#result-cadastro');
 
             elementoParagrafo.text('Cadastro realizado!!');
@@ -59,7 +60,7 @@ $('#submit-button').click(function(event){
             elementoParagrafo.show();
 
             setTimeout(function() {
-                window.location.href = '/' + id + '/' + response;
+                window.location.href = '/' + id + '/' + response.id;
             }, 2000);
         },
         error: function(error){

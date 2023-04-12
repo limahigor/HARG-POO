@@ -88,7 +88,7 @@ public class OrcamentoResource {
     }
 
     @PostMapping("/gerar")
-    public ResponseEntity<String> cadastrarOrcamento(@RequestBody String jsonData) {
+    public ResponseEntity<Orcamento> cadastrarOrcamento(@RequestBody String jsonData) {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
@@ -103,27 +103,30 @@ public class OrcamentoResource {
 
             Paciente paciente = pacienteService.findById(idPaciente);
 
+            Orcamento orcamento = null;
             if (type.equals("consultas")) {
                 List<Appointment> consultas = new ArrayList<>();
                 for (Long id : ids) {
                     consultas.add(appointmentService.findById(id));
                 }
-                OrcamentoServicos orcamento = (OrcamentoServicos) orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
+                orcamento =  orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
 
-                orcamentoServices.insertOrcamentoServicos(orcamento);
+                orcamentoServices.insertOrcamentoServicos((OrcamentoServicos) orcamento);
             } else if (type.equals("prescricao")) {
                 List<Prescricao> prescricoes = new ArrayList<>();
 
                 for(Long id : ids) {
                     prescricoes.add(prescricaoService.findById(id));
                 }
-                Orcamento orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricoes, paciente);
+                orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricoes, paciente);
 
                 orcamentoServices.insertOrcamentoMedicamentos((OrcamentoMedicamentos) orcamento);
             }
 
-            return ResponseEntity.ok().body("Orçamento gerado com sucesso!!");
-        } catch (Exception e) {
+            return ResponseEntity.ok().body(orcamento);
+        } catch (IllegalArgument e){
+            throw new IllegalArgument(e.getMessage());
+        }catch (Exception e) {
             throw new IllegalArgument("Erro ao gerar!!");
         }
     }

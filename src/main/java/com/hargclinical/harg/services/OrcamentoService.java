@@ -60,22 +60,23 @@ public class OrcamentoService {
     }
 
     public void insertOrcamentoMedicamentos(OrcamentoMedicamentos orcamento){
+        caixaService.addOrcamento(orcamento);
+
         for(Prescricao prescricao : orcamento.getPrescricao()){
             prescricao.setOrcamentoGerado(true);
         }
-
-        caixaService.addOrcamento(orcamento);
 
         medicamentosRepository.save(orcamento);
     }
 
     public void insertOrcamentoServicos(OrcamentoServicos orcamento){
-        for(Appointment consulta : orcamento.getAppointments()){
-            consulta.setOrcamentoGerado(true);
-        }
         appointmentRepository.saveAll(orcamento.getAppointments());
 
         caixaService.addOrcamento(orcamento);
+
+        for(Appointment consulta : orcamento.getAppointments()){
+            consulta.setOrcamentoGerado(true);
+        }
 
         servicosRepository.save(orcamento);
     }

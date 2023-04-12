@@ -164,15 +164,13 @@ $(document).on('click', '#submitButton', function(event){
         type: 'POST',
         data: JSON.stringify(data),
         contentType: 'application/json',
-        dataType: 'text',
+        dataType: 'json',
         success: function(response){
             alert('Orcamento gerado!!')
             window.location.href = '/'
         },
-        error: function(jqXHR, textStatus, errorThrown){
-            console.log("Status: ", textStatus);
-            console.log("Erro lançado: ", errorThrown);
-            console.log("Resposta do servidor: ", jqXHR.responseText);
+        error: function(response){
+            alert(response.responseJSON.message);
         }
     })
 
@@ -278,6 +276,5 @@ function displayNone(){
 }
 
 $(document).ready(function() {
-    console.log("PAGINA CARREGADA")
     verificarSelect();
 });

@@ -26,7 +26,7 @@ public enum Plano {
             }
         }
         
-        throw new IllegalArgument("Código de plano inválido!");
+        throw new IllegalArgument("Código do plano inválido! [0-4]");
     }
 
 }
