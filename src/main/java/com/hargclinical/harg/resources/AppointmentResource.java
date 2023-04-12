@@ -155,7 +155,11 @@ public class AppointmentResource {
             if(date.isBefore(LocalDate.now())) {
                 throw new IllegalArgument("Data inválida.");
             }
-            
+
+            if(horario.isBefore(LocalTime.now())) {
+                throw new IllegalArgument("Horário inválida.");
+            }
+
             Medico medico = medicoService.findById(medicoId);
             Services service = servicesService.findById(serviceId);
             Paciente paciente = pacienteService.findByCpfContaining(cpf).get(0);
