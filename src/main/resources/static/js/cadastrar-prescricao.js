@@ -178,6 +178,7 @@ $('#submit-button').click(function(event){
 
     dados['medicamentos'] = dadosMedicamentos
     
+    console.log("TESTE")
     $.ajax({
         url: '/prescricao/cadastrar',
         method: 'POST',
@@ -185,17 +186,22 @@ $('#submit-button').click(function(event){
         contentType: 'application/json',
         dataType: 'json',
         success: function(response){
+            console.log("TESTE SUCESS")
+            console.log(response)
             var elementoParagrafo = $('#result-cadastro');
 
             elementoParagrafo.text("Prescrição gerada com sucesso!!");
             elementoParagrafo.css({
                                     'color': 'rgb(19, 163, 0)',
-                                 })
+                                  })
+
             $('.result').css("visibility", "visible");
             $('#submit-button').prop("disabled", true)
             $('#more-button').prop("disabled", true)
         },
         error: function(response){
+            console.log("TESTE ERROR")
+            console.log(response)
             var elementoParagrafo = $('#result-cadastro');
 
             error = response.responseJSON;

@@ -3,6 +3,7 @@ package com.hargclinical.harg.resources;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hargclinical.harg.entities.*;
 import com.hargclinical.harg.services.*;
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class OrcamentoResource {
     public ModelAndView paginaOrcamento(@PathVariable Long id) {
         try {
             Paciente paciente = pacienteService.findById(id);
-            ModelAndView viewPage = new ModelAndView("/html/templates/pagina-paciente.html");
+            ModelAndView viewPage = new ModelAndView("/html/templates/pagina-orcamento.html");
 
             return pacienteService.getModelAndView(paciente, viewPage);
         }catch(ResourceNotFoundException e) {
@@ -120,8 +121,7 @@ public class OrcamentoResource {
 
             return ResponseEntity.ok().body("Orçamento gerado com sucesso!!");
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("Erro ao gerar!!");
+            throw new IllegalArgument("Erro ao gerar!!");
         }
     }
 }
