@@ -68,16 +68,15 @@ $(document).on('click', "#fechar-caixa", function(event){
     $.ajax({
         url: '/caixa/fechar',
         type: 'POST',
-        dataType: 'text',
+        dataType: 'json',
         success: function(response){
-            console.log(response)
-            console.log('Caixa fechado!!');
-
             statusCaixa();
         },
         error: function(response){
-            console.log("ERROR FECHAR")
-            console.log(response)
+            error = response.responseJSON;
+
+            alert(error.message);
+            statusCaixa();
         }
     })
 })
@@ -86,16 +85,15 @@ $(document).on('click', "#abrir-caixa", function(event){
     $.ajax({
         url: '/caixa/abrir',
         type: 'POST',
-        dataType: 'text',
+        dataType: 'json',
         success: function(response){
-            console.log(response)
-            console.log('Caixa aberto!!');
-            
             statusCaixa();
         },
         error: function(response){
-            console.log("ERROR ABRIR")
-            console.log(response)
+            error = response.responseJSON;
+
+            alert(error.message);
+            statusCaixa();
         }
     })
 })
