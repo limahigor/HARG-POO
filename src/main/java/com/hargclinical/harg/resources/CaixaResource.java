@@ -42,8 +42,7 @@ public class CaixaResource {
     @GetMapping("/status")
     public ResponseEntity<Caixa> status(){
         List<Caixa> caixas = service.findAll();
-        Caixa caixa = caixas.get(caixas.size()-1);
-        if(caixa.getAberto())return ResponseEntity.ok().body(caixa);
+        Caixa caixa = caixas.get(caixas.size() - 1);
         return ResponseEntity.ok().body(caixa);
     }
 
