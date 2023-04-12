@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Arrays;
 
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
+import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -89,26 +91,28 @@ public class TestConfig implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
+        Agenda novaAgenda;
 
-        try{
-            Agenda novaAgenda = agendaService.findById(1L);
+        try {
+            agendaService.findById(1L);
+        }catch (ResourceNotFoundException e){
+            novaAgenda = new Agenda();
 
-            if(novaAgenda == null){
-                novaAgenda = new Agenda();
+            List<Dias> dias = new ArrayList<>();
+            novaAgenda.setListaDias(dias, novaAgenda);
+            novaAgenda.setDias(dias);
 
-                List<Dias> dias = new ArrayList<>();
-                novaAgenda.setListaDias(dias, novaAgenda);
-                novaAgenda.setDias(dias);
-                agendaService.create(novaAgenda);
-            }
-
-            caixaService.abrirCaixa();
-
-        }catch(Exception e){
+            agendaService.create(novaAgenda);
+        }catch(Exception e) {
             System.out.println("TESTE ERROR");
             System.out.println(e.getMessage());
         }
 
+        try{
+            caixaService.abrirCaixa();
+        }catch (IllegalArgument e){
+            System.out.println("Teste error: " + e.getMessage());
+        }
+
     }
-    
 }

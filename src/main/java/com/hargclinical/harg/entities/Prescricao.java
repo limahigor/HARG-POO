@@ -39,9 +39,10 @@ public class Prescricao implements Serializable{
     
     @OneToMany(mappedBy = "prescricao_id", cascade = CascadeType.ALL)
     private List<MedicamentoPrescrito> medicamentos = new ArrayList<>();
-    
-    @OneToOne(mappedBy = "prescricao", cascade = CascadeType.ALL)
-    private OrcamentoMedicamentos orcamentoMedicamentos;
+
+    @ManyToOne
+    @JoinColumn(name = "orcamento_id")
+    private OrcamentoMedicamentos orcamentos;
 
     private boolean orcamentoGerado = false;
 
@@ -65,11 +66,11 @@ public class Prescricao implements Serializable{
     }
 
     public OrcamentoMedicamentos getOrcamentoMedicamentos() {
-        return orcamentoMedicamentos;
+        return orcamentos;
     }
 
-    public void setOrcamentoMedicamentos(OrcamentoMedicamentos orcamentoMedicamentos) {
-        this.orcamentoMedicamentos = orcamentoMedicamentos;
+    public void setOrcamentoMedicamentos(OrcamentoMedicamentos orcamentos) {
+        this.orcamentos = orcamentos;
     }
 
     @Override
@@ -121,7 +122,7 @@ public class Prescricao implements Serializable{
         return orcamentoGerado;
     }
 
-    public void setOrcamentoGerado(boolean orcamento_gerado) {
-        this.orcamentoGerado = orcamento_gerado;
+    public void setOrcamentoGerado(boolean orcamentoGerado) {
+        this.orcamentoGerado = orcamentoGerado;
     }
 }

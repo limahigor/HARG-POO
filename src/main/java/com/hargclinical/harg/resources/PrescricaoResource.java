@@ -76,7 +76,7 @@ public class PrescricaoResource {
             Paciente paciente = pacienteService.findById(pacienteId);
 
             if (paciente.getCpf().equals(medico.getCpf())) {
-                throw new Exception("O paciente e o médico são a mesma pessoa");
+                throw new IllegalArgument("O paciente e o médico são a mesma pessoa");
             }
 
             for(JsonNode aux : node.get("medicamentos")){

@@ -1,12 +1,9 @@
 package com.hargclinical.harg.entities;
 
 import com.hargclinical.harg.entities_enums.Plano;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,9 +11,8 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "id")
 public class OrcamentoMedicamentos extends Orcamento{
 
-    @OneToOne
-    @JoinColumn(name = "prescricao_id")
-    private Prescricao prescricao;
+    @OneToMany(mappedBy = "orcamentos", cascade = CascadeType.ALL)
+    private List<Prescricao> prescricao = new ArrayList<>();
 
     public OrcamentoMedicamentos(){
         super();
@@ -39,12 +35,10 @@ public class OrcamentoMedicamentos extends Orcamento{
         this.valor = total;
     }
 
-    public Prescricao getPrescricao() {
+    public List<Prescricao> getPrescricao() {
         return prescricao;
     }
 
-    public void setPrescricao(Prescricao prescricao) {
-        this.prescricao = prescricao;
-    }
+
 }
 

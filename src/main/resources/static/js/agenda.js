@@ -27,6 +27,8 @@ function ajaxReq(url, dataGet){
         success: function (response) {
             var dados = []
 
+            console.log(response)
+
             $.each(response, function (index, value) {
                 var dataResponse = {
                                 'nomeProcedimento' : value.servico.name,
@@ -35,7 +37,7 @@ function ajaxReq(url, dataGet){
                                 'data' : value.data,
                                 'hora' : value.hora
                             }
-                
+
                 dados.push(dataResponse)
             })
 

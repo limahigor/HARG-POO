@@ -40,24 +40,29 @@ public class OrcamentoService {
         return orcamento;
     }
 
-    public Orcamento gerarOrcamentoPrescricao(Prescricao prescricao){
+    public Orcamento gerarOrcamentoPrescricao(List<Prescricao> prescricoes, Paciente paciente){
         OrcamentoMedicamentos orcamento = new OrcamentoMedicamentos();
         
         List<Double> valores = new ArrayList<>();
-        
-        for(MedicamentoPrescrito medicamentoPrescrito : prescricao.getMedicamentos()){
-            valores.add(medicamentoPrescrito.getValor());
-        }
-        
-        orcamento.gerarOrcamento(valores, prescricao.getProntuario().getPaciente().getPlanoSaude());
 
-        orcamento.setPrescricao(prescricao);
+        for(Prescricao prescricao : prescricoes){
+            for(MedicamentoPrescrito medicamentoPrescrito : prescricao.getMedicamentos()){
+                valores.add(medicamentoPrescrito.getValor());
+            }
+        }
+
+        orcamento.gerarOrcamento(valores, paciente.getPlanoSaude());
+
+        List<Prescricao> list = orcamento.getPrescricao();
+        list.addAll(prescricoes);
 
         return orcamento;
     }
 
     public void insertOrcamentoMedicamentos(OrcamentoMedicamentos orcamento){
-        orcamento.getPrescricao().setOrcamentoGerado(true);
+        for(Prescricao prescricao : orcamento.getPrescricao()){
+            prescricao.setOrcamentoGerado(true);
+        }
 
         caixaService.addOrcamento(orcamento);
 

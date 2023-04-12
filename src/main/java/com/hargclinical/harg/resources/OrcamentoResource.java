@@ -7,7 +7,6 @@ import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,12 +70,12 @@ public class OrcamentoResource {
 
                 total = orcamento.getValor();
             }else if(type.equals("prescricao")){
-                Prescricao prescricao = null;
+                List<Prescricao> prescricoes = new ArrayList<>();
 
                 for(Long id : ids) {
-                    prescricao = prescricaoService.findById(id);
+                    prescricoes.add(prescricaoService.findById(id));
                 }
-                Orcamento orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricao);
+                Orcamento orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricoes, paciente);
 
                 total = orcamento.getValor();
             }
@@ -99,8 +98,8 @@ public class OrcamentoResource {
             Long idPaciente = Long.parseLong((String) data.get("paciente"));
             List<String> stringIds = (List<String>) data.get("ids");
             List<Long> ids = stringIds.stream()
-                    .map(Long::parseLong)
-                    .collect(Collectors.toList());
+                            .map(Long::parseLong)
+                            .collect(Collectors.toList());
 
             Paciente paciente = pacienteService.findById(idPaciente);
 
@@ -110,15 +109,17 @@ public class OrcamentoResource {
                     consultas.add(appointmentService.findById(id));
                 }
                 OrcamentoServicos orcamento = (OrcamentoServicos) orcamentoServices.gerarOrcamentoServicos(consultas, paciente);
+
                 orcamentoServices.insertOrcamentoServicos(orcamento);
             } else if (type.equals("prescricao")) {
-                Prescricao prescricao = null;
+                List<Prescricao> prescricoes = new ArrayList<>();
 
-                for (Long id : ids) {
-                    prescricao = prescricaoService.findById(id);
+                for(Long id : ids) {
+                    prescricoes.add(prescricaoService.findById(id));
                 }
-                OrcamentoMedicamentos orcamento = (OrcamentoMedicamentos) orcamentoServices.gerarOrcamentoPrescricao(prescricao);
-                orcamentoServices.insertOrcamentoMedicamentos(orcamento);
+                Orcamento orcamento = orcamentoServices.gerarOrcamentoPrescricao(prescricoes, paciente);
+
+                orcamentoServices.insertOrcamentoMedicamentos((OrcamentoMedicamentos) orcamento);
             }
 
             return ResponseEntity.ok().body("Orçamento gerado com sucesso!!");

@@ -12,9 +12,9 @@ function printDOMPrescricao(dados){
     $('#resultado-prescricoes').empty()
     
     $.each(dados, function(index, value){
-        
+        console.log(value)
         stringNome = '<a href="" class="titulo link-prescricao" id="' + value.id + '"> Prescrição#'+ value.id + '</a>' +
-                     '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.medico.nome + '</span></h1>'
+                     '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.medico.name + '</span></h1>'
         
         var html = '<li id="prescricao-'+ index +'">' +
                         '<div class="resul">' +

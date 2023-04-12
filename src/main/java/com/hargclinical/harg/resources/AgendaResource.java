@@ -54,6 +54,11 @@ public class AgendaResource {
                 consultas.addAll(dia.getConsultas());
         }
 
+        for(Appointment c : consultas){
+            System.out.println(c.getHorario());
+        }
+
+
         return ResponseEntity.ok().body(consultas);
     }
 

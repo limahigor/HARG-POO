@@ -182,11 +182,11 @@ public class AppointmentResource {
 
         } catch (IllegalArgument e) { 
             System.out.println("ERROR!");
-            return ResponseEntity.badRequest().build();
+            throw new IllegalArgument(e.getMessage());
 
         } catch (Exception e) {
             System.out.println("ERROR!!");
-            return ResponseEntity.badRequest().build();
+            throw new IllegalArgument("Erro ao agendar!");
         }
 
         return ResponseEntity.ok().body(String.valueOf(newAppointment.getId()));
