@@ -121,6 +121,14 @@ public class MedicoResource{
                     servicosJson.add(servico);
                 }
             }
+
+            String especializacao = node.get("especializacao").asText();
+            for (Services servico : servicosJson) {
+                if (!servico.getEspecialidade().equals(especializacao)) {
+                    throw new IllegalArgument("Especialidade do serviço é diferente da especialidade do médico.");
+                }
+            }
+
             JsonNode comorbidadesNode = node.get("comorbidades");
             String dateString = node.get("date").asText();
             LocalDate date = LocalDate.parse(dateString);
@@ -143,7 +151,7 @@ public class MedicoResource{
             char sexo = node.get("sexo").asText().charAt(0);
             String nome = node.get("nome").asText();
             String cpf = node.get("cpf").asText();
-            String especializacao = node.get("especializacao").asText();
+            especializacao = node.get("especializacao").asText();
             String crm = node.get("crm").asText();
             LocalDate dataNascimento = LocalDate.parse(node.get("date").asText());
 
@@ -183,6 +191,10 @@ public class MedicoResource{
         }catch(Exception e){
             System.out.println("ERROR!!");
             return ResponseEntity.badRequest().build();
+        }catch(IllegalArgument e){
+            System.out.println("ERROR!");
+            return ResponseEntity.badRequest().build();
+
         }
         
         System.out.println("Finalizado...\n==================================");
