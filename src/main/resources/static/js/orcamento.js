@@ -26,7 +26,6 @@ function printDOMPrescricao(dados){
         var mid = ""
         
         $.each(value.medicamentos, function(index, med){
-            console.log(med)
              mid += '<div class="medicamento">' +
                      '<h1 class="nome-medicamento">Nome: ' + med.nome + '</h1>' +
                      '<h1 class="intervalo-medicamento">Intervalo: ' + med.intervalo + ' horas</h1>' +
@@ -46,7 +45,6 @@ function printDOMPrescricao(dados){
 function printDOM(dados){
     $('#resultado-consultas').empty()
     $.each(dados, function(index, value){
-        console.log('index ' + index)
         stringNome = '<a href="" class="titulo link-exame" id="' + value.id + '">' + value.nomeProcedimento + '</a>' +
                      '<h1 class="nomeTitle">Medico: <span class="nomeData">' + value.nomeMedico + '</span></h1>'
         
@@ -140,9 +138,20 @@ function getData(){
         data.type = 'prescricao'
     }
 
-    console.log(JSON.stringify(data))
-
     return data;
+}
+
+function verificarSelect(){
+    var elementosSelect = $('#resultado-select').find('.link-exame');
+
+    console.log("VERIFICANDO SELECT");
+    console.log(elementosSelect.length);
+
+    if(elementosSelect.length === 0){
+        $('#submitButton').prop('disabled', true)
+    }else{
+        $('#submitButton').prop('disabled', false)
+    }
 }
 
 $(document).on('click', '#submitButton', function(event){
@@ -157,7 +166,6 @@ $(document).on('click', '#submitButton', function(event){
         contentType: 'application/json',
         dataType: 'text',
         success: function(response){
-            console.log("teste funciona")
             alert('Orcamento gerado!!')
             window.location.href = '/'
         },
@@ -171,17 +179,15 @@ $(document).on('click', '#submitButton', function(event){
 });
 
 $('#resultado-select').on('listaModificada', function(event) {
-    console.log($('#resultado-select').children().length)
     if($('#resultado-select').children().length === 0){
         $('.canto-esquerdo').prop("disabled", false);
         $('.canto-direito').prop("disabled", false);
-        $('#valor').html('00,00');
+        $('#valor').html('00.00');
     }else{
         $('.canto-esquerdo').prop("disabled", true);
         $('.canto-direito').prop("disabled", true);
 
         data = getData();
-        console.log(data)
 
         $.ajax({
             url: '/orcamento/valor-total',
@@ -191,7 +197,6 @@ $('#resultado-select').on('listaModificada', function(event) {
             dataType: 'json',
             success: function(response){
                 const valorTotal = parseFloat(response).toFixed(2);
-                console.log(valorTotal)
                 $('#valor').html(valorTotal);
             },
             error: function(response){
@@ -209,10 +214,12 @@ $(document).on('click', '.link-prescricao', function(event){
 
     if(ulId === "resultado-select"){
         moveDiv("resultado-prescricoes", liId)
-
+        
     }else if(ulId === "resultado-prescricoes"){
         moveDiv("resultado-select", liId)
     }
+
+    verificarSelect();
 });
 
 $(document).on('click', '.link-exame', function(event){
@@ -220,13 +227,15 @@ $(document).on('click', '.link-exame', function(event){
 
     const liId = $(this).closest('li').attr('id');
     const ulId = $(this).closest('ul').attr('id');
-
+    
     if(ulId === "resultado-select"){
         moveDiv("resultado-consultas", liId)
-
+        
     }else if(ulId === "resultado-consultas"){
         moveDiv("resultado-select", liId)
     }
+
+    verificarSelect();
 });
 
 function openDiv(evt, tabAtual) {
@@ -267,3 +276,8 @@ function displayNone(){
     }
 
 }
+
+$(document).ready(function() {
+    console.log("PAGINA CARREGADA")
+    verificarSelect();
+});
