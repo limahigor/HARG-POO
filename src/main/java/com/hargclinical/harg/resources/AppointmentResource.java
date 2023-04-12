@@ -152,6 +152,10 @@ public class AppointmentResource {
                 }
             }
 
+            if(cpf.equals(medicoService.findById(medicoId).getCpf())) {
+                throw new IllegalArgument("Médico não pode fazer uma consulta com ele mesmo.");
+            }
+
             if(date.isBefore(LocalDate.now())) {
                 throw new IllegalArgument("Data inválida.");
             }
