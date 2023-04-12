@@ -1,6 +1,6 @@
 package com.hargclinical.harg.resources.exceptions;
 
-import com.hargclinical.harg.services.exceptions.DuplicateEntryException;
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -21,9 +21,9 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(DuplicateEntryException.class)
-    public ResponseEntity<StandardError> duplicateEntry(DuplicateEntryException e, HttpServletRequest request){
-        String error = "Duplicate entry";
+    @ExceptionHandler(IllegalArgument.class)
+    public ResponseEntity<StandardError> argumentInvalid(IllegalArgument e, HttpServletRequest request){
+        String error = "Resource not found";
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 
