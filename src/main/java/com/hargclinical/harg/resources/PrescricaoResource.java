@@ -3,6 +3,7 @@ package com.hargclinical.harg.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +61,7 @@ public class PrescricaoResource {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> adicionarPrescricao(@RequestBody String prescricaoJSON) {
+    public ResponseEntity<Prescricao> adicionarPrescricao(@RequestBody String prescricaoJSON) {
         ObjectMapper mapper = new ObjectMapper();
         Prescricao novaPrescricao = new Prescricao();
         List<MedicamentoPrescrito> medicamentos = new ArrayList<>();
@@ -92,9 +93,9 @@ public class PrescricaoResource {
             novaPrescricao.setProntuario(paciente.getProntuario());
 
             prescricaoRepository.save(novaPrescricao);
-            return ResponseEntity.ok().body("Prescrição gerada com sucesso!!");
+            return ResponseEntity.ok().body(novaPrescricao);
         }catch(Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            throw new IllegalArgument("Erro ao gerar prescrição!");
         }
     }
     
