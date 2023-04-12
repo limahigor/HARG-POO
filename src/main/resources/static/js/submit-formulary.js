@@ -66,9 +66,7 @@ $('#submit-button').click(function(event){
         error: function(error){
             var elementoParagrafo = $('#result-cadastro');
 
-            response = error.responseJSON;
-
-            elementoParagrafo.html(response.message);
+            elementoParagrafo.html(error.responseJSON.message);
             elementoParagrafo.css({
                                     'color': 'rgb(255, 0, 0)',
                                  })

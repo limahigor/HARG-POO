@@ -150,11 +150,12 @@ $('#submit-button').click(function(event){
                                     'color': 'rgb(19, 163, 0)',
                                  })
             elementoParagrafo.show();
+            $("#submit-button").prop("disabled", true)
         },
         error: function(response){
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.html('Erro ao agendar! Verifique os dados!');
+            elementoParagrafo.html(response.responseJSON.message);
             elementoParagrafo.css({
                                     'color': 'rgb(255, 0, 0)',
                                  })

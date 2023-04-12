@@ -187,11 +187,11 @@ public class AppointmentResource {
             appointmentService.save(newAppointment);
 
         } catch (IllegalArgument e) { 
-            System.out.println("ERROR!");
+            System.out.println("ERROR: " + e.getMessage());
             throw new IllegalArgument(e.getMessage());
 
         } catch (Exception e) {
-            System.out.println("ERROR!!");
+            System.out.println("ERROR: "+ e.getMessage());
             throw new IllegalArgument("Erro ao agendar!");
         }
 

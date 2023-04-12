@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hargclinical.harg.services.exceptions.IllegalArgument;
+import com.hargclinical.harg.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,9 +81,25 @@ public class PrescricaoResource {
             }
 
             for(JsonNode aux : node.get("medicamentos")){
-                String nomeMedicament = aux.get("nome").asText();
-                double valorMedicamento = aux.get("valor").asDouble();
-                int intervaloMedicamento = aux.get("intervalo").asInt();
+                double valorMedicamento;
+                int intervaloMedicamento;
+                String nomeMedicament;
+
+                nomeMedicament = aux.get("nome").asText();
+
+                String valorMedicamentoStr = aux.get("valor").asText();
+                try{
+                    valorMedicamento = Double.parseDouble(valorMedicamentoStr);
+                }catch (NumberFormatException e){
+                    throw new IllegalArgument("Valor do medicamento inválido!");
+                }
+
+                String intervaloMedicamentoStr = aux.get("intervalo").asText();
+                if(!StringUtils.containsOnlyDigits(intervaloMedicamentoStr)){
+                    throw new IllegalArgument("Intervalo do medicamento inválido!");
+                }else{
+                    intervaloMedicamento = Integer.parseInt(intervaloMedicamentoStr);
+                }
 
                 MedicamentoPrescrito medicamento = new MedicamentoPrescrito();
                 medicamento.setIntervalo(intervaloMedicamento);

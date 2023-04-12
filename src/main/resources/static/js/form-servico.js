@@ -30,13 +30,12 @@ $('#submit-button').click(function(event){
                 window.location.href = '/' + id + '/' + response;
             }, 2000);
 
-            console.log("TESTE EXITO")
             console.log(response)
         },
         error: function(response){
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.html('Erro ao cadastrar! Verifique os dados!');
+            elementoParagrafo.html(response.responseJSON.message);
             elementoParagrafo.css({
                                     'color': 'rgb(255, 0, 0)',
                                  })

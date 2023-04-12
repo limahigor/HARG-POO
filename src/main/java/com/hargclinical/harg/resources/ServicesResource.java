@@ -75,17 +75,15 @@ public class ServicesResource {
                 throw new IllegalArgument("Valor inválido.");
             }
 
-            if(tipoService.equals("exame")){
-                newServices = new ServExame();
-            }else if(tipoService.equals("consulta")){
-                ServConsulta aux = new ServConsulta();
-                aux.setTime(30);
-
-                newServices = aux;
-            }else if(tipoService.equals("procedimento")){
-                newServices = new ServProcedimento();
-            }else{
-                return ResponseEntity.badRequest().body("Falha ao cadastrar");
+            switch (tipoService) {
+                case "exame" -> newServices = new ServExame();
+                case "consulta" -> {
+                    ServConsulta aux = new ServConsulta();
+                    aux.setTime(30);
+                    newServices = aux;
+                }
+                case "procedimento" -> newServices = new ServProcedimento();
+                default -> throw new IllegalArgument("Falha ao cadastrar");
             }
 
             newServices.setNome(nomeService);
@@ -105,13 +103,13 @@ public class ServicesResource {
 
         }catch (IllegalArgument e) {
             System.out.println("ERROR!");
-            return ResponseEntity.badRequest().build();
+            throw new IllegalArgument(e.getMessage());
 
         }catch(Exception e){
             System.out.println("Servico Error!!!");
             System.out.println(e.getMessage());
 
-            return ResponseEntity.badRequest().body("Falha ao cadastrar");
+            throw new IllegalArgument("Falha ao cadastrar");
         }
 
     }

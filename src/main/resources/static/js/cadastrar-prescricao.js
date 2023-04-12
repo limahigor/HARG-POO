@@ -198,15 +198,16 @@ $('#submit-button').click(function(event){
             $('.result').css("visibility", "visible");
             $('#submit-button').prop("disabled", true)
             $('#more-button').prop("disabled", true)
+            $.each($('input[type="text"]'), function(){
+                $(this).val('');
+            });
         },
         error: function(response){
             console.log("TESTE ERROR")
             console.log(response)
             var elementoParagrafo = $('#result-cadastro');
 
-            error = response.responseJSON;
-
-            elementoParagrafo.html(error.message);
+            elementoParagrafo.html(response.responseJSON.message);
             elementoParagrafo.css({
                                     'color': 'rgb(255, 0, 0)',
                                  })
