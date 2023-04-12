@@ -1,8 +1,9 @@
 package com.hargclinical.harg.utils;
 
 public class CPF {
+    private CPF() {}
     public static boolean isCPFValid(String cpf) {
-        if (cpf == null || cpf.length() != 11 || cpf.matches(cpf.charAt(0) + "{11}")) {
+        if (cpf == null || cpf.length() != 11 || cpf.matches(cpf.charAt(0) + "{11}") || !cpf.matches("\\d+")) {
             return false;
         }
 

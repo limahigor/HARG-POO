@@ -134,10 +134,6 @@ public class PacienteResource {
             LocalDate date = LocalDate.parse(dateString);
 
             String cpf = node.get("cpf").asText();
-            if(!StringUtils.containsOnlyDigits(cpf)){
-                throw new IllegalArgument("CPF Inválido! Somente dígitos!");
-            }
-
             if(!CPF.isCPFValid(cpf)){
                 throw new IllegalArgument("CPF Inválido!");
             }
