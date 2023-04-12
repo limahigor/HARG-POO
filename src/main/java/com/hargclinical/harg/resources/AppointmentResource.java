@@ -157,7 +157,7 @@ public class AppointmentResource {
             }
 
             if(horario.isBefore(LocalTime.now())) {
-                throw new IllegalArgument("Horário inválida.");
+                throw new IllegalArgument("Horário inválido.");
             }
 
             Medico medico = medicoService.findById(medicoId);
