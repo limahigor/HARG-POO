@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hargclinical.harg.entities.Caixa;
 
 import com.hargclinical.harg.repositories.CaixaRepository;
+import com.hargclinical.harg.services.exceptions.IllegalArgument;
 
 
 @Service
@@ -28,7 +29,7 @@ public class CaixaService {
         else{
             caixa = caixas.get(caixas.size()-1);
             if (caixa.getAberto()){
-                throw new RuntimeException("Caixa já está aberto");
+                throw new IllegalArgument("Caixa já está aberto");
             }
             else{
                 caixa = new Caixa();
@@ -47,11 +48,11 @@ public class CaixaService {
         Caixa caixa = caixas.get(caixas.size() - 1);
 
         if (caixas.isEmpty()){
-            throw new RuntimeException("Não existe caixa a ser fechado");
+            throw new IllegalArgument("Não existe caixa a ser fechado");
         }
 
         if (!caixa.getAberto()) {
-            throw new RuntimeException("Caixa já está fechado");
+            throw new IllegalArgument("Caixa já está fechado");
         }
 
         caixa.setAberto(false);
@@ -88,6 +89,9 @@ public class CaixaService {
             caixa.addMovimentacoesCaixa(orcamento);
             caixa.setSaldo(calcularSaldoFinal(caixa));
             orcamento.setCaixa(caixa);
+        }
+        else{
+            throw new IllegalArgument("Não é possível adicionar orçamento a um caixa fechado");
         }
     }
 }
