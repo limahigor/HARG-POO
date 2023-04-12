@@ -8,6 +8,7 @@ import java.util.Set;
 import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -125,6 +126,10 @@ public class MedicoResource{
 
             String especializacao = node.get("especializacao").asText();
             for (Services servico : servicosJson) {
+                if (servicosJson.isEmpty()) {
+                    throw new IllegalArgumentException("Não há serviços cadastrados para essa especialidade.");
+                }
+
                 if (!servico.getEspecialidade().equals(especializacao)) {
                     throw new IllegalArgument("Especialidade do serviço é diferente da especialidade do médico.");
                 }
@@ -187,6 +192,11 @@ public class MedicoResource{
             service.insert(newMedico);
             System.out.println("Finalizando...\n==================================");
             
+        }catch(DataIntegrityViolationException e) {
+            if (e.getMessage().contains("constraint") && e.getMessage().contains("pacientes.UK_1mj2svx930q0tkx1d18qa9rtf")) {
+                throw new IllegalArgument("CPF já cadastrado!");
+            }
+            throw e;
         }catch(IllegalArgument e){
             System.out.println("ERROR!");
             return ResponseEntity.badRequest().build();
