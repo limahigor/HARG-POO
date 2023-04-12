@@ -22,7 +22,6 @@ function showMedicos(){
         method: 'GET',
         dataType: 'json',
         success: function(response){
-            console.log(response)
             $.each(response, function(index, value){
                 var data = {
                     id: value.id,
@@ -30,7 +29,6 @@ function showMedicos(){
                 }
 
                 if(!($('#selectMedicos').find("option[value='" + data.id + "']").length)){
-                    console.log("TESTANDO SERVICES INPUT")
                     var newOption = new Option(data.text, data.id, false, false);
                     $('#selectMedicos').append(newOption).trigger('change');
                 }
@@ -47,7 +45,6 @@ function showMedicos(){
 
 $("#selectMedicos").change(function() {
     if($(selectMedicos).val() > 0){
-        console.log("TESTADO")
         $('.choose').css("visibility", "visible");  
     }
  }); 
@@ -120,7 +117,6 @@ $(document).on('input', '.receita', function(){
     inputs = document.querySelectorAll('.receita')
     let values = []
     inputs.forEach(v => values.push(v.value))
-    console.log(values);
 
     if(!values.includes('')){
         $("#submit-button").prop("disabled", false)
@@ -138,13 +134,10 @@ $('#more-button').click(function(event){
     let partes = divId.split("-");
     number = parseInt(partes[1]);
 
-    console.log(number);
-
     var novaDiv = $('.consulta-content').clone();
     var nome = 'medicamento-' + (number + 1).toString();
 
     novaDiv.attr('id', nome)
-    console.log(nome)
     
     $('#container').append('<div class="consulta-content" id="' + nome + '">' +
                                 '<label for="remedio">REMEDIO</label>'+
@@ -168,9 +161,6 @@ $('#submit-button').click(function(event){
     inputsIntervalo = document.querySelectorAll('.intervalo')
     inputsValor = document.querySelectorAll('.valor')
 
-    console.log(inputsNome)
-    console.log(inputsIntervalo)
-    console.log(inputsValor)
     dados = {}
     dadosMedicamentos = []
 
@@ -183,8 +173,6 @@ $('#submit-button').click(function(event){
                 intervalo : inputsIntervalo[c].value,
                 valor : inputsValor[c].value
                }
-        
-        console.log(data)
         dadosMedicamentos.push(data)
     }
 
@@ -199,7 +187,7 @@ $('#submit-button').click(function(event){
         success: function(response){
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.text(response);
+            elementoParagrafo.text("Prescrição gerada com sucesso!!");
             elementoParagrafo.css({
                                     'color': 'rgb(19, 163, 0)',
                                  })
@@ -210,7 +198,9 @@ $('#submit-button').click(function(event){
         error: function(response){
             var elementoParagrafo = $('#result-cadastro');
 
-            elementoParagrafo.html(response);
+            error = response.responseJSON;
+
+            elementoParagrafo.html(error.message);
             elementoParagrafo.css({
                                     'color': 'rgb(255, 0, 0)',
                                  })
