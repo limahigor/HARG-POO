@@ -60,7 +60,7 @@ public class PrescricaoResource {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Prescricao> adicionarPrescricao(@RequestBody String prescricaoJSON) {
+    public ResponseEntity<String> adicionarPrescricao(@RequestBody String prescricaoJSON) {
         ObjectMapper mapper = new ObjectMapper();
         Prescricao novaPrescricao = new Prescricao();
         List<MedicamentoPrescrito> medicamentos = new ArrayList<>();
@@ -91,12 +91,10 @@ public class PrescricaoResource {
             novaPrescricao.setMedico(medico);
             novaPrescricao.setProntuario(paciente.getProntuario());
 
-            System.out.println("TESTE");
             prescricaoRepository.save(novaPrescricao);
-            System.out.println("TESTE");
-            return ResponseEntity.ok().body(novaPrescricao);
+            return ResponseEntity.ok().body("Prescrição gerada com sucesso!!");
         }catch(Exception e){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     

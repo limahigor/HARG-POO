@@ -11,6 +11,7 @@ label{
     border-radius: 5px;
     background-color: rgba(212, 212, 212, 0.726);
 
+    height: 67.5vh;
     overflow: auto;
 
     max-height: 55vh;
