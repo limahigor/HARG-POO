@@ -96,9 +96,7 @@ public class PacienteService {
     }
 
     public Paciente cadastrarPacienteService(String jsonData){
-        System.out.println("TESTE AQUI PACIENTE SERVICE");
         Paciente newPaciente = pessoaService.createPersonFromJson(jsonData);
-        System.out.println("TESTE AQUI PACIENTE SERVICE");
 
         try{
             insert(newPaciente);

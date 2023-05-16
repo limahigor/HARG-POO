@@ -46,13 +46,13 @@ public class Agenda implements Serializable {
     }
 
     public void createAgenda(){
-        List<Dias> dias = new ArrayList<>();
-        setListaDias(dias, this);
-        setDias(dias);
+        List<Dias> newDias = new ArrayList<>();
+        setListaDias(newDias, this);
+        setDias(newDias);
     }
 
     public void setListaDias(List<Dias> listaDias, Agenda agenda) {
-         LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
+        LocalDate inicioMes = LocalDate.now().withDayOfMonth(1);
         
         for (int i = 0; i < inicioMes.lengthOfMonth(); i++) {
             Dias dia = new Dias();

@@ -1,7 +1,6 @@
 package com.hargclinical.harg.entities;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -22,17 +21,17 @@ public abstract class Pessoa implements Serializable {
     private char sexo;
     private long idade;
 
-    public Pessoa(){
+    protected Pessoa(){
     }
 
-    public Pessoa(String nome, String cpf, LocalDate data, char sexo) {
+    protected Pessoa(String nome, String cpf, LocalDate data, char sexo) {
         this.cpf = cpf;
         this.nome = nome;
         this.sexo = sexo;
         this.idade = definirIdade(data);
     }
 
-    public Pessoa(Paciente paciente){
+    protected Pessoa(Paciente paciente){
         this.cpf = paciente.getCpf();
         this.nome = paciente.getNome();
         this.sexo = paciente.getSexo();
