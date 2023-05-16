@@ -42,8 +42,8 @@ public class Medico extends Pessoa{
         super();
     }
 
-    public Medico(String nome, String cpf, LocalDate date, char sexo, String especializacao, String crm){
-        super(nome, cpf, date, sexo);
+    public Medico(Paciente paciente, String especializacao, String crm){
+        super(paciente);
         this.especializacao = especializacao;
         this.crm = crm;
     }
@@ -78,5 +78,9 @@ public class Medico extends Pessoa{
 
     public List<Prescricao> getPrescricoes() {
         return prescricoes;
+    }
+
+    public void setServicos(List<Services> servicosJson) {
+        medicoServicos.addAll(servicosJson);
     }
 }

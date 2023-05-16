@@ -32,6 +32,13 @@ public abstract class Pessoa implements Serializable {
         this.idade = definirIdade(data);
     }
 
+    public Pessoa(Paciente paciente){
+        this.cpf = paciente.getCpf();
+        this.nome = paciente.getNome();
+        this.sexo = paciente.getSexo();
+        this.idade = paciente.getIdade();
+    }
+
     public static long definirIdade(LocalDate data) {
         LocalDate dateNow = LocalDate.now();
 
@@ -68,6 +75,10 @@ public abstract class Pessoa implements Serializable {
 
     public long getIdade() {
         return idade;
+    }
+
+    public LocalDate getDataNascimento(){
+        return LocalDate.now().minusYears(idade);
     }
 
     @Override

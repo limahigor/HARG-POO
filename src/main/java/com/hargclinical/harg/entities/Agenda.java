@@ -42,7 +42,13 @@ public class Agenda implements Serializable {
     private Services service;
 
     public Agenda() {
-       
+
+    }
+
+    public void createAgenda(){
+        List<Dias> dias = new ArrayList<>();
+        setListaDias(dias, this);
+        setDias(dias);
     }
 
     public void setListaDias(List<Dias> listaDias, Agenda agenda) {

@@ -1,16 +1,10 @@
 package com.hargclinical.harg.resources;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.hargclinical.harg.services.exceptions.IllegalArgument;
 import com.hargclinical.harg.services.exceptions.ResourceNotFoundException;
-import com.hargclinical.harg.utils.CPF;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hargclinical.harg.entities.Appointment;
-import com.hargclinical.harg.entities.Comorbidades;
 import com.hargclinical.harg.entities.Paciente;
 import com.hargclinical.harg.entities.Prescricao;
-import com.hargclinical.harg.entities_enums.Plano;
 import com.hargclinical.harg.services.PacienteService;
 import com.hargclinical.harg.utils.StringUtils;
 
@@ -117,94 +107,9 @@ public class PacienteResource {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<Paciente> cadastrarMedico(@RequestBody String jsonData) {
-        final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    public ResponseEntity<Paciente> cadastrarPaciente(@RequestBody String jsonData) {
+        Paciente newPaciente = service.cadastrarPacienteService(jsonData);
 
-        ObjectMapper mapper = new ObjectMapper();
-        Paciente newPaciente = null;
-        try {
-            logger.log(Level.INFO, "CADASTRANDO Paciente\n====================================");
-
-            JsonNode node = mapper.readTree(jsonData);
-
-            JsonNode comorbidadesNode = node.get("comorbidades");
-
-            String dateString = node.get("date").asText();
-
-            LocalDate date = LocalDate.parse(dateString);
-
-            String cpf = node.get("cpf").asText();
-            if(!CPF.isCPFValid(cpf)){
-                throw new IllegalArgument("CPF Inválido!");
-            }
-
-            String nome = node.get("nome").asText();
-            if(StringUtils.containsOnlyDigits(nome) || StringUtils.containsLettersAndDigits(nome)){
-                throw new IllegalArgument("Nome inválido!!");
-            }
-
-            char sexo = node.get("sexo").asText().charAt(0);
-            int planoId;
-
-            String planoIdStr = node.get("plano").asText();
-            if(!StringUtils.containsOnlyDigits(planoIdStr)){
-                throw new IllegalArgument("Plano inválido! Somente dígitos [0-4]!");
-            }else{
-                planoId = Integer.parseInt(planoIdStr);
-            }
-
-            System.out.println(planoIdStr);
-            System.out.println(planoId);
-
-            Plano plano = Plano.valueOf(planoId);
-            
-            boolean tabagismo = false;
-            boolean hipertensao = false;
-            boolean gestante = false;
-            boolean diabetes = false;
-            boolean obesidade = false;
-
-            for (JsonNode jNode : comorbidadesNode) {
-                String idString = jNode.get("id").asText();
-                boolean valor = jNode.get("value").asBoolean();
-                switch (idString) {
-                    case "tabagismo" -> tabagismo = valor;
-                    case "obesidade" -> obesidade = valor;
-                    case "hipertensao" -> hipertensao = valor;
-                    case "gestante" -> gestante = valor;
-                    case "diabetes" -> diabetes = valor;
-                    default -> throw new IllegalArgument("Comorbidade inválida!!");
-                }
-            }
-
-            if(sexo == 'M' && gestante){
-                throw new IllegalArgument("Falha ao cadastrar!");
-            }
-
-            logger.log(Level.INFO, "Criando a instancia do paciente\n==================================");
-
-            Comorbidades comorbidadesJson = new Comorbidades(tabagismo, obesidade, hipertensao, gestante, diabetes, date);
-            newPaciente = new Paciente(nome, cpf, date, sexo, plano);
-            service.insert(newPaciente);
-
-            newPaciente.setProntuario();
-            newPaciente.getProntuario().setComorbidades(comorbidadesJson);
-            comorbidadesJson.setProntuario(newPaciente.getProntuario());
-            service.insert(newPaciente);
-
-            logger.log(Level.INFO, "Finalizando...\n==================================");
-        }catch(DataIntegrityViolationException e) {
-            if (e.getMessage().contains("constraint") && e.getMessage().contains("pacientes.UK_1mj2svx930q0tkx1d18qa9rtf")) {
-                throw new IllegalArgument("CPF já cadastrado!");
-            }
-            throw e;
-        }catch (IllegalArgument e){
-            throw new IllegalArgument(e.getMessage());
-        }catch(Exception e) {
-            throw new IllegalArgument("Erro ao cadastrar! Verifique os dados!");
-        }
-
-        logger.log(Level.INFO, "Finalizado...\n==================================");
         return ResponseEntity.ok().body(newPaciente);
     }
 }

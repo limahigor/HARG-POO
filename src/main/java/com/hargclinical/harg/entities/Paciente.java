@@ -1,8 +1,6 @@
 package com.hargclinical.harg.entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hargclinical.harg.entities_enums.Plano;
@@ -45,6 +43,7 @@ public class Paciente extends Pessoa{
        return prontuario.getComorbidades().getFactorRisco();
     }
 
-
-
+    public void setPlanoSaude(Plano plano) {
+        this.planoSaude = plano;
+    }
 }

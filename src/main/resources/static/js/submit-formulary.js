@@ -41,6 +41,7 @@ $('#submit-button').click(function(event){
         });
 
         requestData['servicos'] = servicos;
+        requestData['plano'] = 0;
     }
   
     $.ajax({

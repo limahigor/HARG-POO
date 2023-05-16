@@ -1,6 +1,5 @@
 package com.hargclinical.harg.resources;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class ServicesResource {
 	}
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> adicionarServico(@RequestBody String servicoJson){
+    public ResponseEntity<String> adicionarServico(@RequestBody String servicoJson) {
         ObjectMapper mapper = new ObjectMapper();
 
         Services newServices;
@@ -57,8 +56,10 @@ public class ServicesResource {
         Agenda novaAgenda = new Agenda();
         List<Dias> dias = new ArrayList<>();
 
-        try{
+        try {
             JsonNode node = mapper.readTree(servicoJson);
+
+            double valorService = node.get("valor").asDouble();
 
             String nomeService = node.get("nome").asText();
             if(StringUtils.containsOnlyDigits(nomeService) || StringUtils.containsLettersAndDigits(nomeService)){
@@ -66,17 +67,16 @@ public class ServicesResource {
             }
 
             String especialidadeService = node.get("especialidade").asText();
-            double valorService = node.get("valor").asDouble();
             String tipoService = node.get("tipo").asText();
 
-            List <Services> servicos = service.findAll();
-            for(Services servico : servicos) {
-                if(servico.getNome().equals(nomeService)) {
+            List<Services> servicos = service.findAll();
+            for (Services servico : servicos) {
+                if (servico.getNome().equals(nomeService)) {
                     throw new IllegalArgument("Nome de serviço já cadastrado.");
                 }
             }
 
-            if(valorService <= 0) {
+            if (valorService <= 0) {
                 throw new IllegalArgument("Valor inválido.");
             }
 
@@ -94,7 +94,7 @@ public class ServicesResource {
             newServices.setNome(nomeService);
             newServices.setEspecialidade(especialidadeService);
             newServices.setValor(valorService);
-            
+
             novaAgenda.setListaDias(dias, novaAgenda);
             novaAgenda.setDias(dias);
 
@@ -105,18 +105,11 @@ public class ServicesResource {
             service.insert(newServices);
 
             return ResponseEntity.ok().body("Êxito ao cadastrar");
-
-        }catch (IllegalArgument e) {
-            System.out.println("ERROR!");
+        } catch (IllegalArgument e) {
             throw new IllegalArgument(e.getMessage());
 
-        }catch(Exception e){
-            System.out.println("Servico Error!!!");
-            System.out.println(e.getMessage());
-
+        } catch (Exception e) {
             throw new IllegalArgument("Falha ao cadastrar");
         }
-
     }
-    
 }
