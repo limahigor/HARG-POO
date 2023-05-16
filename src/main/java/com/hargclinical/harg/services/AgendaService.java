@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hargclinical.harg.entities.Agenda;
 import com.hargclinical.harg.entities.Appointment;
+import com.hargclinical.harg.entities.Dias;
 import com.hargclinical.harg.repositories.AgendaRepository;
 
 @Service
@@ -39,31 +40,13 @@ public class AgendaService {
         return agenda.getDias().get(dia - 1).getConsultas();
     }
 
-    // public List<Appointment> getConsultasDoDia(LocalDate data) {
-    //     return this.agendaRepository.findConsultaByData(data);
-    // }
+    public List<Appointment> getConsultasDias(List<Appointment> consultas, Agenda agenda){
+        for(Dias dia : agenda.getDias()){
+            if(!dia.getConsultas().isEmpty()){
+                consultas.addAll(dia.getConsultas());
+            }
+        }
+        return consultas;
+    }
     
-    // public Map<Integer, List<Appointment>> getConsultasDoMes(int ano, int mes) {
-    //     List<Appointment> consultas = this.agendaRepository.findConsultaByAnoAndMes(ano, mes);
-    //     Map<Integer, List<Appointment>> consultasPorDia = new HashMap<>();
-    //     for (Appointment consulta : consultas) {
-    //         int dia = consulta.getData().getDayOfMonth();
-    //         consultasPorDia.computeIfAbsent(dia, k -> new ArrayList<>()).add(consulta);
-    //     }
-    //     return consultasPorDia;
-    // }
-    
-    // public Map<Integer, Map<Integer, List<Appointment>>> buscarAgenda(int ano) {
-    //     Map<Integer, Map<Integer, List<Appointment>>> consultasPorMesEDia = new HashMap<>();
-    //     List<Appointment> consultas = this.agendaRepository.findConsultaByAno(ano);
-    //     for (Appointment consulta : consultas) {
-    //         int mes = consulta.getData().getMonthValue();
-    //         int dia = consulta.getData().getDayOfMonth();
-    //         consultasPorMesEDia.computeIfAbsent(mes, k -> new HashMap<>())
-    //                           .computeIfAbsent(dia, k -> new ArrayList<>())
-    //                           .add(consulta);
-    //     }
-    //     return consultasPorMesEDia;
-    // }
-
 }

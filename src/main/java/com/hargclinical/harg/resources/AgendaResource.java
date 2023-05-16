@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hargclinical.harg.entities.Agenda;
 import com.hargclinical.harg.entities.Appointment;
-import com.hargclinical.harg.entities.Dias;
 import com.hargclinical.harg.services.AgendaService;
 import com.hargclinical.harg.services.MedicoService;
 import com.hargclinical.harg.services.ServicesService;
@@ -34,12 +33,14 @@ public class AgendaResource {
     @GetMapping
     public ResponseEntity<List<Agenda>> findAll() {
         List<Agenda> agenda = agendaService.findAll();
+        
         return ResponseEntity.ok().body(agenda);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Agenda> findById(@PathVariable Long id) {
         Agenda agenda = agendaService.findById(id);
+        
         return ResponseEntity.ok().body(agenda);
     }
 
@@ -49,15 +50,7 @@ public class AgendaResource {
 
         List<Appointment> consultas = new ArrayList<>();
 
-        for(Dias dia : agenda.getDias()){
-            if(!dia.getConsultas().isEmpty())
-                consultas.addAll(dia.getConsultas());
-        }
-
-        for(Appointment c : consultas){
-            System.out.println(c.getHorario());
-        }
-
+        consultas = agendaService.getConsultasDias(consultas, agenda);
 
         return ResponseEntity.ok().body(consultas);
     }
@@ -65,6 +58,7 @@ public class AgendaResource {
     @GetMapping("/data")
     public ResponseEntity<List<Appointment>> findByDay(@RequestParam("dia") int dia) {
         List<Appointment> consultas = agendaService.findByDay(dia);
+        
         return ResponseEntity.ok().body(consultas);
     }
 
@@ -74,11 +68,7 @@ public class AgendaResource {
 
         List<Appointment> consultas = new ArrayList<>();
 
-        for(Dias dia : agenda.getDias()){
-            if(!dia.getConsultas().isEmpty()){
-                consultas.addAll(dia.getConsultas());
-            }
-        }
+        consultas = agendaService.getConsultasDias(consultas, agenda);
 
         return ResponseEntity.ok().body(consultas);
     }
@@ -86,6 +76,7 @@ public class AgendaResource {
     @GetMapping("/medico/data")
     public ResponseEntity<List<Appointment>> findByMedicoDay(@RequestParam("id") Long medico_id, @RequestParam("dia") int dia) {
         List<Appointment> consultas = medicoService.findById(medico_id).getAgenda().getDias().get(dia - 1).getConsultas();
+        
         return ResponseEntity.ok().body(consultas);
     }
 
@@ -95,11 +86,7 @@ public class AgendaResource {
 
         List<Appointment> consultas = new ArrayList<>();
 
-        for(Dias dia : agenda.getDias()){
-            if(!dia.getConsultas().isEmpty()){
-                consultas.addAll(dia.getConsultas());
-            }
-        }
+        consultas = agendaService.getConsultasDias(consultas, agenda);
 
         return ResponseEntity.ok().body(consultas);
     }
@@ -107,6 +94,7 @@ public class AgendaResource {
     @GetMapping("/servico/data")
     public ResponseEntity<List<Appointment>> findByServiceDay(@RequestParam("id") Long service_id, @RequestParam("dia") int dia) {
         List<Appointment> consultas = servicesService.findById(service_id).getAgenda().getDias().get(dia - 1).getConsultas();
+        
         return ResponseEntity.ok().body(consultas);
     }
 

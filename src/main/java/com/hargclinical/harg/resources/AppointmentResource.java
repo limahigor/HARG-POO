@@ -1,24 +1,14 @@
 package com.hargclinical.harg.resources;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hargclinical.harg.entities.Agenda;
 import com.hargclinical.harg.entities.Appointment;
 import com.hargclinical.harg.entities.Medico;
 import com.hargclinical.harg.entities.Paciente;
-import com.hargclinical.harg.entities.ServConsulta;
-import com.hargclinical.harg.entities.ServExame;
-import com.hargclinical.harg.entities.ServProcedimento;
-import com.hargclinical.harg.entities.Services;
 import com.hargclinical.harg.services.*;
-import com.hargclinical.harg.services.exceptions.IllegalArgument;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +23,7 @@ public class AppointmentResource {
     private MedicoService medicoService;
 
     @Autowired
-    private ServicesService servicesService;
-
-    @Autowired
     private PacienteService pacienteService;
-
-    @Autowired
-    private AgendaService agendaService;
 
     @GetMapping
     public ResponseEntity<List<Appointment>> findAll() {
@@ -61,32 +45,16 @@ public class AppointmentResource {
     public ResponseEntity<List<Appointment>> findByProced(@RequestParam("id") Long id, @RequestParam("tipo") String servico) {
         if(servico != null) {
             List<Appointment> consultasRetorno = new ArrayList<>();
+
             Medico medico = medicoService.findById(id);
 
             List<Appointment> consultasMedico = medico.getAppointments();
             
-            if(servico.equals("procedimento")) {
-                for(Appointment consulta : consultasMedico) {
-                    if(consulta.getService() instanceof ServProcedimento) {
-                        consultasRetorno.add(consulta);
-                    }
-                }
-            } else if (servico.equals("consulta")) {
-                for(Appointment consulta : consultasMedico) {
-                    if(consulta.getService() instanceof ServConsulta) {
-                        consultasRetorno.add(consulta);
-                    }
-                }
-            } else if(servico.equals("exame")) {
-                for(Appointment consulta : consultasMedico) {
-                    if(consulta.getService() instanceof ServExame) {
-                        consultasRetorno.add(consulta);
-                    }
-                }
-            } else {
-                return ResponseEntity.badRequest().body(null);
-            }
-            return ResponseEntity.ok().body(consultasRetorno);
+            consultasRetorno = appointmentService.returnConsultas(consultasMedico, servico);
+
+            if(consultasRetorno == null) return ResponseEntity.badRequest().body(null);
+            else return ResponseEntity.ok().body(consultasRetorno);
+
         } else {
             return ResponseEntity.badRequest().body(null);
         }
@@ -94,107 +62,26 @@ public class AppointmentResource {
 
     @GetMapping(value = "/paciente")
     public ResponseEntity<List<Appointment>> findByService(@RequestParam("id") Long id, @RequestParam("tipo") String servico) {
-        
         if(servico != null) {
             List<Appointment> consultasRetorno = new ArrayList<>();
-            
+
             Paciente paciente = pacienteService.findById(id);
 
             List<Appointment> consultasPaciente = paciente.getProntuario().getAppointments();
+
+            consultasRetorno = appointmentService.returnConsultas(consultasPaciente, servico);
             
-            if(servico.equals("procedimento")) {
-                for(Appointment consulta : consultasPaciente) {
-                    if(consulta.getService() instanceof ServProcedimento) {
-                        consultasRetorno.add(consulta);
-                    }
-                }
-            }else if (servico.equals("consulta")) {
-                for(Appointment consulta : consultasPaciente) {
-                    if(consulta.getService() instanceof ServConsulta) {
-                        consultasRetorno.add(consulta);
-                    }
-                }
-            }else if(servico.equals("exame")) {
-                for(Appointment consulta : consultasPaciente) {
-                    if(consulta.getService() instanceof ServExame) {
-                        consultasRetorno.add(consulta);
-                    }
-                }
-            }else {
-                return ResponseEntity.ok().body(consultasRetorno);
-            }
-            return ResponseEntity.ok().body(consultasRetorno);
+            if(consultasRetorno == null) return ResponseEntity.badRequest().body(null);
+            else return ResponseEntity.ok().body(consultasRetorno);
+
         } else {
             return ResponseEntity.badRequest().body(null);
         }
-
     }
 
     @PostMapping(value = "/agendar")
     public ResponseEntity<String> agendarConsulta(@RequestBody String jsonData) {
-        ObjectMapper mapper = new ObjectMapper();
-        Appointment newAppointment = null;
-
-        try{
-            JsonNode node = mapper.readTree(jsonData);
-            
-            String cpf = node.get("cpf").asText();
-            String data = node.get("data").asText();
-            LocalDate date = LocalDate.parse(data);
-            String hora = node.get("hora").asText();
-            LocalTime horario = LocalTime.parse(hora);
-            Long serviceId = node.get("procedimento").asLong();
-            Long medicoId = node.get("medico").asLong();
-
-            for(Appointment consulta : medicoService.findById(medicoId).getAppointments()) {
-                if(consulta.getData().isEqual(date) && consulta.getHorario().equals(horario)) {
-                    throw new IllegalArgument("Horário já agendado.");
-                }
-            }
-
-            for(Appointment consulta : pacienteService.findByCpfContaining(cpf).get(0).getProntuario().getAppointments()) {
-                if(consulta.getData().isEqual(date) && consulta.getHorario().equals(horario)) {
-                    throw new IllegalArgument("Horário já agendado.");
-                }
-            }
-
-            if(cpf.equals(medicoService.findById(medicoId).getCpf())) {
-                throw new IllegalArgument("Médico não pode fazer uma consulta com ele mesmo.");
-            }
-
-            if(date.isBefore(LocalDate.now())) {
-                throw new IllegalArgument("Data inválida.");
-            }
-
-            if(horario.isBefore(LocalTime.now()) && date.isEqual(LocalDate.now())) {
-                throw new IllegalArgument("Horário inválido.");
-            }
-
-            Medico medico = medicoService.findById(medicoId);
-            Services service = servicesService.findById(serviceId);
-            Paciente paciente = pacienteService.findByCpfContaining(cpf).get(0);
-            
-            newAppointment = new Appointment(medico, paciente.getProntuario(), service, date, horario);
-            
-            Agenda geralAgenda = agendaService.findById(1L);
-            Agenda medicoAgenda = medico.getAgenda();
-            Agenda serviceAgenda = service.getAgenda();
-            
-            medicoAgenda.agendarConsulta(newAppointment);
-            serviceAgenda.agendarConsulta(newAppointment);
-            geralAgenda.agendarConsulta(newAppointment);
-
-            appointmentService.save(newAppointment);
-
-        } catch (IllegalArgument e) { 
-            System.out.println("ERROR: " + e.getMessage());
-            throw new IllegalArgument(e.getMessage());
-
-        } catch (Exception e) {
-            System.out.println("ERROR: "+ e.getMessage());
-            throw new IllegalArgument("Erro ao agendar!");
-        }
-
+        Appointment newAppointment = appointmentService.agendamento(jsonData);
         return ResponseEntity.ok().body(String.valueOf(newAppointment.getId()));
     }
 
