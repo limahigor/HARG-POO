@@ -87,6 +87,14 @@ public class AppointmentService {
         return consultasRetorno;
     }
 
+    public void horarioData(LocalDate date, LocalTime horario, List<Appointment> consultas) throws IllegalArgument {
+        for(Appointment consulta : consultas) {
+            if(consulta.getData().isEqual(date) && consulta.getHorario().equals(horario)) {
+                throw new IllegalArgument("Horário já agendado.");
+            }
+        }
+    }
+
     public Appointment agendamento(String jsonData) {
         ObjectMapper mapper = new ObjectMapper();
         Appointment newAppointment = null;
@@ -102,17 +110,9 @@ public class AppointmentService {
             Long serviceId = node.get("procedimento").asLong();
             Long medicoId = node.get("medico").asLong();
 
-            for(Appointment consulta : medicoService.findById(medicoId).getAppointments()) {
-                if(consulta.getData().isEqual(date) && consulta.getHorario().equals(horario)) {
-                    throw new IllegalArgument("Horário já agendado.");
-                }
-            }
-
-            for(Appointment consulta : pacienteService.findByCpfContaining(cpf).get(0).getProntuario().getAppointments()) {
-                if(consulta.getData().isEqual(date) && consulta.getHorario().equals(horario)) {
-                    throw new IllegalArgument("Horário já agendado.");
-                }
-            }
+            horarioData(date, horario, medicoService.findById(medicoId).getAppointments());
+            
+            horarioData(date, horario, pacienteService.findByCpfContaining(cpf).get(0).getProntuario().getAppointments());
 
             if(cpf.equals(medicoService.findById(medicoId).getCpf())) {
                 throw new IllegalArgument("Médico não pode fazer uma consulta com ele mesmo.");
