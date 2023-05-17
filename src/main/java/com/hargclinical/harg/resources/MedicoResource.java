@@ -29,15 +29,6 @@ public class MedicoResource{
     @Autowired
     private MedicoService service;
 
-    @Autowired
-    private ServicesService serviceService;
-
-    @Autowired
-    private PacienteService servicoPaciente;
-
-    @Autowired
-    private AgendaService agendaService;
-
     @GetMapping("/buscar")
     public ResponseEntity<List<Medico>> searchMedicoByName(@RequestParam("name") String name) {
         List<Medico> medicos = null;

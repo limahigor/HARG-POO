@@ -75,7 +75,7 @@ public class OrcamentoService {
         caixaService.addOrcamento(orcamento);
 
         for(Appointment consulta : orcamento.getAppointments()){
-            consulta.setOrcamentoGerado(true);
+            consulta.setOrcamentoGerado();
         }
 
         servicosRepository.save(orcamento);

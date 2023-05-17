@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hargclinical.harg.entities.state.AppointmentState;
+import com.hargclinical.harg.entities.state.StateNaoGerado;
 import com.hargclinical.harg.serializables.AppointmentSerializer;
 
 import jakarta.persistence.CascadeType;
@@ -52,19 +54,19 @@ public class Appointment implements Serializable {
     @JoinColumn(name = "service_id")
     private Services service;
 
-    private boolean orcamentoGerado = false;
+    private AppointmentState state;
 
     private LocalDate data;
     private LocalTime horario;
 
     public Appointment (){
-
+        this.state = new StateNaoGerado();
     }
 
     public Appointment (Medico medico, Prontuario prontuario, Services service,
                         LocalDate data, LocalTime horario){
         Random random = new Random();
-
+        this.state = new StateNaoGerado();
         this.id = (long) random.nextInt(999999999);
         this.medico = medico;
         this.prontuario = prontuario;
@@ -166,14 +168,16 @@ public class Appointment implements Serializable {
         return true;
     }
 
-    public boolean isOrcamentoGerado() {
-        return orcamentoGerado;
+    public void setOrcamentoGerado() {
+        state.generateOrcamento(this);
     }
 
-    public void setOrcamentoGerado(boolean orcamentoGerado) {
-        this.orcamentoGerado = orcamentoGerado;
+    public boolean confirmOrcamento(){
+        return state.confirmOrcamento(this);
     }
 
-    
+    public void setState(AppointmentState state){
+        this.state = state;
+    }
     
 }
